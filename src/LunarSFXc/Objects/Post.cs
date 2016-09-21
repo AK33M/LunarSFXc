@@ -26,7 +26,9 @@ namespace LunarSFXc.Objects
         public DateTime PostedOn { get; set; }
         public DateTime? Modified { get; set; }
         public Category Category { get; set; }
-        public ICollection<Tag> Tags { get; set; }
+       // public ICollection<Tag> Tags { get; set; }
         public int CategoryId { get; set; }
+
+        public List<PostTag> PostTags { get; set; }
     }
 }

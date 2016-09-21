@@ -14,6 +14,7 @@ namespace LunarSFXc.Objects
         public string UrlSlug { get; set; }
         public string Description { get; set; }
         //[JsonIgnore]
-        public ICollection<Post> Posts { get; set; }
+        //public ICollection<Post> Posts { get; set; }
+        public List<PostTag> PostTags { get; set; }
     }
 }
