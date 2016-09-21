@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using LunarSFXc.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace LunarSFXc
 {
@@ -31,6 +35,7 @@ namespace LunarSFXc
             services.AddSingleton(_config);
 
             //Add your Services here..
+            services.AddDbContext<LunarDbContext>(options => options.UseSqlServer(_config["database:connection"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,14 +53,18 @@ namespace LunarSFXc
                 loggerFactory.AddDebug(LogLevel.Error);
             }
 
-            app.UseStaticFiles();
+            app.UseFileServer();
 
-            app.UseMvc(config =>
-            {
-                config.MapRoute(
+            app.UseMvc(ConfigureRoutes);
+        }
+
+        private void ConfigureRoutes(IRouteBuilder routeBuilder)
+        {
+
+            routeBuilder.MapRoute(
                     name: "Default",
                     template: "{controller}/{action}/{id?}");
-            });
+            
         }
     }
 }
