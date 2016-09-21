@@ -9,6 +9,9 @@ using Microsoft.Extensions.Logging;
 using LunarSFXc.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using LunarSFXc.Autofac;
 
 namespace LunarSFXc
 {
@@ -39,7 +42,7 @@ namespace LunarSFXc
         }
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton(_config);
 
@@ -50,6 +53,15 @@ namespace LunarSFXc
                     config.Filters.Add(new RequireHttpsAttribute());
             });
             services.AddDbContext<LunarDbContext>(options => options.UseSqlServer(_config["database:connectionString"]));
+
+
+            // Add Autofac
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterModule<DefaultModule>();
+            containerBuilder.Populate(services);
+            var container = containerBuilder.Build();
+
+            return new AutofacServiceProvider(container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
