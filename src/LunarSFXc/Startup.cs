@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using LunarSFXc.Contexts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 
 namespace LunarSFXc
 {
@@ -22,9 +23,17 @@ namespace LunarSFXc
 
             var builder = new ConfigurationBuilder()
                             .SetBasePath(_env.ContentRootPath)
-                            .AddJsonFile("appSettings.json")
-                            .AddJsonFile("userSecrets.json")
+                            .AddJsonFile("appSettings.json", optional: true, reloadOnChange: true)
+                            .AddJsonFile($"appSettings.{env.EnvironmentName}.json", optional: true)
                             .AddEnvironmentVariables();
+
+            if (_env.IsDevelopment())
+            {
+                // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
+                builder.AddUserSecrets();
+
+                //var testConfig = _config["TestSecret"];
+            }
 
             _config = builder.Build();
         }
@@ -35,7 +44,12 @@ namespace LunarSFXc
             services.AddSingleton(_config);
 
             //Add your Services here..
-            services.AddDbContext<LunarDbContext>(options => options.UseSqlServer(_config["database:connection"]));
+            services.AddMvc(config =>
+            {
+                if (_env.IsProduction())
+                    config.Filters.Add(new RequireHttpsAttribute());
+            });
+            services.AddDbContext<LunarDbContext>(options => options.UseSqlServer(_config["database:connectionString"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
