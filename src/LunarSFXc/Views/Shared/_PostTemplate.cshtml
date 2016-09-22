@@ -1,7 +1,30 @@
 ﻿@model LunarSFXc.Objects.Post
 
+<!--Heading-->
 <div class="post-preview">
     <h2 class="post-title">
-        <post for-post=Model></post>
-    </h2>    
+        <post for-post="Model"></post>
+    </h2>
+    <div class="post-meta">
+        <!--Category-->
+        <div>
+            <category for-category="Model.Category"></category>
+        </div>
+        <div>
+            <!--Tags-->
+            <tags for-tags="Model.Tags"></tags>
+            @*@Helpers.Tags(Html, Model.Tags)*@
+
+
+            <!--Posted date-->
+            <span class="pull-right">Posted On @Model.PostedOn.ToString("d")</span>
+        </div>
+    </div>
+    <div class="post-body">
+        @Html.Raw(Model.ShortDescription)
+    </div>
+
+    <div class="post-foot">
+        <post for-post="Model" post-title="continue..."></post>
+    </div>
 </div>

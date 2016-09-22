@@ -86,16 +86,24 @@ namespace LunarSFXc
         private void ConfigureRoutes(IRouteBuilder routeBuilder)
         {
 
-            routeBuilder.MapRoute(
-                    name: "Default",
-                    template: "{controller=Blog}/{action=Posts}/{id?}");
-
+            
 
             routeBuilder.MapRoute(
                         "Post",
                         "Archive/{year}/{month}/{title}",
                         new { controller = "Blog", action = "Post" }
                     );
+
+            routeBuilder.MapRoute(
+                        "Category",
+                        "Category/{category}",
+                        new { controller = "Blog", action = "Category" }
+                    );
+
+            routeBuilder.MapRoute(
+                    name: "Default",
+                    template: "{controller=Blog}/{action=Posts}/{id?}");
+
         }
     }
 }
