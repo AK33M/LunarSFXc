@@ -1,4 +1,4 @@
-﻿{
+{
   "userSecretsId": "aspnet-LunarSFX-c23d27a4-eb88-4b18-9b77-2a93f3b15119",
 
   "dependencies": {
@@ -23,7 +23,8 @@
     },
     "Microsoft.Extensions.Configuration.UserSecrets": "1.0.0",
     "Autofac": "4.1.0",
-    "Autofac.Extensions.DependencyInjection": "4.0.0"
+    "Autofac.Extensions.DependencyInjection": "4.0.0",
+    "EntityFramework.Core": "7.0.0-rc1-final"
     },
 
   "tools": {
