@@ -6,6 +6,10 @@ namespace LunarSFXc.ViewModels
 {
     public class ListViewModel
     {
+        public ListViewModel()
+        {
+
+        }
         public ListViewModel(IBlogRepository _repo, int p)
         {
             Posts = _repo.Posts(p - 1, 10);
