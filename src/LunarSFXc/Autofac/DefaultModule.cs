@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using LunarSFXc.Repositories;
 
 namespace LunarSFXc.Autofac
 {
@@ -7,6 +8,7 @@ namespace LunarSFXc.Autofac
         protected override void Load(ContainerBuilder builder)
         {
             //repos here!
+            builder.RegisterType<BlogRepository>().As<IBlogRepository>();
         }
     }
 }

@@ -2,7 +2,7 @@
 using LunarSFXc.Objects;
 using LunarSFXc.Contexts;
 using System.Linq;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace LunarSFXc.Repositories
 {

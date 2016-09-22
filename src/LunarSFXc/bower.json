@@ -1,0 +1,9 @@
+{
+	"name": "LunarSFX",
+	"private": true,
+  "dependencies": {
+    "bootstrap": "~3.3.7",
+    "bootswatch": "~3.3.7",
+    "clean-blog": "~1.0.1"
+  }
+}

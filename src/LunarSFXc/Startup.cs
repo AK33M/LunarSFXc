@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -89,8 +88,7 @@ namespace LunarSFXc
 
             routeBuilder.MapRoute(
                     name: "Default",
-                    template: "{controller}/{action}/{id?}");
-            
+                    template: "{controller=Blog}/{action=Posts}/{id?}");            
         }
     }
 }
