@@ -3,7 +3,8 @@
 	"private": true,
   "dependencies": {
     "bootstrap": "~3.3.7",
-    "bootswatch": "~3.3.7",
-    "clean-blog": "~1.0.1"
+    "clean-blog": "~1.0.1",
+    "font-awesome": "~4.6.3",
+    "bootswatch": "~3.3.7"
   }
 }

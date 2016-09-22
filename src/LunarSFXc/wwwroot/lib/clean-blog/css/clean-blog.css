@@ -133,14 +133,14 @@ hr.small {
   }
 }
 .intro-header {
-  background-color: #808080;
-  background: no-repeat center center;
-  background-attachment: scroll;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
-  -o-background-size: cover;
-  margin-bottom: 50px;
+    background-color: #808080;
+    background: no-repeat center center;
+    background-attachment: scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    margin-bottom: 50px;
 }
 .intro-header .site-heading,
 .intro-header .post-heading,
@@ -295,22 +295,23 @@ footer .copyright {
   box-shadow: none !important;
   resize: none;
 }
-.floating-label-form-group label {
-  display: block;
-  z-index: 0;
-  position: relative;
-  top: 2em;
-  margin: 0;
-  font-size: 0.85em;
-  line-height: 1.764705882em;
-  vertical-align: middle;
-  vertical-align: baseline;
-  opacity: 0;
-  -webkit-transition: top 0.3s ease,opacity 0.3s ease;
-  -moz-transition: top 0.3s ease,opacity 0.3s ease;
-  -ms-transition: top 0.3s ease,opacity 0.3s ease;
-  transition: top 0.3s ease,opacity 0.3s ease;
-}
+    .floating-label-form-group label {
+        display: block;
+        z-index: 0;
+        position: relative;
+        top: 2em;
+        margin: 0;
+        font-size: 0.85em;
+        line-height: 1.764705882em;
+        vertical-align: middle;
+        vertical-align: baseline;
+        opacity: 0;
+        -webkit-transition: top 0.3s ease,opacity 0.3s ease;
+        -moz-transition: top 0.3s ease,opacity 0.3s ease;
+        -ms-transition: top 0.3s ease,opacity 0.3s ease;
+        -o-transition: top 0.3s ease,opacity 0.3s ease;
+        transition: top 0.3s ease,opacity 0.3s ease;
+    }
 .floating-label-form-group::not(:first-child) {
   padding-left: 14px;
   border-left: 1px solid #eeeeee;

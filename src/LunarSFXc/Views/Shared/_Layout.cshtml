@@ -1,48 +1,123 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="">
+    <meta name="author" content="">
     <title>@ViewBag.Title</title>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" type="text/css" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="~/lib/bootswatch/superhero/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="~/lib/clean-blog/css/clean-blog.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/site.css" />
+
+    <link rel="stylesheet" type="text/css" href="~/lib/font-awesome/css/font-awesome.min.css" />
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    
 </head>
 
 <body>
-    <div id="main">
-        <!-- Header -->
-        <div id="header">
-            <div id="logo">
-                <div id="logo_text">
-                    <h1>
-                        <a href="/">Just<span class="logo_colour">Blog</span></a>
-                    </h1>
-                    <h2>Writings, Experiments and More...</h2>
-                </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Start Bootstrap</a>
             </div>
 
-            <!-- Navigation -->
-            <div id="menubar">
-                <ul id="menu">
-                    <li><a href="#">Posts</a></li>
-                    <li><a href="#">Contact</a></li>
-                    <li><a href="#">About Me</a></li>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#">Home</a>
+                    </li>
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="#">Sample Post</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
                 </ul>
             </div>
-
+            <!-- /.navbar-collapse -->
         </div>
+        <!-- /.container -->
+    </nav>
 
-        <!-- Site Content -->
-        <div id="site_content">
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header homebackground">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>LunarSFX</h1>
+                        <hr class="small">
+                        <span class="subheading">Writings, Experiments and More...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- Main Content -->
+    <div class="container" style="min-height:600px">
+        <div class="row">
             @RenderBody()
         </div>
-
-        <!-- Footer -->
-        <div id="footer">
-            Copyright &copy; @DateTime.Now.Year JustBlog All Rights Reserved
-        </div>
     </div>
+
+    <hr />
+    <!-- Footer -->
+    <footer class="navbar navbar-fixed-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://twitter.com/LunarSFX" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/AK33M/LunarSFX" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted">Copyright &copy; @DateTime.Now.Year LunarSFX All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
