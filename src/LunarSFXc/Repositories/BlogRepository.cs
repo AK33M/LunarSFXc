@@ -23,8 +23,17 @@ namespace LunarSFXc.Repositories
                                 .Skip(pageNo * pageSize)
                                 .Take(pageSize)
                                 .Include(p => p.Category)
-                                //.Include(p=>p.PostTags)
+                                .Include(p => p.PostTags)
                                 .ToList();
+
+            foreach(var post in posts)
+            {
+                foreach(var tag in post.PostTags)
+                {
+                    //get tags
+                    tag.Tag = _context.Tags.FirstOrDefault(t => t.Id == tag.TagId);
+                }
+            }
 
             //var postIds = posts.Select(p => p.Id).ToList();
 

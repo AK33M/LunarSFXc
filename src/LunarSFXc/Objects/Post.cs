@@ -29,6 +29,6 @@ namespace LunarSFXc.Objects
        // public ICollection<Tag> Tags { get; set; }
         public int CategoryId { get; set; }
 
-        public List<PostTag> PostTags { get; set; }
+        public ICollection<PostTag> PostTags { get; set; }
     }
 }

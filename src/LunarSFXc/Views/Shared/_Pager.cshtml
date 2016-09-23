@@ -1,0 +1,46 @@
+﻿@model LunarSFXc.ViewModels.ListViewModel
+
+@* Read the current page and total pages *@
+
+@{
+    var currentPage = ViewContext.HttpContext.Request.Query.Count() != 0
+      ? int.Parse(ViewContext.HttpContext.Request.Query["p"].ToString())
+      : 1;
+
+    var totalPages = Math.Ceiling((double)Model.TotalPosts / 10);
+}
+
+@* Check do we need to display pagination links *@
+
+@if (currentPage > 1 || currentPage < totalPages)
+{
+    var p = string.Format("p={0}", currentPage - 1);
+    var n = string.Format("p={0}", currentPage + 1);
+
+    @* If the view is rendered for "search" action append the pagination value with "&"*@
+
+if (ViewContext.RouteData.Values["action"].ToString()
+  .Equals("search", StringComparison.OrdinalIgnoreCase))
+{
+    var s = String.Format("?s={0}", ViewContext.HttpContext.Request.Query["s"].ToString());
+    p = String.Format("{0}&{1}", s, p);
+    n = String.Format("{0}&{1}", s, n);
+}
+else
+{
+    p = String.Concat("?", p);
+    n = String.Concat("?", n);
+}
+
+      <!--pagination links-->
+        <ul class="pager">
+            <li class="previous">
+                <a href="@p" title="Previous"
+                   style="visibility:@(currentPage > 1 ? "visible" : "collapse")"><< newer posts</a>
+            </li>
+            <li class="next">
+                <a href="@n" title="Next"
+                   style="visibility:@(currentPage < totalPages ? "visible" : "collapse")">older posts >></a>
+            </li>
+        </ul>
+    }

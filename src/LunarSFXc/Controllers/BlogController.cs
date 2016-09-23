@@ -18,34 +18,7 @@ namespace LunarSFXc.Controllers
 
         public IActionResult Posts(int p = 1)
         {
-            var tags = new List<PostTag> {
-                new PostTag {  Tag = new Tag {Description = "awesome tag", Name = "Tag Awesome" } },
-                new PostTag { Tag = new Tag { Description = "another tag", Name = "Another Tag" }
-                } };
-
-
-            //var viewModel = new ListViewModel(_repo, p);
-            var viewModel = new ListViewModel
-            {
-                Posts = new List<Post>(),
-                TotalPosts = 1
-            };
-            viewModel.Posts.Add(new Post
-            {
-                Id = 1,
-                Title = "new title",
-                PostedOn = DateTime.Today,
-                PostTags = tags
-               ,
-                Category = new Category()
-                {
-                    Description = "Awesome Category",
-                    Name = "Awesome",
-                    UrlSlug = "awesome_cat"
-                },
-                UrlSlug = "new_title"
-            });
-
+            var viewModel = new ListViewModel(_repo, p);
 
             ViewBag.Title = "Latest Posts";
 

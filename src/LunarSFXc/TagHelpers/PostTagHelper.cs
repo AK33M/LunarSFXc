@@ -44,12 +44,11 @@ namespace LunarSFXc.TagHelpers
 
     public class TagsTagHelper : TagHelper
     {
-        public List<PostTag> ForTags { get; set; }
+        public ICollection<PostTag> ForTags { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             var tags = ForTags;
-            var links = new List<string>();
             var html = string.Empty;
             foreach (var tag in tags)
             {
