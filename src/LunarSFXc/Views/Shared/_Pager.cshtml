@@ -3,9 +3,9 @@
 @* Read the current page and total pages *@
 
 @{
-    var currentPage = ViewContext.HttpContext.Request.Query.Count() != 0
-      ? int.Parse(ViewContext.HttpContext.Request.Query["p"].ToString())
-      : 1;
+    int currentPage;
+    int.TryParse(ViewContext.HttpContext.Request.Query["p"].ToString(), out currentPage);
+    currentPage = currentPage != 0 ? currentPage : 1;
 
     var totalPages = Math.Ceiling((double)Model.TotalPosts / 10);
 }
