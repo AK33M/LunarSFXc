@@ -44,17 +44,20 @@ namespace LunarSFXc.TagHelpers
 
     public class TagsTagHelper : TagHelper
     {
-        public List<Tag> ForTags { get; set; }
+        public List<PostTag> ForTags { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             var tags = ForTags;
             var links = new List<string>();
-
+            var html = string.Empty;
             foreach (var tag in tags)
             {
-               // links.Add($"")
+               html = html +  $"<a href='Tag/{tag.Tag.Name}' title='See all posts with {tag.Tag.Name} tag'>{tag.Tag.Name}</a> ";
             }
+            output.TagName = "div";
+            output.Attributes.Add("class", "postTags");
+            output.Content.SetHtmlContent(html);
         }
     }
 }

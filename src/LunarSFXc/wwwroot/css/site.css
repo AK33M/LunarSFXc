@@ -19,14 +19,20 @@
     float: left;
     line-height: 22px;
 }
+
     .search:hover .searchTextBox, .search input:focus {
         width: 200px;
         display: inline;
     }
 
-    .searchTextBox{
-        display: none;
-        border-radius: 5px;
-        color: black;
-    }
+.searchTextBox {
+    display: none;
+    border-radius: 5px;
+    color: black;
+}
 
+.postTags {
+    font-size: smaller;
+    opacity: 0.5;
+    font-style: italic;
+}

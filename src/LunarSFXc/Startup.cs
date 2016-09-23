@@ -85,9 +85,12 @@ namespace LunarSFXc
 
         private void ConfigureRoutes(IRouteBuilder routeBuilder)
         {
-
+            routeBuilder.MapRoute(
+                        "Tag",
+                        "Tag/{tag}",
+                        new { controller = "Blog", action = "Tag" }
+                    );
             
-
             routeBuilder.MapRoute(
                         "Post",
                         "Archive/{year}/{month}/{title}",

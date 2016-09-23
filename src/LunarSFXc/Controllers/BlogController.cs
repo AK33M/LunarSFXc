@@ -18,6 +18,12 @@ namespace LunarSFXc.Controllers
 
         public IActionResult Posts(int p = 1)
         {
+            var tags = new List<PostTag> {
+                new PostTag {  Tag = new Tag {Description = "awesome tag", Name = "Tag Awesome" } },
+                new PostTag { Tag = new Tag { Description = "another tag", Name = "Another Tag" }
+                } };
+
+
             //var viewModel = new ListViewModel(_repo, p);
             var viewModel = new ListViewModel
             {
@@ -28,7 +34,8 @@ namespace LunarSFXc.Controllers
             {
                 Id = 1,
                 Title = "new title",
-                PostedOn = DateTime.Today
+                PostedOn = DateTime.Today,
+                PostTags = tags
                ,
                 Category = new Category()
                 {
@@ -38,6 +45,7 @@ namespace LunarSFXc.Controllers
                 },
                 UrlSlug = "new_title"
             });
+
 
             ViewBag.Title = "Latest Posts";
 
@@ -66,6 +74,19 @@ namespace LunarSFXc.Controllers
 
             //ViewBag.Title = string.Format(@"Latest posts on category ""{0}""",
             //                    viewModel.Category.Name);
+            return View();
+        }
+
+        public IActionResult Tag(string tag, int p = 1)
+        {
+            //var viewModel = new ListViewModel(_blogRepository, tag, "Tag", p);
+
+            //if (viewModel.Tag == null)
+            //    throw new HttpException(404, "Tag not found");
+
+            //ViewBag.Title = string.Format(@"Latest posts tagged on ""{0}""",
+            //    viewModel.Tag.Name);
+            //return View("List", viewModel);
             return View();
         }
     }

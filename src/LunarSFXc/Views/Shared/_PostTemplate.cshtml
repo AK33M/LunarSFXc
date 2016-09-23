@@ -12,10 +12,7 @@
         </div>
         <div>
             <!--Tags-->
-            <tags for-tags="Model.Tags"></tags>
-            @*@Helpers.Tags(Html, Model.Tags)*@
-
-
+            <tags for-tags="Model.PostTags"></tags>
             <!--Posted date-->
             <span class="pull-right">Posted On @Model.PostedOn.ToString("d")</span>
         </div>
