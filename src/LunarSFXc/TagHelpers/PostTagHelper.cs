@@ -17,7 +17,7 @@ namespace LunarSFXc.TagHelpers
             {
                 text = PostTitle;
             }
-            var link = $"Archive/{post.PostedOn.Year}/{post.PostedOn.Month}/{post.UrlSlug}";
+            var link = $"/Archive/{post.PostedOn.Year}/{post.PostedOn.Month}/{post.UrlSlug}";
 
             output.TagName = "a";
 
@@ -33,7 +33,7 @@ namespace LunarSFXc.TagHelpers
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             var category = ForCategory;
-            var link = $"Category/{category.UrlSlug}";
+            var link = $"/Category/{category.UrlSlug}";
 
             output.TagName = "a";
             output.Attributes.SetAttribute("href", link);
@@ -54,7 +54,7 @@ namespace LunarSFXc.TagHelpers
             {
                 foreach (var tag in tags)
                 {
-                    html = html + $"<a href='Tag/{tag.Tag.Name}' title='See all posts with {tag.Tag.Name} tag'>{tag.Tag.Name}</a> ";
+                    html = html + $"<a href='/Tag/{tag.Tag.UrlSlug}' title='See all posts with {tag.Tag.Name} tag'>{tag.Tag.Name}</a> ";
                 }
             }
             

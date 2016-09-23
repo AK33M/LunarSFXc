@@ -1,10 +1,33 @@
-﻿@model LunarSFXc.ViewModels.ListViewModel
-
+﻿@model LunarSFXc.Objects.Post
 @{
-
+    ViewBag.Title = Model.Title;
 }
+<div id="content">
+    <div class="post">
+        <div class="post-meta">
+            <div>
+                <div class="post-title">
+                    <post for-post="Model"></post>
+                </div>
+            </div>
+            <div>
 
-<div>
-    Posts View
-    @Model.TotalPosts
+                <div class="post-category">
+                    <category for-category="Model.Category"></category>
+                </div>
+
+                <div>
+                    <tags for-tags="Model.PostTags"></tags>
+
+
+                    <span class="posted-date pull-right">
+                        Posted On @Model.PostedOn.ToString("d")
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="post-body">
+            @Html.Raw(Model.Description)
+        </div>
+    </div>
 </div>

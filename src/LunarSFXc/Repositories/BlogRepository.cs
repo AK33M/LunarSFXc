@@ -41,6 +41,7 @@ namespace LunarSFXc.Repositories
                                 .Skip(pageNo * pageSize)
                                 .Take(pageSize)
                                 .Include(p => p.Category)
+                                .Include(p => p.PostTags)
                                 .ToList();
 
             GetTags(posts);
@@ -93,6 +94,7 @@ namespace LunarSFXc.Repositories
                                 .Skip(pageNo * pageSize)
                                 .Take(pageSize)
                                 .Include(p => p.Category)
+                                .Include(p => p.PostTags)
                                 .ToList();
 
             GetTags(posts);
@@ -120,6 +122,7 @@ namespace LunarSFXc.Repositories
                                 .Skip(pageNo * pageSize)
                                 .Take(pageSize)
                                 .Include(p => p.Category)
+                                .Include(p => p.PostTags)
                                 .ToList();
 
             GetTags(posts);
@@ -135,6 +138,19 @@ namespace LunarSFXc.Repositories
                                                         || p.Category.Name.Equals(search)
                                                         || p.PostTags.Any(t => t.Tag.Name.Equals(search))))
                            .Count();
+        }
+
+        public Post Post(int year, int month, string titleSlug)
+        {
+            var query = _context.Posts
+                                .Where(p => p.PostedOn.Year == year && p.PostedOn.Month == month && p.UrlSlug.Equals(titleSlug))
+                                .Include(p => p.Category)
+                                .Include(p => p.PostTags)
+                                .ToList();
+
+            GetTags(query);
+
+            return query.FirstOrDefault();
         }
     }
 }

@@ -1,9 +1,7 @@
-﻿using LunarSFXc.Objects;
-using LunarSFXc.Repositories;
+﻿using LunarSFXc.Repositories;
 using LunarSFXc.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 
 namespace LunarSFXc.Controllers
 {
@@ -27,15 +25,15 @@ namespace LunarSFXc.Controllers
 
         public IActionResult Post(int year, int month, string title)
         {
-            //var post = _blogRepository.Post(year, month, title);
+            var post = _repo.Post(year, month, title);
 
-            //if (post == null)
-            //    throw new HttpException(404, "Post not found");
+            if (post == null)
+                throw new Exception("Post not found");
 
-            //if (post.Published == false && User.Identity.IsAuthenticated == false)
-            //    throw new HttpException(401, "The post is not published");
+            if (post.Published == false && User.Identity.IsAuthenticated == false)
+                throw new Exception("The post is not published");
 
-            return View();
+            return View(post);
         }
 
         public IActionResult Category(string category, int p = 1)
