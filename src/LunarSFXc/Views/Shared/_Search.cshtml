@@ -1,0 +1,5 @@
+﻿@using (Html.BeginForm("Search", "Blog", FormMethod.Get, new { id = "search-form", @class = "searchTextBox, search" }))
+{
+    <i class="fa fa-search"></i>
+        @Html.TextBox("s", null, new { maxlength = "64", placeholder = "Search", @class = "searchTextBox" })
+}

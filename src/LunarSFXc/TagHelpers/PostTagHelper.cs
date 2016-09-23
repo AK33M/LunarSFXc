@@ -50,10 +50,14 @@ namespace LunarSFXc.TagHelpers
         {
             var tags = ForTags;
             var html = string.Empty;
-            foreach (var tag in tags)
+            if (tags != null)
             {
-               html = html +  $"<a href='Tag/{tag.Tag.Name}' title='See all posts with {tag.Tag.Name} tag'>{tag.Tag.Name}</a> ";
+                foreach (var tag in tags)
+                {
+                    html = html + $"<a href='Tag/{tag.Tag.Name}' title='See all posts with {tag.Tag.Name} tag'>{tag.Tag.Name}</a> ";
+                }
             }
+            
             output.TagName = "div";
             output.Attributes.Add("class", "postTags");
             output.Content.SetHtmlContent(html);

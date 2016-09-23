@@ -40,27 +40,34 @@ namespace LunarSFXc.Controllers
 
         public IActionResult Category(string category, int p = 1)
         {
-            //var viewModel = new ListViewModel(_blogRepository, category, "Category", p);
+            var viewModel = new ListViewModel(_repo, category, "Category", p);
 
-            //if (viewModel.Category == null)
-            //    throw new HttpException(404, "Category not found");
+            if (viewModel.Category == null)
+                throw new Exception("Category not found");
 
-            //ViewBag.Title = string.Format(@"Latest posts on category ""{0}""",
-            //                    viewModel.Category.Name);
-            return View();
+            ViewBag.Title = $"Latest posts on category {viewModel.Category.Name}";
+                               
+            return View("List", viewModel);
         }
 
         public IActionResult Tag(string tag, int p = 1)
         {
-            //var viewModel = new ListViewModel(_blogRepository, tag, "Tag", p);
+            var viewModel = new ListViewModel(_repo, tag, "Tag", p);
 
-            //if (viewModel.Tag == null)
-            //    throw new HttpException(404, "Tag not found");
+            if (viewModel.Tag == null)
+                throw new Exception("Tag not found");
 
-            //ViewBag.Title = string.Format(@"Latest posts tagged on ""{0}""",
-            //    viewModel.Tag.Name);
-            //return View("List", viewModel);
-            return View();
+            ViewBag.Title = $"Latest posts tagged on {viewModel.Tag.Name}";
+
+            return View("List", viewModel);
+        }
+
+        public IActionResult Search(string s, int p = 1)
+        {
+            ViewBag.Title = $"Lists of posts found for search text {s}";
+
+            var viewModel = new ListViewModel(_repo, s, "Search", p);
+            return View("List", viewModel);
         }
     }
 }
