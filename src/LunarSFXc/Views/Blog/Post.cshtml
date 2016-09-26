@@ -2,32 +2,34 @@
 @{
     ViewBag.Title = Model.Title;
 }
-<div id="content">
-    <div class="well post">
-        <div class="post-meta">
-            <div>
-                <h3 class="post-title">
-                    <post for-post="Model"></post>
-                </h3>
-            </div>
-            <div>
-
+<div class="col-lg-12 col-md-12 col-sm-12">
+    <div id="content">
+        <div class="well post">
+            <div class="post-meta">
                 <div>
-                    <category for-category="Model.Category"></category>
+                    <h3 class="post-title">
+                        <post for-post="Model"></post>
+                    </h3>
                 </div>
-
                 <div>
-                    <tags post-tags for-tags="Model.PostTags"></tags>
+
+                    <div>
+                        <category for-category="Model.Category"></category>
+                    </div>
+
+                    <div>
+                        <tags post-tags for-tags="Model.PostTags"></tags>
 
 
-                    <span class="posted-date pull-right">
-                        Posted On @Model.PostedOn.ToString("d")
-                    </span>
+                        <span class="posted-date pull-right">
+                            Posted On @Model.PostedOn.ToString("d")
+                        </span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="post-body">
-            @Html.Raw(Model.Description)
+            <div class="post-body">
+                @Html.Raw(Model.Description)
+            </div>
         </div>
     </div>
 </div>
