@@ -36,3 +36,7 @@
     opacity: 0.5;
     font-style: italic;
 }
+
+.pager{
+    margin: 20px 0;
+}
