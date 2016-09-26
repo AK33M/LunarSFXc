@@ -52,7 +52,7 @@
                         <a asp-controller="" asp-action="">Sample Post</a>
                     </li>
                     <li>
-                        <a asp-controller="" asp-action="">Contact</a>
+                        <a asp-controller="Blog" asp-action="Contact">Contact</a>
                     </li>
                     <li><a>@Html.Partial("_Search")</a></li>
                 </ul>
@@ -126,5 +126,6 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/app.js"></script>
+    @RenderSection("scripts", false)
 </body>
 </html>

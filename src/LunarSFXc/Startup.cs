@@ -56,7 +56,7 @@ namespace LunarSFXc
 
             // Add Autofac
             var containerBuilder = new ContainerBuilder();
-            containerBuilder.RegisterModule<DefaultModule>();
+            containerBuilder.RegisterModule(new DefaultModule() { _env = _env });
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
 

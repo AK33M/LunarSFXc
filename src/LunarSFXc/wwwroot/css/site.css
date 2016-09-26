@@ -39,3 +39,7 @@
 .pager {
     margin: 20px 0;
 }
+
+.validationMesage{
+    font-size: small;
+}
