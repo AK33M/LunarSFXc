@@ -3,7 +3,6 @@ using LunarSFXc.Objects;
 using LunarSFXc.Contexts;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace LunarSFXc.Repositories
 {
@@ -151,6 +150,16 @@ namespace LunarSFXc.Repositories
             GetTags(query);
 
             return query.FirstOrDefault();
+        }
+
+        public ICollection<Category> Categories()
+        {
+            return _context.Categories.OrderBy(c => c.Name).ToList();
+        }
+
+        public ICollection<Tag> Tags()
+        {
+            return _context.Tags.OrderBy(t => t.Name).ToList();
         }
     }
 }
