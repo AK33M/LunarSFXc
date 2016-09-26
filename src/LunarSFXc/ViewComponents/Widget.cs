@@ -16,7 +16,7 @@ namespace LunarSFXc.ViewComponents
         {
             var model = new WidgetViewModel(_repo);
 
-            return View("Default", model);
+            return View("Widget", model);
         }
     }
 }

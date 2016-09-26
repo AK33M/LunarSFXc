@@ -31,12 +31,11 @@
     color: black;
 }
 
-.postTags {
+.post-meta .postTags {
     font-size: smaller;
     opacity: 0.5;
-    font-style: italic;
 }
 
-.pager{
+.pager {
     margin: 20px 0;
 }
