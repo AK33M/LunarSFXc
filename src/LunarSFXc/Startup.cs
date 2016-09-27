@@ -64,7 +64,7 @@ namespace LunarSFXc
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
+        public async void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory, SampleSeedData seeder)
         {
             loggerFactory.AddConsole();
 
@@ -81,6 +81,8 @@ namespace LunarSFXc
             app.UseFileServer();
 
             app.UseMvc(ConfigureRoutes);
+
+            await seeder.EnsureSeedDataAsync();
         }
 
         private void ConfigureRoutes(IRouteBuilder routeBuilder)
