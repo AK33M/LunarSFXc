@@ -1,10 +1,11 @@
 ﻿using LunarSFXc.Objects;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace LunarSFXc.Contexts
 {
-    public class LunarDbContext : DbContext
+    public class LunarDbContext : IdentityDbContext<LunarUser>
     {
         public LunarDbContext(IConfigurationRoot config, DbContextOptions<LunarDbContext> options)
                 : base(options)

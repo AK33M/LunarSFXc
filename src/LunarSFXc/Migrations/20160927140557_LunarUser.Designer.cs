@@ -8,9 +8,10 @@ using LunarSFXc.Contexts;
 namespace LunarSFXc.Migrations
 {
     [DbContext(typeof(LunarDbContext))]
-    partial class LunarDbContextModelSnapshot : ModelSnapshot
+    [Migration("20160927140557_LunarUser")]
+    partial class LunarUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -71,8 +72,6 @@ namespace LunarSFXc.Migrations
                         .HasAnnotation("MaxLength", 256);
 
                     b.Property<bool>("EmailConfirmed");
-
-                    b.Property<string>("FirstWords");
 
                     b.Property<bool>("LockoutEnabled");
 
