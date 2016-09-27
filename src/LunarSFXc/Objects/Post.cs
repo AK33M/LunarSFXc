@@ -30,5 +30,6 @@ namespace LunarSFXc.Objects
         public int CategoryId { get; set; }
 
         public ICollection<PostTag> PostTags { get; set; }
+        public ICollection<Image> Images { get; set; }
     }
 }
