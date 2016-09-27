@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using LunarSFXc.Autofac;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using LunarSFXc.Objects;
 
 namespace LunarSFXc
 {
@@ -51,6 +53,15 @@ namespace LunarSFXc
                 if (_env.IsProduction())
                     config.Filters.Add(new RequireHttpsAttribute());
             });
+
+            services.AddIdentity<LunarUser, IdentityRole>(config =>
+            {
+                config.User.RequireUniqueEmail = true;
+                config.Password.RequiredLength = 8;
+                config.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";
+            })
+            .AddEntityFrameworkStores<LunarDbContext>();
+
             services.AddDbContext<LunarDbContext>(options => options.UseSqlServer(_config["database:connectionString"]));
 
 
@@ -80,7 +91,11 @@ namespace LunarSFXc
 
             app.UseFileServer();
 
-            app.UseMvc(ConfigureRoutes);
+            app.UseIdentity();
+
+
+            //Use MVC always Last.
+            app.UseMvc(ConfigureRoutes); 
 
             await seeder.EnsureSeedDataAsync();
         }
