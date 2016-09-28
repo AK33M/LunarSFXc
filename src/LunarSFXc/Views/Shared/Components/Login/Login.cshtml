@@ -1,0 +1,64 @@
+﻿@model LunarSFXc.ViewModels.LoginViewModel
+<ul id="login-dp" class="dropdown-menu">
+    <li>
+        <div class="">
+            <div class="col-md-12">
+                <form method="post" asp-controller="Auth" asp-action="Login">
+                    <div class="form-group">
+                        <label asp-for="Username"></label>
+                        <input asp-for="Username" class="form-control" placeholder="Username" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password"></label>
+                        <input type="password" class="form-control" asp-for="Password" placeholder="Password" />
+                        <span class="text-muted"><a href="">Forgot password?</a></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="RememberMe"></label>
+                        <input type="checkbox" asp-for="RememberMe" class="pull-right" />
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block" type="submit">Submit</button>
+                    </div>
+                </form>
+                <hr />
+                <div class="text-center">
+                    <p>
+                        or Login via
+                    </p>
+                </div>
+                <div>
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="" title="Twitter">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" title="Facebook">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                    @*<div class="social-buttons">
+                       
+                        <a href="#" class="btn btn-sm btn-fb"><i class="fa fa-facebook fa-stack-1x fa-inverse"></i></a>
+                        <a href="#" class="btn btn-sm btn-tw"><i class="fa fa-twitter"></i></a>
+                    </div>*@
+
+                <hr />
+                <div class="bottom text-center">
+                    <span>New here ?<a href="#"><b>Join Us</b></a></span>
+                </div>
+            </div>
+            
+        </div>
+    </li>
+</ul>

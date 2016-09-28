@@ -95,7 +95,7 @@ namespace LunarSFXc
 
 
             //Use MVC always Last.
-            app.UseMvc(ConfigureRoutes); 
+            app.UseMvc(ConfigureRoutes);
 
             await seeder.EnsureSeedDataAsync();
         }
@@ -107,7 +107,7 @@ namespace LunarSFXc
                         "Tag/{tag}",
                         new { controller = "Blog", action = "Tag" }
                     );
-            
+
             routeBuilder.MapRoute(
                         "Post",
                         "Archive/{year}/{month}/{title}",
@@ -118,6 +118,12 @@ namespace LunarSFXc
                         "Category",
                         "Category/{category}",
                         new { controller = "Blog", action = "Category" }
+                    );
+
+            routeBuilder.MapRoute(
+                        "Auth",
+                         "Auth/{action}",
+                        new { controller = "Auth", action = "Login" }
                     );
 
             routeBuilder.MapRoute(
