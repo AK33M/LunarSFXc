@@ -128,13 +128,13 @@ namespace LunarSFXc
 
             routeBuilder.MapRoute(
                         "Action",
-                        "{action}",
+                        "Blog/{action}",
                         new { controller = "Blog", action = "Posts" }
                     );
 
-            //routeBuilder.MapRoute(
-            //        name: "Default",
-            //        template: "{controller=Blog}/{action=Posts}/{id?}");
+            routeBuilder.MapRoute(
+                    name: "Default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
 
         }
     }
