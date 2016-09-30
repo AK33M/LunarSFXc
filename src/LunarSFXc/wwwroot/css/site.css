@@ -43,3 +43,7 @@
 .validationMesage{
     font-size: small;
 }
+
+#contactForm label{
+    color: azure;
+}

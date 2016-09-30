@@ -82,14 +82,20 @@ namespace LunarSFXc.Controllers
         [HttpPost]
         public IActionResult Contact(ContactViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _mailService.SendMail(_config["mailSettings:recipientAddress"], model.Email, "Message from LunarSFX", model.Message);
 
                 ModelState.Clear();
                 ViewBag.UserMessage = "Success. Message Sent!";
             }
-            return View();
+            else
+            {
+                ModelState.AddModelError("", "Something Happened!");
+                return BadRequest("Could not send your message, try again later.");
+            }            
+
+            return Ok(ViewBag.UserMessage);
         }
     }
 }

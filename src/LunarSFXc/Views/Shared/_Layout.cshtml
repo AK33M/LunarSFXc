@@ -12,31 +12,32 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" type="text/css" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 
-    <link rel="stylesheet" type="text/css" href="~/lib/clean-blog/css/clean-blog.min.css" />
+    <!-- Custom Fonts-->
+    <link rel="stylesheet" type="text/css" href="~/lib/font-awesome/css/font-awesome.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <!-- Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="~/lib/agency-template/css/agency.min.css" />
+
+    <!-- Custom CSS-->
     <link rel="stylesheet" type="text/css" href="~/css/site.css" />
     <link type="text/css" href="~/css/login.css" rel="stylesheet" />
-
-    <link rel="stylesheet" type="text/css" href="~/lib/font-awesome/css/font-awesome.min.css" />
-    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-
-
 </head>
 
-<body>
+<body id="page-top" class="index">
 
     <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header page-scroll">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" asp-controller="Blog" asp-action="Posts">LunarSFX</a>
+                <a class="navbar-brand page-scroll" href="#page-top">LunarSFX</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -70,87 +71,97 @@
                     }
 
                     <li>
-                        <a asp-controller="" asp-action="">About</a>
+                        <a class="page-scroll" href="#about">About</a>
                     </li>
                     <li>
-                        <a asp-controller="Blog" asp-action="Contact">Contact</a>
+                        <a class="page-scroll" href="#contact">Contact</a>
                     </li>
                     <li><a>@Html.Partial("_Search")</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
-        <!-- /.container -->
+        <!-- /.container-fluid -->
     </nav>
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header homebackground">
+    <header>
         <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="site-heading">
-                        <h1>LunarSFX</h1>
-                        <hr class="small">
-                        <span class="subheading">Writings, Experiments and More...</span>
-                    </div>
-                </div>
+            <div class="intro-text">
+                <div class="intro-lead-in">LunarSFX</div>
+                <div class="intro-heading">Software Developer, Human &amp; Technophobe</div>
+                <a href="#services" class="page-scroll btn btn-xl">Tell Me More</a>
             </div>
         </div>
     </header>
 
 
     <!-- Main Content -->
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             @RenderBody()
             @Component.InvokeAsync("Widget").Result
         </div>
     </div>
 
+
+    <!-- Sections -->
+    <!-- Contact Us Section -->
+    <section id="contact">
+        <div class="container">
+            @Component.InvokeAsync("Contact").Result
+        </div>
+    </section>
+
+
     <hr />
     <!-- Footer -->
-    <footer class="navbar">
+    <footer>
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <ul class="list-inline text-center">
-                        <li>
-                            <a href="https://twitter.com/LunarSFX" target="_blank">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/AK33M/LunarSFXc" target="_blank">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
+                <div class="col-md-4">
+                    <span class="copyright text-muted">Copyright &copy; @DateTime.Now.Year LunarSFX All Rights Reserved</span>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline social-buttons">
+                        <li><a href="https://twitter.com/LunarSFX" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                        <li></li>
+                        <li><a href=""><i class="fa fa-facebook"></i></a></li>
+                        <li></li>
+                        <li><a href="https://github.com/AK33M/LunarSFXc" target="_blank"><i class="fa fa-github"></i></a></li>
+                        <li></li>
                     </ul>
-                    <p class="copyright text-muted">Copyright &copy; @DateTime.Now.Year LunarSFX All Rights Reserved</p>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline quicklinks">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="~/js/app.js"></script>
 
+    <!-- jQuery -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <!-- jQuery Validation-->
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+    <!-- Bootstrap Core Js-->
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+
+    <!-- Theme Js-->
+    <script src="~/lib/agency-template/js/agency.min.js"></script>
+
+    <!-- Custom Js-->
+    <script src="~/js/app.js"></script>
+
 
     @RenderSection("scripts", false)
 </body>
