@@ -47,3 +47,7 @@
 #contactForm label{
     color: azure;
 }
+
+section#contact .form-group textarea.form-control {
+    height: 287px;
+}
