@@ -35,10 +35,14 @@ namespace LunarSFXc.TagHelpers
             var category = ForCategory;
             var link = $"/Category/{category.UrlSlug}";
 
-            output.TagName = "a";
-            output.Attributes.SetAttribute("href", link);
-            output.Attributes.SetAttribute("title", $"See all posts in {category.Name}");
-            output.Content.SetContent(category.Name);
+            //output.TagName = "a";
+            //output.Attributes.SetAttribute("href", link);
+
+            //output.Attributes.SetAttribute("title", $"See all posts in {category.Name}");
+            //output.Content.SetContent(category.Name);
+
+            var html = $"<a href='{link}' title='See all posts in {category.Name}'><i class='fa fa-paperclip'></i>{category.Name}</a>";
+            output.Content.SetHtmlContent(html);
         }
     }
 
@@ -55,7 +59,7 @@ namespace LunarSFXc.TagHelpers
             {
                 foreach (var tag in tags)
                 {
-                    html = html + $"<a href='/Tag/{tag.Tag.UrlSlug}' title='See all posts with {tag.Tag.Name} tag'>{tag.Tag.Name}</a> ";
+                    html = html + $"<a href='/Tag/{tag.Tag.UrlSlug}' title='See all posts with {tag.Tag.Name} tag'>#{tag.Tag.Name}</a> ";
                 }
             }
 
@@ -78,7 +82,7 @@ namespace LunarSFXc.TagHelpers
             {
                 foreach (var tag in tags)
                 {
-                    html = html + $"<a href='/Tag/{tag.UrlSlug}' title='See all posts with {tag.Name} tag'>{tag.Name}</a> ";
+                    html = html + $"<a href='/Tag/{tag.UrlSlug}' title='See all posts with {tag.Name} tag'>#{tag.Name}</a> ";
                 }
             }
 

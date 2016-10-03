@@ -51,3 +51,7 @@
 section#contact .form-group textarea.form-control {
     height: 287px;
 }
+
+.text-primary, a{
+    color: black;
+}
