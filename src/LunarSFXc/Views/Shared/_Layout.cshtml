@@ -101,7 +101,9 @@
     <div class="container-fluid">
         <div class="row">
             @RenderBody()
-            @Component.InvokeAsync("Widget").Result
+            <div class="container">
+                @Component.InvokeAsync("Widget").Result
+            </div>
         </div>
     </div>
 

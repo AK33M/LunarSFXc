@@ -10,7 +10,7 @@ namespace LunarSFXc.ViewModels
         {
             Categories = repo.Categories();
             Tags = repo.Tags();
-            LastestPosts = repo.Posts(0, 5);
+            LastestPosts = repo.Posts(0, 3);
         }
 
         public ICollection<Category> Categories { get; set; }

@@ -1,8 +1,7 @@
 ﻿@model LunarSFXc.ViewModels.WidgetViewModel
 
-<div class="col-lg-12 col-md-12 col-sm-12">
-    <div class="text-center">
-        <div>
+<div id="widget" class="col-lg-12 col-md-12 col-sm-12">
+    @*<div>
             <h3>CATEGORIES</h3>
             @foreach (var cat in Model.Categories)
             {
@@ -12,13 +11,37 @@
         <div class="widgetTags">
             <h3>TAGS</h3>
             <tags tags for-tags="Model.Tags"></tags>
-        </div>
-        <div>
-            <h3>LATEST POSTS</h3>
-            @foreach (var post in Model.LastestPosts)
-            {
-                <post for-post="post"></post>
-            }
-        </div>
+        </div>*@
+    <h3>LATEST POSTS</h3>
+    <div>
+        @foreach (var post in Model.LastestPosts)
+        {
+
+            @Html.Partial("_PostTemplate", post)
+
+
+
+            @*<div class="col-lg-4 col-md-4 col-sm-4">
+                    <a href="" class="widget-blog-img">
+                        <div class="caption">
+                            <div class="caption-content">
+                                <i class="fa fa-search fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="#" alt="Alternate Text" class="img-responsive"/>
+                    </a>
+                    <div class="widget-blog-preview">
+                        <post for-post="post"></post>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam, quisquam, sunt, corporis.</p>
+                    <div class="continue">
+                        <a href="">Continue Reading <i class="fa fa-arrow-right"></i></a>
+                    </div>
+                    <ul>
+                        <li>@post.PostedOn</li>
+                    </ul>
+                </div>*@
+        }
     </div>
-</div> 
+</div>
+

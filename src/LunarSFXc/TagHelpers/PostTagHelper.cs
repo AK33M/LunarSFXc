@@ -35,7 +35,7 @@ namespace LunarSFXc.TagHelpers
             var category = ForCategory;
             var link = $"/Category/{category.UrlSlug}";
 
-            //output.TagName = "a";
+            output.TagName = "span";
             //output.Attributes.SetAttribute("href", link);
 
             //output.Attributes.SetAttribute("title", $"See all posts in {category.Name}");
@@ -59,12 +59,12 @@ namespace LunarSFXc.TagHelpers
             {
                 foreach (var tag in tags)
                 {
-                    html = html + $"<a href='/Tag/{tag.Tag.UrlSlug}' title='See all posts with {tag.Tag.Name} tag'>#{tag.Tag.Name}</a> ";
+                    html = html + $"<li><a href='/Tag/{tag.Tag.UrlSlug}' title='See all posts with {tag.Tag.Name} tag'>#{tag.Tag.Name}</a></li>";
                 }
             }
 
-            output.TagName = "div";
-            output.Attributes.Add("class", "postTags");
+            output.TagName = "ul";
+            output.Attributes.Add("class", "postTags list-inline pull-right");
             output.Content.SetHtmlContent(html);
         }
     }
@@ -82,12 +82,12 @@ namespace LunarSFXc.TagHelpers
             {
                 foreach (var tag in tags)
                 {
-                    html = html + $"<a href='/Tag/{tag.UrlSlug}' title='See all posts with {tag.Name} tag'>#{tag.Name}</a> ";
+                    html = html + $"<li><a href='/Tag/{tag.UrlSlug}' title='See all posts with {tag.Name} tag'>#{tag.Name}</a></li>";
                 }
             }
 
-            output.TagName = "div";
-            output.Attributes.Add("class", "postTags");
+            output.TagName = "ul";
+            output.Attributes.Add("class", "postTags list-inline");
             output.Content.SetHtmlContent(html);
         }
     }

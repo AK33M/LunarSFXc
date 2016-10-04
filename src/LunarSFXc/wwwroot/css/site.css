@@ -34,17 +34,18 @@
 .post-meta .postTags {
     font-size: smaller;
     opacity: 0.5;
+    display: inline-block;
 }
 
 .pager {
     margin: 20px 0;
 }
 
-.validationMesage{
+.validationMesage {
     font-size: small;
 }
 
-#contactForm label{
+#contactForm label {
     color: azure;
 }
 
@@ -52,6 +53,10 @@ section#contact .form-group textarea.form-control {
     height: 287px;
 }
 
-.text-primary, a{
+.text-primary, a {
     color: black;
+}
+
+#widget{
+    margin-bottom: 15px;
 }
