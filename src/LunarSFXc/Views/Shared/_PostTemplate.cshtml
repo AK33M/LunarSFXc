@@ -3,18 +3,23 @@
 <!--Heading-->
 <div class="post-preview">
     <div class="col-lg-4 col-md-4 col-sm-4">
+        <a href="" class="post-preview-img">
+            <div class="caption">
+                <div class="caption-content">
+                    <i class="fa fa-search fa-3x"></i>
+                </div>
+            </div>
+            <img height="100" src="~/img/no-image-icon-6.png" alt="Alternate Text" class="img-responsive" />
+        </a>
         <h3 class="post-title">
             <post for-post="Model"></post>
         </h3>
-
         <div class="post-body">
             @Html.Raw(Model.ShortDescription)
-            <div class="post-foot">
-                <post for-post="Model" post-title="continue..."></post>
-            </div>
         </div>
         <div class="post-meta">
-            <span class="pull-left">@Model.PostedOn.ToString("d")</span>
+            <post for-post="Model" post-title="continue..."></post>
+            <span class="pull-right">@Model.PostedOn.ToString("d")</span>
         </div>
     </div>
 </div>

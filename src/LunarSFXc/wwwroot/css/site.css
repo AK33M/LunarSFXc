@@ -12,6 +12,10 @@
     width: 250px;
 }
 
+a:hover {
+    text-decoration: none;
+}
+
 .search {
     height: 30px;
     position: relative;
@@ -31,11 +35,27 @@
     color: black;
 }
 
+.post-body {
+    margin: 10px 0;
+}
+
 .post-meta .postTags {
     font-size: smaller;
     opacity: 0.5;
     display: inline-block;
 }
+
+.post-preview-img {
+    height: 100px;
+    text-align: center;
+}
+
+a.post-preview-img {
+}
+
+    a.post-preview-img:hover {
+        
+    }
 
 .pager {
     margin: 20px 0;
@@ -57,6 +77,6 @@ section#contact .form-group textarea.form-control {
     color: black;
 }
 
-#widget{
+#widget {
     margin-bottom: 15px;
 }
