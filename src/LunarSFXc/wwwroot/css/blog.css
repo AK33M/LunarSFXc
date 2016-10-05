@@ -1,0 +1,35 @@
+﻿.navbar-custom {
+    background-color: #222;
+    border: medium none;
+    padding: 25px 0;
+    transition: padding 0.3s ease 0s;
+}
+
+#content {
+    margin-top: 100px;
+}
+
+    #content .blog-col {
+        margin: 20px 0;
+    }
+
+
+
+.search {
+    height: 30px;
+    position: relative;
+    left: 10px;
+    float: left;
+    line-height: 22px;
+}
+
+    .search:hover .searchTextBox, .search input:focus {
+        width: 200px;
+        display: inline;
+    }
+
+.searchTextBox {
+    display: none;
+    border-radius: 5px;
+    color: black;
+}
