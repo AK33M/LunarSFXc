@@ -5,6 +5,10 @@
     transition: padding 0.3s ease 0s;
 }
 
+a:hover {
+    text-decoration: none;
+}
+
 #content {
     margin-top: 100px;
 }
@@ -13,7 +17,13 @@
         margin: 20px 0;
     }
 
+        #content .blog-col .post-meta a {
+            color: black;
+        }
 
+    #content .post-body {
+        margin-top: 50px;
+    }
 
 .search {
     height: 30px;
@@ -32,4 +42,10 @@
     display: none;
     border-radius: 5px;
     color: black;
+}
+
+.post-meta .postTags {
+    font-size: smaller;
+    opacity: 0.5;
+    display: inline-block;
 }
