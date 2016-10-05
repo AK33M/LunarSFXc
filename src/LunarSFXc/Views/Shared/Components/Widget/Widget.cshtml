@@ -12,36 +12,21 @@
             <h3>TAGS</h3>
             <tags tags for-tags="Model.Tags"></tags>
         </div>*@
-    <h3>LATEST POSTS</h3>
-    <div>
-        @foreach (var post in Model.LastestPosts)
-        {
-
-            @Html.Partial("_PostTemplate", post)
-
-
-
-            @*<div class="col-lg-4 col-md-4 col-sm-4">
-                    <a href="" class="widget-blog-img">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="#" alt="Alternate Text" class="img-responsive"/>
-                    </a>
-                    <div class="widget-blog-preview">
-                        <post for-post="post"></post>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam, quisquam, sunt, corporis.</p>
-                    <div class="continue">
-                        <a href="">Continue Reading <i class="fa fa-arrow-right"></i></a>
-                    </div>
-                    <ul>
-                        <li>@post.PostedOn</li>
-                    </ul>
-                </div>*@
-        }
-    </div>
+    <section id="blog" class="blog-1 bg-lighter">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h3>LATEST POSTS</h3>
+                    <hr class="primary mb" />
+                </div>
+            </div>
+            <div class="row blog-row">
+                @foreach (var post in Model.LastestPosts)
+                {
+                    @Html.Partial("_PostTemplate", post)
+                }
+            </div>
+        </div>
+    </section>
 </div>
 
