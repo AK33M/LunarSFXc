@@ -70,8 +70,12 @@ section#contact .form-group textarea.form-control {
 }
 
 .bg-lighter {
-    background: #fdfdfd;
+    background: #f4f5f7;
     color: #3e444d !important;
+}
+
+#blog .blog-col{
+    margin: 20px 0;
 }
 
 hr.primary {
@@ -95,91 +99,83 @@ img {
     -ms-interpolation-mode: bicubic;
 }
 
-/*Blog Preview*/
-@media (min-width: 767px) {
-    .blog-1 .blog-preview-content {
-        margin-bottom: 30px;
-    }
-}
-
-.blog-1 .blog-col {
-    max-width: 400px;
-    margin: 0 auto;
-}
-
-.blog-preview-img {
-    height: 100px;
-    text-align: center;
-}
-
-.blog-1 .blog-col .blog-preview-img {
-    display: block;
+.hovereffect {
+    width: 100%;
+    height: 100%;
+    float: left;
+    overflow: hidden;
     position: relative;
+    text-align: center;
+    cursor: default;
 }
 
-    .blog-1 .blog-col .blog-preview-img .caption {
-        background: rgba(62, 68, 77, 0.9);
+    .hovereffect .overlay {
         position: absolute;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        -o-transition: all ease 0.5s;
-        transition: all ease 0.5s;
-        -webkit-transition: all ease 0.5s;
-        -moz-transition: all ease 0.5s;
+        overflow: hidden;
+        width: 80%;
+        height: 80%;
+        left: 10%;
+        top: 10%;
+        border-bottom: 1px solid #FFF;
+        border-top: 1px solid #FFF;
+        -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+        transition: opacity 0.35s, transform 0.35s;
+        -webkit-transform: scale(0,1);
+        -ms-transform: scale(0,1);
+        transform: scale(0,1);
     }
 
-    .blog-1 .blog-col .blog-preview-img * {
-        z-index: 2;
+    .hovereffect:hover .overlay {
+        opacity: 1;
+        filter: alpha(opacity=100);
+        -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+        transform: scale(1);
     }
 
-    .blog-1 .blog-col .blog-preview-img .caption .caption-content {
-        position: absolute;
+    .hovereffect img {
+        display: block;
+        position: relative;
+        -webkit-transition: all 0.35s;
+        transition: all 0.35s;
+    }
+
+    .hovereffect:hover img {
+        -webkit-filter: brightness(0.6);
+        filter: brightness(0.6);
+        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="0.6" /><feFuncG type="linear" slope="0.6" /><feFuncB type="linear" slope="0.6" /></feComponentTransfer></filter></svg>#filter');
+    }
+
+    .hovereffect h2 {
+        text-transform: uppercase;
         text-align: center;
-        top: 50%;
-        left: 0;
-        right: 0;
-        margin-top: -15px;
-        color: #f4f5f7;
+        position: relative;
+        font-size: 17px;
+        background-color: transparent;
+        color: #FFF;
+        padding: 1em 0;
+        opacity: 0;
+        filter: alpha(opacity=0);
+        -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+        transition: opacity 0.35s, transform 0.35s;
+        -webkit-transform: translate3d(0,-100%,0);
+        transform: translate3d(0,-100%,0);
     }
 
-
-.blog-1 .blog-col .blog-preview-content {
-    background-color: #f4f5f7;
-    color: #3e444d;
-    padding: 25px;
-    margin-bottom: 15px;
-}
-
-    .blog-1 .blog-col .blog-preview-content .continue {
-        font-size: 14px;
-        padding-bottom: 15px;
+    .hovereffect a, .hovereffect p {
+        color: #FFF;
+        padding: 1em 0;
+        opacity: 0;
+        filter: alpha(opacity=0);
+        -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+        transition: opacity 0.35s, transform 0.35s;
+        -webkit-transform: translate3d(0,100%,0);
+        transform: translate3d(0,100%,0);
     }
 
-    .blog-1 .blog-col .blog-preview-content p {
-        font-size: 16px;
-        margin: 0;
-        padding-bottom: 5px;
+    .hovereffect:hover a, .hovereffect:hover p, .hovereffect:hover h2 {
+        opacity: 1;
+        filter: alpha(opacity=100);
+        -webkit-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
     }
-
-    .blog-1 .blog-col .blog-preview-content ul.meta {
-        font-size: 14px;
-        color: rgba(62, 68, 77, 0.5);
-    }
-
-
-.blog-1 .blog-col .blog-preview-img .caption:hover {
-    opacity: 1;
-}
-
-.blog-1 .blog-col .blog-preview-content h3 {
-    margin: 0 0 10px;
-}
-
-    .blog-1 .blog-col .blog-preview-content h3 a {
-        color: #3e444d;
-    }
-
-        .blog-1 .blog-col .blog-preview-content h3 a:hover {
-            color: #439ad5;
-        }

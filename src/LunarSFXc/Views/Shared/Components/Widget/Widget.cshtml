@@ -1,30 +1,34 @@
 ﻿@model LunarSFXc.ViewModels.WidgetViewModel
 
-<div id="widget" class="col-lg-12 col-md-12 col-sm-12">
-    @*<div>
-            <h3>CATEGORIES</h3>
-            @foreach (var cat in Model.Categories)
-            {
-                <category for-category="cat"></category>
-            }
-        </div>
-        <div class="widgetTags">
-            <h3>TAGS</h3>
-            <tags tags for-tags="Model.Tags"></tags>
-        </div>*@
-    <section id="blog" class="blog-1 bg-lighter">
-        <div class="container">
+<div class="col-lg-12 col-md-12 col-sm-12">
+    <section id="blog">
+        <div class="container-fluid text-center bg-lighter">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h3>LATEST POSTS</h3>
                     <hr class="primary mb" />
                 </div>
             </div>
-            <div class="row blog-row">
-                @foreach (var post in Model.LastestPosts)
+            <div class="row">
+                <div class="container">
+                    @foreach (var post in Model.LastestPosts)
+                    {
+                        @Html.Partial("_PostTemplate", post)
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <h3>CATEGORIES</h3>
+                @foreach (var cat in Model.Categories)
                 {
-                    @Html.Partial("_PostTemplate", post)
+                    <category for-category="cat"></category>
                 }
+            </div>
+            <div class="row">
+                <div class="widgetTags">
+                    <h3>TAGS</h3>
+                    <tags tags for-tags="Model.Tags"></tags>
+                </div>
             </div>
         </div>
     </section>

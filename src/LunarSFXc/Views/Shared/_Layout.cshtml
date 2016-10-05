@@ -74,6 +74,9 @@
                         <a class="page-scroll" href="#about">About</a>
                     </li>
                     <li>
+                        <a class="page-scroll" href="#blog">Blog</a>
+                    </li>
+                    <li>
                         <a class="page-scroll" href="#contact">Contact</a>
                     </li>
                     <li><a>@Html.Partial("_Search")</a></li>
@@ -101,7 +104,7 @@
     <div class="container-fluid">
         <div class="row">
             @RenderBody()
-            <div class="container">
+            <div class="row">
                 @Component.InvokeAsync("Widget").Result
             </div>
         </div>
