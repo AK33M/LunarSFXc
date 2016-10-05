@@ -4,9 +4,14 @@
 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 blog-col">
     <div class="hovereffect">
         <img src="~/img/87357.jpg" alt="Alternate Text" class="img-responsive" />
-        <div class="overlay">            
-           <h3><post for-post="Model"></post></h3>
-            <p>@Html.Raw(Model.ShortDescription)</p>
+        <div class="overlay">
+            <h3>
+                <post for-post="Model"></post>
+            </h3>
+            <p>
+                @Html.Raw(Model.ShortDescription)
+                <br />@Model.PostedOn.ToString("d")
+            </p>
         </div>
     </div>
 </div>
