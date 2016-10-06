@@ -1,3 +1,11 @@
-﻿<div class="col-lg-8 col-lg-offset-2">
-    @Component.InvokeAsync("Login").Result
-</div>
+﻿@{
+    Layout = "_BlogLayout";
+}
+
+<section>
+    <div class="container">
+        <div class="col-lg-8 col-lg-offset-2">
+            @Component.InvokeAsync("Login").Result
+        </div>
+    </div>
+</section>
