@@ -1,20 +1,25 @@
 ﻿using LunarSFXc.Objects;
+using LunarSFXc.Services;
 using LunarSFXc.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using System;
 
 namespace LunarSFXc.Controllers
 {
+    [RequireHttps]
     public class AuthController : Controller
     {
         private SignInManager<LunarUser> _signInManager;
         private UserManager<LunarUser> _userManager;
+        private AuthEmailService _emailService;
 
-        public AuthController(SignInManager<LunarUser> signInManager, UserManager<LunarUser> userManager)
+        public AuthController(SignInManager<LunarUser> signInManager, UserManager<LunarUser> userManager, AuthEmailService emailService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _emailService = emailService;
         }
 
         public ActionResult Register()
@@ -23,23 +28,24 @@ namespace LunarSFXc.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
                 var user = new LunarUser { UserName = model.UserName, Email = model.Email, FirstWords = model.FirstWords };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    //await _signInManager.SignInAsync(user, isPersistent: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    string code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
+                    await _emailService.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Posts", "Blog");
+                    return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);
             }
@@ -47,6 +53,11 @@ namespace LunarSFXc.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+        //TODO: ForgotPassword Views...
+        //https://docs.asp.net/en/latest/security/authentication/accconfirm.html#id1
+
+
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
@@ -60,14 +71,14 @@ namespace LunarSFXc.Controllers
                 {
                     var user = await _userManager.FindByEmailAsync(model.Username);
 
-                    if(user != null)
+                    if (user != null)
                     {
                         signInResult = await _signInManager.PasswordSignInAsync(
                                                         user.UserName,
                                                         model.Password,
                                                         model.RememberMe,
                                                         false);
-                    }                    
+                    }
                 }
                 else
                 {
@@ -78,7 +89,7 @@ namespace LunarSFXc.Controllers
                                                         false);
                 }
 
-                
+
                 if (signInResult.Succeeded)
                 {
                     if (string.IsNullOrWhiteSpace(returnUrl))
@@ -108,11 +119,25 @@ namespace LunarSFXc.Controllers
             return RedirectToAction("Posts", "Blog");
         }
 
+
+
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
             {
                 ModelState.AddModelError("", error.Description);
+            }
+        }
+
+        private IActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction(nameof(HomeController.Index), "Home");
             }
         }
     }

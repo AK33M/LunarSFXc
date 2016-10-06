@@ -2,7 +2,7 @@
 
 namespace LunarSFXc.Services
 {
-    public class DebugMailService : IMailService
+    public class DebugMailService : IEmailService
     {
         public void SendMail(string recipient, string from, string subject, string body)
         {

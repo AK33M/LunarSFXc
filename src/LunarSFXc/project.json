@@ -24,7 +24,9 @@
     "Microsoft.Extensions.Configuration.UserSecrets": "1.0.0",
     "Autofac": "4.1.0",
     "Autofac.Extensions.DependencyInjection": "4.0.0",
-    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0"
+    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
+    "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
+    "SendGrid.NetCore": "1.0.0-rtm-00002"
     },
 
   "tools": {

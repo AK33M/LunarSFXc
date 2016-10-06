@@ -17,12 +17,13 @@ namespace LunarSFXc.Autofac
 
             if (_env.IsDevelopment())
             {
-                builder.RegisterType<DebugMailService>().As<IMailService>();
+                builder.RegisterType<DebugMailService>().As<IEmailService>();
                 builder.RegisterType<SampleSeedData>();
             }
             else
             {
-                //Insert Real mail service here.. Perhaps Google?
+                builder.RegisterType<AuthEmailService>().As<IEmailService>();
+                builder.RegisterType<AuthEmailService>().As<ISmsService>();
             }
         }
     }

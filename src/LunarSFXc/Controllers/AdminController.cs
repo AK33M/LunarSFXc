@@ -2,6 +2,7 @@
 
 namespace LunarSFXc.Controllers
 {
+    [RequireHttps]
     public class AdminController : Controller
     {
         

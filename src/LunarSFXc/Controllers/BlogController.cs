@@ -7,13 +7,14 @@ using System;
 
 namespace LunarSFXc.Controllers
 {
+    [RequireHttps]
     public class BlogController : Controller
     {
         private IBlogRepository _repo;
-        private IMailService _mailService;
+        private IEmailService _mailService;
         private IConfigurationRoot _config;
 
-        public BlogController(IBlogRepository repo, IMailService mailService, IConfigurationRoot config)
+        public BlogController(IBlogRepository repo, IEmailService mailService, IConfigurationRoot config)
         {
             _repo = repo;
             _mailService = mailService;

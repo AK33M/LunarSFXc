@@ -13,6 +13,7 @@ using Autofac.Extensions.DependencyInjection;
 using LunarSFXc.Autofac;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using LunarSFXc.Objects;
+using LunarSFXc.Services;
 
 namespace LunarSFXc
 {
@@ -35,8 +36,6 @@ namespace LunarSFXc
             {
                 // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
                 builder.AddUserSecrets();
-
-                //var testConfig = _config["TestSecret"];
             }
 
             _config = builder.Build();
@@ -63,7 +62,7 @@ namespace LunarSFXc
             .AddEntityFrameworkStores<LunarDbContext>();
 
             services.AddDbContext<LunarDbContext>(options => options.UseSqlServer(_config["database:connectionString"]));
-
+            services.Configure<AuthMessageSenderOptions>(_config);
 
             // Add Autofac
             var containerBuilder = new ContainerBuilder();
