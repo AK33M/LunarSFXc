@@ -24,6 +24,7 @@ namespace LunarSFXc.Repositories
                                 .Take(pageSize)
                                 .Include(p => p.Category)
                                 .Include(p => p.PostTags)
+                                .Include(p => p.PostedBy)
                                 .ToList();
 
             GetTags(posts);
@@ -41,6 +42,7 @@ namespace LunarSFXc.Repositories
                                 .Take(pageSize)
                                 .Include(p => p.Category)
                                 .Include(p => p.PostTags)
+                                .Include(p => p.PostedBy)
                                 .ToList();
 
             GetTags(posts);
@@ -59,7 +61,7 @@ namespace LunarSFXc.Repositories
                         //get tags
                         tag.Tag = _context.Tags.FirstOrDefault(t => t.Id == tag.TagId);
                     }
-                }                
+                }
             }
         }
 
@@ -94,6 +96,7 @@ namespace LunarSFXc.Repositories
                                 .Take(pageSize)
                                 .Include(p => p.Category)
                                 .Include(p => p.PostTags)
+                                .Include(p => p.PostedBy)
                                 .ToList();
 
             GetTags(posts);
@@ -122,6 +125,7 @@ namespace LunarSFXc.Repositories
                                 .Take(pageSize)
                                 .Include(p => p.Category)
                                 .Include(p => p.PostTags)
+                                .Include(p => p.PostedBy)
                                 .ToList();
 
             GetTags(posts);
@@ -145,6 +149,7 @@ namespace LunarSFXc.Repositories
                                 .Where(p => p.PostedOn.Year == year && p.PostedOn.Month == month && p.UrlSlug.Equals(titleSlug))
                                 .Include(p => p.Category)
                                 .Include(p => p.PostTags)
+                                .Include(p => p.PostedBy)
                                 .ToList();
 
             GetTags(query);

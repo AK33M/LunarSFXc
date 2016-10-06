@@ -6,9 +6,10 @@
         <img src="~/img/87357.jpg" alt="Alternate Text" class="img-responsive" />
         <div class="overlay">
             <h3>
-                <post for-post="Model"></post>
+                <post for-post="Model"></post>                              
             </h3>
-            <p>
+            <h4>@Model.PostedBy.UserName</h4>
+            <p class="text-nowrap">
                 @Html.Raw(Model.ShortDescription)
                 <br />@Model.PostedOn.ToString("d")
             </p>
