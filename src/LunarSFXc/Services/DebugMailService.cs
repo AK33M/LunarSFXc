@@ -1,12 +1,18 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace LunarSFXc.Services
 {
     public class DebugMailService : IEmailService
     {
-        public void SendMail(string recipient, string from, string subject, string body)
+        public Task SendEmailAsync(string email, string subject, string message)
         {
-            Debug.WriteLine($"Sending Mail: To: {recipient} From: {from} Subject: {subject}");
+            throw new NotImplementedException();
         }
+
+        //public void SendMail(string recipient, string from, string subject, string body)
+        //{
+        //    Debug.WriteLine($"Sending Mail: To: {recipient} From: {from} Subject: {subject}");
+        //}
     }
 }

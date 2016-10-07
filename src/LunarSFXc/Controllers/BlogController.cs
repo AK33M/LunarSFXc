@@ -7,7 +7,7 @@ using System;
 
 namespace LunarSFXc.Controllers
 {
-    [RequireHttps]
+    //[RequireHttps]
     public class BlogController : Controller
     {
         private IBlogRepository _repo;
@@ -85,8 +85,8 @@ namespace LunarSFXc.Controllers
         {
             if (!ModelState.IsValid)
             {
-                _mailService.SendMail(_config["mailSettings:recipientAddress"], model.Email, "Message from LunarSFX", model.Message);
-
+                _mailService.SendEmailAsync(model.Email, "Message from Website", model.Message);
+                // (_config["mailSettings:recipientAddress"], model.Email, "Message from LunarSFX", model.Message);
                 ModelState.Clear();
                 ViewBag.UserMessage = "Success. Message Sent!";
             }

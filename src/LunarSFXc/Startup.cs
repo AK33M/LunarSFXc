@@ -59,7 +59,10 @@ namespace LunarSFXc
                 config.Password.RequiredLength = 8;
                 config.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";
             })
-            .AddEntityFrameworkStores<LunarDbContext>();
+            .AddEntityFrameworkStores<LunarDbContext>()
+            .AddDefaultTokenProviders();
+
+      
 
             services.AddDbContext<LunarDbContext>(options => options.UseSqlServer(_config["database:connectionString"]));
             services.Configure<AuthMessageSenderOptions>(_config);
@@ -130,6 +133,12 @@ namespace LunarSFXc
                         "Blog/{action}",
                         new { controller = "Blog", action = "Posts" }
                     );
+
+            routeBuilder.MapRoute(
+                       "Main",
+                       "{id?}",
+                       new { controller = "Home", action = "Index" }
+                   );
 
             routeBuilder.MapRoute(
                     name: "Default",

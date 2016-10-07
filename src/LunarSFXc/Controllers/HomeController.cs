@@ -2,7 +2,7 @@
 
 namespace LunarSFXc.Controllers
 {
-    [RequireHttps]
+   // [RequireHttps]
     public class HomeController : Controller
     {
         public IActionResult Index()

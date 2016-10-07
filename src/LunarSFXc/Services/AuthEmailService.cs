@@ -1,7 +1,4 @@
 ﻿using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
@@ -25,8 +22,8 @@ namespace LunarSFXc.Services
             myMessage.Text = message;
             myMessage.Html = message;
             var credentials = new NetworkCredential(
-                _options.SendGridUSer,
-                _options.SendGridKey);
+                _options.SendGridUser,
+                _options.SendGridPassword);
 
             var transportWeb = new SendGrid.Web(credentials);
             return transportWeb.DeliverAsync(myMessage);
