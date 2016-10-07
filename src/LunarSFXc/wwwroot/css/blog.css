@@ -49,3 +49,13 @@ a:hover {
     opacity: 0.5;
     display: inline-block;
 }
+
+
+
+body {
+    -moz-filter: blur(5px);
+    -ms-filter: blur(5px);
+    -webkit-filter: blur(5px);
+    filter: blur(5px);
+    pointer-events: none;
+}
