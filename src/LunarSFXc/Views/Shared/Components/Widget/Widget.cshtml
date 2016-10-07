@@ -1,41 +1,35 @@
 ﻿@model LunarSFXc.ViewModels.WidgetViewModel
 
-<div class="col-lg-12 col-md-12 col-sm-12">
-    <section id="blog">
-        <div class="container-fluid text-center bg-lighter">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h3>LATEST POSTS</h3>
-                    <hr class="primary mb" />
-                </div>
-            </div>
-            <div class="row">
-                <div class="container">
-                    @foreach (var post in Model.LastestPosts)
-                    {
-                        @Html.Partial("_PostTemplate", post)
-                    }
-                </div>
-            </div>
-            <div class="row">
-                <a asp-controller="Blog" asp-action="Posts" class="btn btn-xl">See More</a>
-            </div>
-            <div class="row">
-                <h5>Explore CATEGORIES</h5>
-                <ul class="list-inline">
-                    @foreach (var cat in Model.Categories)
-                    {
-                        <li><category for-category="cat"></category></li>
-                    }
-                </ul>
-            </div>
-            <div class="row">
-                <div class="widgetTags">
-                    <h5>Explore TAGS</h5>
-                    <tags tags for-tags="Model.Tags"></tags>
-                </div>
-            </div>
-        </div>
-    </section>
+<div class="row">
+    <div class="col-lg-12 text-center">
+        <h3>LATEST POSTS</h3>
+        <hr class="primary mb" />
+    </div>
+</div>
+<div class="row">
+    <div class="container">
+        @foreach (var post in Model.LastestPosts)
+        {
+            @Html.Partial("_PostTemplate", post)
+        }
+    </div>
+</div>
+<div class="row">
+    <a asp-controller="Blog" asp-action="Posts" class="btn btn-xl">See More</a>
+</div>
+<div class="row">
+    <h5>Explore CATEGORIES</h5>
+    <ul class="list-inline">
+        @foreach (var cat in Model.Categories)
+        {
+            <li><category for-category="cat"></category></li>
+        }
+    </ul>
+</div>
+<div class="row">
+    <div class="widgetTags">
+        <h5>Explore TAGS</h5>
+        <tags tags for-tags="Model.Tags"></tags>
+    </div>
 </div>
 
