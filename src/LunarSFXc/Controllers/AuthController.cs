@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using System.Net.Mail;
+using Microsoft.Extensions.Configuration;
 
 namespace LunarSFXc.Controllers
 {
@@ -15,14 +16,16 @@ namespace LunarSFXc.Controllers
         private SignInManager<LunarUser> _signInManager;
         private UserManager<LunarUser> _userManager;
         private IEmailService _emailService;
-        private MailAddress _authMail = new MailAddress("me@akeemtaiwo", "Akeem");
+
+        private MailAddress _authMail;
 
 
-        public AuthController(SignInManager<LunarUser> signInManager, UserManager<LunarUser> userManager, IEmailService emailService)
+        public AuthController(SignInManager<LunarUser> signInManager, UserManager<LunarUser> userManager, IEmailService emailService, IConfigurationRoot config)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailService = emailService;
+            _authMail = new MailAddress(config["mailSettings:authEmail:address"], config["mailSettings:authEmail:displayName"]);
         }
 
         [HttpGet]
