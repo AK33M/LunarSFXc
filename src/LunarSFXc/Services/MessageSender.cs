@@ -2,22 +2,23 @@
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using System;
 
 namespace LunarSFXc.Services
 {
-    public class AuthEmailService : IEmailService, ISmsService
+    public class MessageSender : IEmailService, ISmsService
     {
-        private AuthMessageSenderOptions _options;
+        private EmailSenderOptions _options;
 
-        public AuthEmailService(IOptions<AuthMessageSenderOptions> optionsAccessor)
+        public MessageSender(IOptions<EmailSenderOptions> optionsAccessor)
         {
             _options = optionsAccessor.Value;
         }
-        public Task SendEmailAsync(string email, string subject, string message)
+        public Task SendEmailAsync(string destEmail, MailAddress sourceEmail, string subject, string message)
         {
             var myMessage = new SendGrid.SendGridMessage();
-            myMessage.AddTo(email);
-            myMessage.From = new MailAddress("this@akeemtaiwo.com", "Akeem");
+            myMessage.AddTo(destEmail);
+            myMessage.From = sourceEmail;
             myMessage.Subject = subject;
             myMessage.Text = message;
             myMessage.Html = message;
@@ -26,7 +27,9 @@ namespace LunarSFXc.Services
                 _options.SendGridPassword);
 
             var transportWeb = new SendGrid.Web(credentials);
-            return transportWeb.DeliverAsync(myMessage);
+
+            var result = transportWeb.DeliverAsync(myMessage);
+            return result;
         }
     }
 }

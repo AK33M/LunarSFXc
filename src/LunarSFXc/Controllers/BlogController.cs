@@ -1,8 +1,6 @@
 ﻿using LunarSFXc.Repositories;
-using LunarSFXc.Services;
 using LunarSFXc.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using System;
 
 namespace LunarSFXc.Controllers
@@ -11,14 +9,10 @@ namespace LunarSFXc.Controllers
     public class BlogController : Controller
     {
         private IBlogRepository _repo;
-        private IEmailService _mailService;
-        private IConfigurationRoot _config;
 
-        public BlogController(IBlogRepository repo, IEmailService mailService, IConfigurationRoot config)
+        public BlogController(IBlogRepository repo)
         {
             _repo = repo;
-            _mailService = mailService;
-            _config = config;
         }
 
         public IActionResult Posts(int p = 1)
@@ -73,30 +67,6 @@ namespace LunarSFXc.Controllers
 
             var viewModel = new ListViewModel(_repo, s, "Search", p);
             return View("List", viewModel);
-        }
-
-        public IActionResult Contact()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Contact(ContactViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                _mailService.SendEmailAsync(model.Email, "Message from Website", model.Message);
-                // (_config["mailSettings:recipientAddress"], model.Email, "Message from LunarSFX", model.Message);
-                ModelState.Clear();
-                ViewBag.UserMessage = "Success. Message Sent!";
-            }
-            else
-            {
-                ModelState.AddModelError("", "Something Happened!");
-                return BadRequest("Could not send your message, try again later.");
-            }            
-
-            return Ok(ViewBag.UserMessage);
-        }
+        }        
     }
 }

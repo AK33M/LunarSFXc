@@ -14,9 +14,10 @@ namespace LunarSFXc.Autofac
         {
             //repos here!
             builder.RegisterType<BlogRepository>().As<IBlogRepository>();
+            
+            builder.RegisterType<MessageSender>().As<IEmailService>();
 
-            builder.RegisterType<AuthEmailService>().As<IEmailService>();
-            builder.RegisterType<AuthEmailService>().As<ISmsService>();
+            builder.RegisterType<MessageSender>().As<ISmsService>();
 
             if (_env.IsDevelopment())
             {

@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Net.Mail;
 using System.Threading.Tasks;
 
 namespace LunarSFXc.Services
 {
     public class DebugMailService : IEmailService
     {
-        public Task SendEmailAsync(string email, string subject, string message)
+        public Task SendEmailAsync(string destEmail, MailAddress sourceEmail, string subject, string message)
         {
             throw new NotImplementedException();
         }

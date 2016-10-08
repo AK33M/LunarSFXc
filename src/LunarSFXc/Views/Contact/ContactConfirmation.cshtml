@@ -1,0 +1,33 @@
+﻿@model LunarSFXc.ViewModels.ContactViewModel
+@{
+    ViewData["Title"] = "Contact";
+}
+
+@{
+    Layout = "_BlogLayout";
+}
+
+<section id="contactConfirmation">
+    <div class="container">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="text-center">
+                @if (ViewBag.Success)
+                {
+                    <h4 class="text-success">@ViewData["Message"]</h4>
+                    <hr class="primary mb" />
+                    <p>Your Message: <span class="text-info">@Model.Message</span></p>
+                    <p>was sent</p>
+                }
+                else
+                {
+                    <h4 class="text-danger">@ViewData["Message"]</h4>
+                    <hr class="primary mb" />
+                    <p>Your Message: <span class="text-info">@Model.Message</span></p>
+                    <p>was not sent!</p>
+                    <p>Please try again later.</p>                
+                }    
+                <a class="btn btn-xl" asp-controller="Home" asp-action="Index">Back to Site</a>    
+            </div>
+        </div>
+    </div>
+</section>

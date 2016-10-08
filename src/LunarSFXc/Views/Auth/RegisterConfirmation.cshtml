@@ -1,0 +1,22 @@
+﻿@model string
+@{
+    ViewData["Title"] = "Confirmation Email Sent!";
+}
+
+@{
+    Layout = "_BlogLayout";
+}
+
+<section id="registerConfirmation">
+    <div class="container">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="text-center">
+                <h4>@ViewData["Title"]</h4>
+                <hr />
+                <p>
+                    Please confirm your email address by clicking on the link sent to @Model
+                </p>
+            </div>
+        </div>
+    </div>
+</section>

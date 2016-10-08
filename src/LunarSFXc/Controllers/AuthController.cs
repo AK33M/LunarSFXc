@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using System.Net.Mail;
 
 namespace LunarSFXc.Controllers
 {
@@ -14,6 +15,8 @@ namespace LunarSFXc.Controllers
         private SignInManager<LunarUser> _signInManager;
         private UserManager<LunarUser> _userManager;
         private IEmailService _emailService;
+        private MailAddress _authMail = new MailAddress("me@akeemtaiwo", "Akeem");
+
 
         public AuthController(SignInManager<LunarUser> signInManager, UserManager<LunarUser> userManager, IEmailService emailService)
         {
@@ -22,12 +25,17 @@ namespace LunarSFXc.Controllers
             _emailService = emailService;
         }
 
-        public ActionResult Register()
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult Register(string returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
@@ -43,10 +51,11 @@ namespace LunarSFXc.Controllers
                     // Send an email with this link
                     string code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.Action("ConfirmEmail", "Auth", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                    await _emailService.SendEmailAsync(model.Email, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    await _emailService.SendEmailAsync(model.Email, _authMail, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToLocal(returnUrl);
+                    return View("RegisterConfirmation", model.Email);
                 }
+
                 AddErrors(result);
             }
 
@@ -76,7 +85,7 @@ namespace LunarSFXc.Controllers
 
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 var callbackUrl = Url.Action("ResetPassword", "Auth", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                await _emailService.SendEmailAsync(model.Email, "Reset Password",
+                await _emailService.SendEmailAsync(model.Email, _authMail, "Reset Password",
                     $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
 
                 return View("ForgotPasswordConfirmation");

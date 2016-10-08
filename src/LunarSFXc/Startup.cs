@@ -65,7 +65,7 @@ namespace LunarSFXc
       
 
             services.AddDbContext<LunarDbContext>(options => options.UseSqlServer(_config["database:connectionString"]));
-            services.Configure<AuthMessageSenderOptions>(_config);
+            services.Configure<EmailSenderOptions>(_config);
 
             // Add Autofac
             var containerBuilder = new ContainerBuilder();
