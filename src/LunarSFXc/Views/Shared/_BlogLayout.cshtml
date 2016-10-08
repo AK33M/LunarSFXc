@@ -131,6 +131,11 @@
     <!-- Custom Js-->
     <script src="~/js/app.js"></script>
 
+    <script>
+        //Removes the Bug "Closes the Responsive Menu on Menu Item Click"
+        $('.navbar-collapse ul li a').unbind();
+    </script>
+
 
     @RenderSection("scripts", false)
 </body>
