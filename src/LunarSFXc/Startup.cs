@@ -14,6 +14,7 @@ using LunarSFXc.Autofac;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using LunarSFXc.Objects;
 using LunarSFXc.Services;
+using Elmah.Io.Extensions.Logging;
 
 namespace LunarSFXc
 {
@@ -79,6 +80,8 @@ namespace LunarSFXc
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public async void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory, SampleSeedData seeder)
         {
+            loggerFactory.AddElmahIo(_config.GetValue<string>("ElmahIo:API_KEY"), new Guid(_config.GetValue<string>("ElmahIo:LOG_ID")));
+
             loggerFactory.AddConsole();
 
             if (_env.IsDevelopment())
