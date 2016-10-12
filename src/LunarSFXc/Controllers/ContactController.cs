@@ -2,6 +2,8 @@
 using LunarSFXc.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
@@ -10,12 +12,14 @@ namespace LunarSFXc.Controllers
     public class ContactController :Controller
     {
         private IConfigurationRoot _config;
+        private ILogger<ContactController> _logger;
         private IEmailService _mailService;
 
-        public ContactController(IEmailService mailService, IConfigurationRoot config)
+        public ContactController(IEmailService mailService, IConfigurationRoot config, ILogger<ContactController> logger)
         {
             _config = config;
             _mailService = mailService;
+            _logger = logger;
         }
 
         //public IActionResult Contact()
@@ -32,8 +36,15 @@ namespace LunarSFXc.Controllers
 
             if (ModelState.IsValid)
             {
-               await _mailService.SendEmailAsync(destination, sourceMailAddress,  $"Website from {model.Name}", model.ToString());
-                
+                try
+                {
+                    await _mailService.SendEmailAsync(destination, sourceMailAddress, $"Website from {model.Name}", model.ToString());
+                }
+                catch (Exception ex)
+                {
+                    return View("Error");
+                }
+
                 ModelState.Clear();
                 ViewBag.Success = true;
                 ViewData["Message"] = "Success. Message Sent!";

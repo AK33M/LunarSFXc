@@ -9,10 +9,12 @@ namespace LunarSFXc.Services
 {
     public class MessageSender : IEmailService, ISmsService
     {
+        private ILogger<MessageSender> _logger;
         private EmailSenderOptions _options;
 
-        public MessageSender(IOptions<EmailSenderOptions> optionsAccessor)
+        public MessageSender(IOptions<EmailSenderOptions> optionsAccessor, ILogger<MessageSender> logger)
         {
+            _logger = logger;
             _options = optionsAccessor.Value;
         }
         public Task SendEmailAsync(string destEmail, MailAddress sourceEmail, string subject, string message)
@@ -35,9 +37,9 @@ namespace LunarSFXc.Services
             }
             catch (Exception ex)
             {
-                //_logger.LogError($"Error sending email message", ex);
-                return null;
-            }           
+                _logger.LogError($"Error in Message Sender: SendEmailAsync", ex);
+                throw ex;
+            }
         }
     }
 }
