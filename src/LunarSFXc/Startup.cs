@@ -50,10 +50,10 @@ namespace LunarSFXc
             //Add your Services here..
             services.AddMvc(config =>
             {
-                if (_env.IsProduction())
-                    config.Filters.Add(new RequireHttpsAttribute());
+                //if (_env.IsProduction())
+                //    config.Filters.Add(new RequireHttpsAttribute());
             });
-
+            services.AddLogging();
             services.AddIdentity<LunarUser, IdentityRole>(config =>
             {
                 config.User.RequireUniqueEmail = true;
@@ -61,12 +61,12 @@ namespace LunarSFXc
                 config.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";
             })
             .AddEntityFrameworkStores<LunarDbContext>()
-            .AddDefaultTokenProviders();
+            .AddDefaultTokenProviders();      
 
-      
-
-            services.AddDbContext<LunarDbContext>(options => options.UseSqlServer(_config["database:connectionString"]));
+            services.AddDbContext<LunarDbContext>(options => options.UseSqlServer(_config.GetConnectionString("AkeemTaiwoConn")));
             services.Configure<EmailSenderOptions>(_config);
+            //services.AddTransient<SampleSeedData>();
+
 
             // Add Autofac
             var containerBuilder = new ContainerBuilder();
@@ -78,16 +78,16 @@ namespace LunarSFXc
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public async void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory, SampleSeedData seeder)
+        public async void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddElmahIo(_config.GetValue<string>("ElmahIo:API_KEY"), new Guid(_config.GetValue<string>("ElmahIo:LOG_ID")));
+           // loggerFactory.AddElmahIo(_config.GetValue<string>("ElmahIo:API_KEY"), new Guid(_config.GetValue<string>("ElmahIo:LOG_ID")));
 
             loggerFactory.AddConsole();
 
             if (_env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                await seeder.EnsureSeedDataAsync();
+               // await seeder.EnsureSeedDataAsync();
 
                 loggerFactory.AddDebug(LogLevel.Information);
             }

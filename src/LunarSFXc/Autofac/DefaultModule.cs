@@ -22,7 +22,6 @@ namespace LunarSFXc.Autofac
             if (_env.IsDevelopment())
             {
                 //builder.RegisterType<DebugMailService>().As<IEmailService>();
-                builder.RegisterType<SampleSeedData>();
             }
         }
     }
