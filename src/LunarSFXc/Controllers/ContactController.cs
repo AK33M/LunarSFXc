@@ -18,13 +18,13 @@ namespace LunarSFXc.Controllers
             _mailService = mailService;
         }
 
-        public IActionResult Contact()
-        {
-            return View("ContactConfirmation");
-        }
+        //public IActionResult Contact()
+        //{
+        //    return View("ContactConfirmation");
+        //}
 
         [HttpPost]
-        public async Task<IActionResult> Contact(ContactViewModel model)
+        public async Task<IActionResult> Send(ContactViewModel model)
         {
             var destination = _config["mailSettings:contactForm:destinationEmailAddress"];
             ViewBag.Success = false;

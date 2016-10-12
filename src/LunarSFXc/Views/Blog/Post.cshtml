@@ -24,7 +24,7 @@
                         <tags post-tags for-tags="Model.PostTags"></tags>
                     </div>
                     <div class="pull-right">
-                       By @Model.PostedBy.UserName<br />
+                       By @Model.PostedBy?.UserName<br />
                         <span class="posted-date">
                             @Model.PostedOn.ToString("d")
                         </span>

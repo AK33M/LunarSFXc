@@ -80,7 +80,7 @@ namespace LunarSFXc
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public async void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
-           // loggerFactory.AddElmahIo(_config.GetValue<string>("ElmahIo:API_KEY"), new Guid(_config.GetValue<string>("ElmahIo:LOG_ID")));
+            loggerFactory.AddElmahIo(_config.GetValue<string>("ElmahIo:API_KEY"), new Guid(_config.GetValue<string>("ElmahIo:LOG_ID")));
 
             loggerFactory.AddConsole();
 
@@ -142,6 +142,11 @@ namespace LunarSFXc
                        "{id?}",
                        new { controller = "Home", action = "Index" }
                    );
+
+            routeBuilder.MapRoute(
+                    name: "Contact",
+                    template: "Contact/{action}",
+                    defaults: new { controller = "Contact", action = "Send" });
 
             //routeBuilder.MapRoute(
             //        name: "Default",
