@@ -78,3 +78,8 @@ section {
 header {
     background-image: url(../img/AkeemTaiwoBG.jpeg);
 }
+
+/* Fix for Bootstrap Modal not showing fully */
+.modal-backdrop {
+  z-index: -1;
+}
