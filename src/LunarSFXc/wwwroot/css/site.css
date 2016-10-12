@@ -1,12 +1,4 @@
-﻿.homebackground {
-    background-image: url('../img/home-bg.jpg');
-}
-
-.postbackground {
-    background-image: url('../img/post-bg.jpg');
-}
-
-#search {
+﻿#search {
     float: right;
     margin-top: 9px;
     width: 250px;
@@ -79,5 +71,5 @@ section {
 }
 
 header{
-    background-image: url(../img/IMG_8541.jpg);
+    background-image: url(../img/AkeemTaiwoBG.jpeg);
 }

@@ -145,7 +145,7 @@ namespace LunarSFXc
 
             routeBuilder.MapRoute(
                     name: "Contact",
-                    template: "Contact/{action}",
+                    template: "Contact/Send",
                     defaults: new { controller = "Contact", action = "Send" });
 
             //routeBuilder.MapRoute(
