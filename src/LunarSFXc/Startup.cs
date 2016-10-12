@@ -87,6 +87,8 @@ namespace LunarSFXc
             if (_env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                await seeder.EnsureSeedDataAsync();
+
                 loggerFactory.AddDebug(LogLevel.Information);
             }
             else
@@ -101,8 +103,6 @@ namespace LunarSFXc
 
             //Use MVC always Last.
             app.UseMvc(ConfigureRoutes);
-
-            await seeder.EnsureSeedDataAsync();
         }
 
         private void ConfigureRoutes(IRouteBuilder routeBuilder)
@@ -143,9 +143,9 @@ namespace LunarSFXc
                        new { controller = "Home", action = "Index" }
                    );
 
-            routeBuilder.MapRoute(
-                    name: "Default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+            //routeBuilder.MapRoute(
+            //        name: "Default",
+            //        template: "{controller=Home}/{action=Index}/{id?}");
 
         }
     }

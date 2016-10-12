@@ -26,7 +26,8 @@ namespace LunarSFXc.Contexts
                 {
                     Email = "lunar@lunarsfx.com",
                     FirstWords = "Every one needs a hobby",
-                    UserName = "Lunar1"
+                    UserName = "Lunar1",
+                    EmailConfirmed = true
                 };
 
                 await _userManager.CreateAsync(user, "P@ssw0rd!");
@@ -72,7 +73,8 @@ namespace LunarSFXc.Contexts
                         {
                             new PostTag {Tag = sampleTags.FirstOrDefault()},
                             new PostTag {Tag = sampleTags.LastOrDefault()}
-                        }
+                        },
+                        PostedBy = await _userManager.FindByEmailAsync("lunar@lunarsfx.com")
                     }
                 };
 

@@ -8,7 +8,7 @@
             <h3>
                 <post for-post="Model"></post>                              
             </h3>
-            <h4>@Model.PostedBy.UserName</h4>
+            <h4>@Model.PostedBy?.UserName</h4>
             <p class="text-nowrap">
                 @Html.Raw(Model.ShortDescription)
                 <br />@Model.PostedOn.ToString("d")
