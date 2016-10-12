@@ -70,6 +70,11 @@ section {
     padding-bottom: 0;
 }
 
-header{
+    section#photos {
+        background-color: #eeeeee;
+    }
+
+
+header {
     background-image: url(../img/AkeemTaiwoBG.jpeg);
 }
