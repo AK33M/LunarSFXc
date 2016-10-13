@@ -1,0 +1,10 @@
+﻿@model LunarSFXc.ViewModels.CommentViewModel
+
+<h4>Leave a Comment</h4>
+<form role="form" method="post">
+    <div class="form-group">
+        <textarea type="text" asp-for="@Model.Comment" class="form-control" placeholder="Leave a comment" rows="3"></textarea>
+        <span class="text-danger" asp-validation-for="@Model.Comment"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
