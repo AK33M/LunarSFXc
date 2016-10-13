@@ -54,64 +54,14 @@
                 </div>
                 <hr />
 
-                <!-- Comment -->
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="http://placehold.it/64x64" alt="">
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">
-                            Start Bootstrap
-                            <small>August 25, 2014 at 9:30 PM</small>
-                        </h4>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    </div>
-                </div>
-                <!-- Comment -->
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="http://placehold.it/64x64" alt="">
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">
-                            Start Bootstrap
-                            <small>August 25, 2014 at 9:30 PM</small>
-                        </h4>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                        <!-- Nested Comment -->
-                        <div class="media">
-                            <a class="pull-left" href="#">
-                                <img class="media-object" src="http://placehold.it/64x64" alt="">
-                            </a>
-                            <div class="media-body">
-                                <h4 class="media-heading">
-                                    Nested Start Bootstrap
-                                    <small>August 25, 2014 at 9:30 PM</small>
-                                </h4>
-                                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                                <!-- Nested Comment -->
-                                <div class="media">
-                                    <a class="pull-left" href="#">
-                                        <img class="media-object" src="http://placehold.it/64x64" alt="">
-                                    </a>
-                                    <div class="media-body">
-                                        <h4 class="media-heading">
-                                            Nested Start Bootstrap
-                                            <small>August 25, 2014 at 9:30 PM</small>
-                                        </h4>
-                                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                                    </div>
-                                </div>
-                                <!-- End Nested Comment -->
-                            </div>
-                        </div>
-                        <!-- End Nested Comment -->
-                    </div>
-                </div>
+                @if (Model.Comments.Any())
+                {
+                   <div class="well"> @Component.InvokeAsync("Comments", new { comments = Model.Comments }).Result</div>
+                }
             </div>
 
             <!-- Blog Sidebar Widgets Column -->
-            <div class="col-md-4">
+            <div class="col-lg-4">
 
                 <!-- Blog Categories Well -->
                 <div class="well">
@@ -127,38 +77,6 @@
         </div>
     </div>
 </section>
-
-
-@*<div id="content">
-        <div class="container">
-            <div class="col-lg-10 col-lg-offset-1">
-                <div class="blog-col">
-                    <div class="post-title">
-                        <h2>
-                            @Model.Title
-                        </h2>
-                    </div>
-                    <div class="post-meta">
-                        <div>
-                            <category for-category="Model.Category"></category>
-                        </div>
-                        <div class="pull-left">
-                            <tags post-tags for-tags="Model.PostTags"></tags>
-                        </div>
-                        <div class="pull-right">
-                           By @Model.PostedBy?.UserName<br />
-                            <span class="posted-date">
-                                @Model.PostedOn.ToString("d")
-                            </span>
-                        </div>
-                    </div>
-                    <div class="well well-lg post-body">
-                        <p>@Html.Raw(Model.Description)</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>*@
 
 @section scripts {
     <script>

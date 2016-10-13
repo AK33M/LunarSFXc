@@ -16,6 +16,7 @@ namespace LunarSFXc.Repositories
         ICollection<Post> PostsForSearch(string search, int pageNo, int pageSize);
         int TotalPostsForSearch(string search);
         Post Post(int year, int month, string titleSlug);
+        ICollection<Comment> GetChildComments(int parentCommentId);
         ICollection<Category> Categories();
         ICollection<Tag> Tags();
     }

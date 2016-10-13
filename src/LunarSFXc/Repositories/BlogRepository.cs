@@ -31,7 +31,7 @@ namespace LunarSFXc.Repositories
                                     .Include(p => p.Category)
                                     .Include(p => p.PostTags)
                                     .Include(p => p.PostedBy)
-                                    .Include(p => p.Comments)
+                                    //.Include(p => p.Comments)
                                     .ToList();
 
                 GetTags(posts);
@@ -80,7 +80,7 @@ namespace LunarSFXc.Repositories
                                .Include(p => p.Category)
                                .Include(p => p.PostTags)
                                .Include(p => p.PostedBy)
-                               .Include(p => p.Comments)
+                               //.Include(p => p.Comments)
                                .ToList();
 
                 GetTags(posts);
@@ -106,7 +106,7 @@ namespace LunarSFXc.Repositories
                                 .Include(p => p.Category)
                                 .Include(p => p.PostTags)
                                 .Include(p => p.PostedBy)
-                                .Include(p => p.Comments)
+                                //.Include(p => p.Comments)
                                 .ToList();
 
                 GetTags(posts);
@@ -132,7 +132,7 @@ namespace LunarSFXc.Repositories
                                .Include(p => p.Category)
                                .Include(p => p.PostTags)
                                .Include(p => p.PostedBy)
-                               .Include(p => p.Comments)
+                               //.Include(p => p.Comments)
                                .ToList();
 
                 GetTags(posts);
@@ -142,6 +142,23 @@ namespace LunarSFXc.Repositories
             catch (Exception ex)
             {
                 _logger.LogError($"Error getting all Posts with search term '{search}' from database", ex);
+                return null;
+            }
+        }
+
+        public ICollection<Comment> GetChildComments(int parentCommentId)
+        {
+            try
+            {
+                var parentComment = _context.Comments.Include(c => c.Replies).FirstOrDefault(c => c.Id == parentCommentId);
+
+                var childComments = parentComment.Replies;
+
+                return childComments;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error getting all child comments", ex);
                 return null;
             }
         }
