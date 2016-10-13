@@ -12,11 +12,20 @@ namespace LunarSFXc.ViewComponents
         {
             _repo = repo;
         }
-        public IViewComponentResult Invoke()
+        public IViewComponentResult Invoke(bool sidebar = true)
         {
-            var model = new WidgetViewModel(_repo);
+            if (!sidebar)
+            {
+                var model = new WidgetViewModel(_repo);
 
-            return View("Widget", model);
+                return View("Widget", model);
+            }
+            else
+            {
+                var model = new WidgetViewModel(_repo);
+
+                return View("SidebarWidget", model);
+            }                
         }
     }
 }

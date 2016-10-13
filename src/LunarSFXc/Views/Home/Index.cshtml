@@ -96,7 +96,7 @@
 <!-- Blog Widget Section-->
 <section id="blog">
     <div class="container-fluid text-center bg-lighter">
-        @Component.InvokeAsync("Widget").Result
+        @Component.InvokeAsync("Widget", new { sidebar = false }).Result
     </div>
 </section>
 <!-- Contact Us Section -->

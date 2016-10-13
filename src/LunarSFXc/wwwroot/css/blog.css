@@ -9,7 +9,7 @@ a:hover {
     text-decoration: none;
 }
 
-#content {
+/*#content {
     margin-top: 100px;
 }
 
@@ -23,7 +23,7 @@ a:hover {
 
     #content .post-body {
         margin-top: 50px;
-    }
+    }*/
 
 .search {
     height: 30px;
