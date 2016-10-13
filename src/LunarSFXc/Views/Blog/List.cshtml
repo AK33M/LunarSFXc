@@ -7,7 +7,7 @@
 <section id="blog-list">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-8 col-md-8 col-sm-8">
                 <h4>@ViewBag.Title</h4>
                 <hr />
                 @if (Model.Posts.Count > 0)
@@ -23,7 +23,7 @@
                 }
                 @Html.Partial("_Pager", Model)
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4 col-md-4 col-sm-4">
                 <!-- Blog Categories Well -->
                 <div class="well">
                     @Component.InvokeAsync("Widget", new { sidebar = true }).Result
