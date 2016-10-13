@@ -33,5 +33,7 @@ namespace LunarSFXc.Objects
 
         public ICollection<PostTag> PostTags { get; set; }
         public ICollection<Image> Images { get; set; }
+
+        public ICollection<Comment> Comments { get; set; }
     }
 }
