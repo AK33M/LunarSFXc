@@ -65,7 +65,7 @@
                         </li>
 
                         <li>
-                            <a asp-controller="Auth" asp-action="Logout">Log out</a>
+                            <a asp-controller="Auth" asp-action="Logout" asp-route-returnUrl="@Context.Request.Path">Log out</a>
                         </li>
                     }
                     <li>

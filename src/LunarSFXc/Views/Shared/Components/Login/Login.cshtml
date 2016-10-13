@@ -1,7 +1,15 @@
 ﻿@model LunarSFXc.ViewModels.LoginViewModel
+@{ 
+    var returnUrl = ViewBag.ReturnUrl ?? Context.Request.Query["returnUrl"].ToString();
+
+    if(string.IsNullOrWhiteSpace(returnUrl))
+    {
+        returnUrl = Context.Request.Path;
+    }
+}
 
 <div class="col-md-12">
-    <form method="post" asp-controller="Auth" asp-action="Login" novalidate>
+    <form method="post" asp-controller="Auth" asp-action="Login" asp-route-returnUrl="@returnUrl" novalidate>
         <h4 class="text-center">Login Here!</h4>
         <hr />
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>

@@ -115,7 +115,7 @@ namespace LunarSFXc.Controllers
             }
 
             var user = await _userManager.FindByEmailAsync(model.Email);
-            if(user == null)
+            if (user == null)
             {
                 return RedirectToAction(nameof(AuthController.ResetPasswordConfirmation), "Auth");
             }
@@ -139,13 +139,13 @@ namespace LunarSFXc.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmail(string userId, string code)
         {
-            if(userId == null || code == null)
+            if (userId == null || code == null)
             {
                 return View("Error");
             }
 
             var user = await _userManager.FindByIdAsync(userId);
-            if(user == null)
+            if (user == null)
             {
                 return View("Error");
             }
@@ -155,15 +155,21 @@ namespace LunarSFXc.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl;
+
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToLocal(returnUrl);
+
+            }
             return View("RedirectedLogin");
         }
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            ViewBag.ReturnUrl = returnUrl;
             if (ModelState.IsValid)
             {
                 var signInResult = new Microsoft.AspNetCore.Identity.SignInResult();
@@ -193,14 +199,8 @@ namespace LunarSFXc.Controllers
 
                 if (signInResult.Succeeded)
                 {
-                    if (string.IsNullOrWhiteSpace(returnUrl))
-                    {
-                        return RedirectToAction("Posts", "Blog");
-                    }
-                    else
-                    {
-                        return Redirect(returnUrl);
-                    }
+                    return RedirectToLocal(returnUrl);
+
                 }
                 else
                 {
@@ -211,13 +211,14 @@ namespace LunarSFXc.Controllers
             return View("RedirectedLogin");
         }
 
-        public async Task<IActionResult> Logout()
+        public async Task<IActionResult> Logout(string returnUrl)
         {
             if (User.Identity.IsAuthenticated)
             {
                 await _signInManager.SignOutAsync();
             }
-            return RedirectToAction("Posts", "Blog");
+
+            return RedirectToLocal(returnUrl);
         }
 
 
@@ -232,14 +233,12 @@ namespace LunarSFXc.Controllers
 
         private IActionResult RedirectToLocal(string returnUrl)
         {
-            if (Url.IsLocalUrl(returnUrl))
+            if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
             }
-            else
-            {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
-            }
+
+            return RedirectToAction(nameof(BlogController.Posts), "Blog");
         }
     }
 }

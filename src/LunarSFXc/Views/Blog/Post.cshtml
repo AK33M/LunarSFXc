@@ -47,16 +47,26 @@
 
                 <hr />
 
-                <!-- Blog Comments-->
-                <!-- Comments Form -->
-                <div class="well">
-                    @Component.InvokeAsync("CommentForm").Result
-                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <!-- Blog Comments-->
+                    <!-- Comments Form -->
+                    <div class="well">
+                        @Component.InvokeAsync("CommentForm").Result
+                    </div>
+                }
+                else
+                {
+                    <p>Please <a asp-controller="Auth" asp-action="Login" asp-route-returnUrl="@Context.Request.Path">sign in</a> to leave comments</p>
+
+                }
+
+
                 <hr />
 
                 @if (Model.Comments.Any())
                 {
-                   <div class="well"> @Component.InvokeAsync("Comments", new { comments = Model.Comments }).Result</div>
+                    <div class="well"> @Component.InvokeAsync("Comments", new { comments = Model.Comments }).Result</div>
                 }
             </div>
 
