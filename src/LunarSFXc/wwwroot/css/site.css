@@ -83,3 +83,7 @@ header {
 .modal-backdrop {
   z-index: -1;
 }
+/* Fix for Bootstrap Modal padding on top */
+.portfolio-modal{
+    padding-top: 50px;
+}
