@@ -1,4 +1,5 @@
-﻿using LunarSFXc.Repositories;
+﻿using AutoMapper;
+using LunarSFXc.Repositories;
 using LunarSFXc.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -27,14 +28,16 @@ namespace LunarSFXc.Controllers
         public IActionResult Post(int year, int month, string title)
         {
             var post = _repo.Post(year, month, title);
-
+            
             if (post == null)
                 throw new Exception("Post not found");
 
             if (post.Published == false && User.Identity.IsAuthenticated == false)
                 throw new Exception("The post is not published");
 
-            return View(post);
+            var model = Mapper.Map<PostViewModel>(post);
+            
+            return View(model);
         }
 
         public IActionResult Category(string category, int p = 1)

@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using LunarSFXc.Objects;
 using LunarSFXc.Services;
 using Elmah.Io.Extensions.Logging;
+using AutoMapper;
+using LunarSFXc.ViewModels;
 
 namespace LunarSFXc
 {
@@ -100,6 +102,10 @@ namespace LunarSFXc
 
             app.UseIdentity();
 
+            Mapper.Initialize(config =>
+            {
+                config.CreateMap<PostViewModel, Post>().ReverseMap();
+            });
 
             //Use MVC always Last.
             app.UseMvc(ConfigureRoutes);
