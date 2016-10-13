@@ -22,10 +22,19 @@
                 <p class="lead">
                     by @Model.PostedBy?.UserName
                 </p>
+                <p>
+                    <span>Posted on @Model.PostedOn.ToString("d")</span>
+                </p>
+
                 <hr />
 
+                <!-- Category -->
+                <category for-category="Model.Category"></category>
+
+                <!-- Tags -->
+                <tags post-tags for-tags="Model.PostTags"></tags>
+
                 <!-- Date/Time -->
-                <p><span>Posted on @Model.PostedOn.ToString("d")</span></p>
                 <hr />
 
                 <!-- Preview Image -->
@@ -120,42 +129,42 @@
                     <h4>Side Widget Well</h4>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, perspiciatis adipisci accusamus laudantium odit aliquam repellat tempore quos aspernatur vero.</p>
                 </div>
-            </div>            
+            </div>
         </div>
     </div>
 </section>
 
 
 @*<div id="content">
-    <div class="container">
-        <div class="col-lg-10 col-lg-offset-1">
-            <div class="blog-col">
-                <div class="post-title">
-                    <h2>
-                        @Model.Title
-                    </h2>
-                </div>
-                <div class="post-meta">
-                    <div>
-                        <category for-category="Model.Category"></category>
+        <div class="container">
+            <div class="col-lg-10 col-lg-offset-1">
+                <div class="blog-col">
+                    <div class="post-title">
+                        <h2>
+                            @Model.Title
+                        </h2>
                     </div>
-                    <div class="pull-left">
-                        <tags post-tags for-tags="Model.PostTags"></tags>
+                    <div class="post-meta">
+                        <div>
+                            <category for-category="Model.Category"></category>
+                        </div>
+                        <div class="pull-left">
+                            <tags post-tags for-tags="Model.PostTags"></tags>
+                        </div>
+                        <div class="pull-right">
+                           By @Model.PostedBy?.UserName<br />
+                            <span class="posted-date">
+                                @Model.PostedOn.ToString("d")
+                            </span>
+                        </div>
                     </div>
-                    <div class="pull-right">
-                       By @Model.PostedBy?.UserName<br />
-                        <span class="posted-date">
-                            @Model.PostedOn.ToString("d")
-                        </span>
+                    <div class="well well-lg post-body">
+                        <p>@Html.Raw(Model.Description)</p>
                     </div>
-                </div>
-                <div class="well well-lg post-body">
-                    <p>@Html.Raw(Model.Description)</p>
                 </div>
             </div>
         </div>
-    </div>
-</div>*@
+    </div>*@
 
 @section scripts {
     <script>
