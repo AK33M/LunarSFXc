@@ -1,17 +1,21 @@
 ﻿@model LunarSFXc.ViewModels.WidgetViewModel
 
-<div class="row text-center">
-    <h5>Explore other CATEGORIES</h5>
-    <ul class="list-unstyled">
-        @foreach (var cat in Model.Categories)
-        {
-            <li><category for-category="cat"></category></li>
-        }
-    </ul>
+<div class="row">
+    <div class="text-center">
+        <h5>Explore other CATEGORIES</h5>
+        <ul class="list-unstyled">
+            @foreach (var cat in Model.Categories)
+            {
+                <li><category for-category="cat"></category></li>
+            }
+        </ul>
+    </div>
 </div>
-<div class="row text-center">
-    <h5>Explore more TAGS</h5>
-    <div class="widgetTags">
-        <tags tags for-tags="Model.Tags"></tags>
+<div class="row">
+    <div class="text-center">
+        <h5>Explore more TAGS</h5>
+        <div class="widgetTags">
+            <tags tags for-tags="Model.Tags"></tags>
+        </div>
     </div>
 </div>

@@ -239,7 +239,7 @@ namespace LunarSFXc.Repositories
                                 .Count();
         }
 
-        private void GetTags(List<Post> posts)
+        private void GetTags(ICollection<Post> posts)
         {
             foreach (var post in posts)
             {
@@ -254,5 +254,167 @@ namespace LunarSFXc.Repositories
             }
 
         }
+
+        //Admin Features
+        public ICollection<Post> Posts(int pageNo, int pageSize, string sortColumn, bool sortByAscending)
+        {
+            ICollection<Post> posts;
+            // ICollection<int> postIds;
+
+            switch (sortColumn)
+            {
+                case "Title":
+                    if (sortByAscending)
+                    {
+                        posts = _context.Posts
+                                        .OrderBy(p => p.Title)
+                                        .Skip(pageNo * pageSize)
+                                        .Take(pageSize)
+                                        .Include(p => p.PostTags)
+                                        .ToList();
+
+                        GetTags(posts);
+                    }
+                    else
+                    {
+                        posts = _context.Posts
+                                        .OrderByDescending(p => p.Title)
+                                        .Skip(pageNo * pageSize)
+                                        .Take(pageSize)
+                                        .Include(p => p.PostTags)
+                                        .ToList();
+
+                        GetTags(posts);
+                    }
+                    break;
+                case "Published":
+                    if (sortByAscending)
+                    {
+                        posts = _context.Posts
+                                        .OrderBy(p => p.Published)
+                                        .Skip(pageNo * pageSize)
+                                        .Take(pageSize)
+                                        .Include(p => p.PostTags)
+                                        .ToList();
+
+                        GetTags(posts);
+                    }
+                    else
+                    {
+                        posts = _context.Posts
+                                        .OrderByDescending(p => p.Published)
+                                        .Skip(pageNo * pageSize)
+                                        .Take(pageSize)
+                                        .Include(p => p.PostTags)
+                                        .ToList();
+
+                        GetTags(posts);
+                    }
+                    break;
+                case "PostedOn":
+                    if (sortByAscending)
+                    {
+                        posts = _context.Posts
+                                        .OrderBy(p => p.PostedOn)
+                                        .Skip(pageNo * pageSize)
+                                        .Take(pageSize)
+                                        .Include(p => p.PostTags)
+                                        .ToList();
+
+                        GetTags(posts);
+                    }
+                    else
+                    {
+                        posts = _context.Posts
+                                        .OrderByDescending(p => p.PostedOn)
+                                        .Skip(pageNo * pageSize)
+                                        .Take(pageSize)
+                                        .Include(p => p.PostTags)
+                                        .ToList();
+
+                        GetTags(posts);
+                    }
+                    break;
+                case "Modified":
+                    if (sortByAscending)
+                    {
+                        posts = _context.Posts
+                                        .OrderBy(p => p.Modified)
+                                        .Skip(pageNo * pageSize)
+                                        .Take(pageSize)
+                                        .Include(p => p.PostTags)
+                                        .ToList();
+
+                        GetTags(posts);
+                    }
+                    else
+                    {
+                        posts = _context.Posts
+                                        .OrderByDescending(p => p.Modified)
+                                        .Skip(pageNo * pageSize)
+                                        .Take(pageSize)
+                                        .Include(p => p.PostTags)
+                                        .ToList();
+
+                        GetTags(posts);
+                    }
+                    break;
+                case "Category":
+                    if (sortByAscending)
+                    {
+                        posts = _context.Posts
+                                        .OrderBy(p => p.Category.Name)
+                                        .Skip(pageNo * pageSize)
+                                        .Take(pageSize)
+                                        .Include(p => p.PostTags)
+                                        .ToList();
+
+                        GetTags(posts);
+                    }
+                    else
+                    {
+                        posts = _context.Posts
+                                        .OrderByDescending(p => p.Category.Name)
+                                        .Skip(pageNo * pageSize)
+                                        .Take(pageSize)
+                                        .Include(p => p.PostTags)
+                                        .ToList();
+
+                        GetTags(posts);
+                    }
+                    break;
+                default:
+                    //Order by Id
+                    if (sortByAscending)
+                    {
+                        posts = _context.Posts
+                                        .OrderBy(p => p.Id)
+                                        .Skip(pageNo * pageSize)
+                                        .Take(pageSize)
+                                        .Include(p => p.PostTags)
+                                        .ToList();
+
+                        GetTags(posts);
+                    }
+                    else
+                    {
+                        posts = _context.Posts
+                                        .OrderByDescending(p => p.Id)
+                                        .Skip(pageNo * pageSize)
+                                        .Take(pageSize)
+                                        .Include(p => p.PostTags)
+                                        .ToList();
+
+                        GetTags(posts);
+                    }
+                    break;
+            }
+
+            return posts;
+        }
+
+
+
+
     }
 }

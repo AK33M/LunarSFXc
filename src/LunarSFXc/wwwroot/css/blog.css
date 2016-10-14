@@ -25,6 +25,10 @@ a:hover {
         margin-top: 50px;
     }*/
 
+.blog-col {
+        margin-bottom: 20px;
+    }
+
 .search {
     height: 30px;
     position: relative;
