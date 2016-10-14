@@ -114,6 +114,12 @@ namespace LunarSFXc
         private void ConfigureRoutes(IRouteBuilder routeBuilder)
         {
             routeBuilder.MapRoute(
+                        "Admin",
+                        "Admin/{action}",
+                        new { controller = "Admin", action = "Index" }
+                    );
+
+            routeBuilder.MapRoute(
                         "Tag",
                         "Tag/{tag}",
                         new { controller = "Blog", action = "Tag" }

@@ -2,9 +2,12 @@
 
 namespace LunarSFXc.Controllers
 {
-    [RequireHttps]
+    //[RequireHttps]
     public class AdminController : Controller
     {
-        
+        public IActionResult Index()
+        {
+            return View();
+        }
     }
 }
