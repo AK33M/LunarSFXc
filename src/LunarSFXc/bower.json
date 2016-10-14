@@ -6,6 +6,9 @@
     "font-awesome": "~4.6.3",
     "jquery-validation": "~1.15.1",
     "jquery-validation-unobtrusive": "~3.2.6",
-    "sb-admin-2": "*"
+    "sb-admin-2": "*",
+    "angular": "~1.5.8",
+    "angular-route": "~1.5.8",
+    "angular-messages": "~1.5.8"
   }
 }

@@ -19,5 +19,9 @@ namespace LunarSFXc.Repositories
         ICollection<Comment> GetChildComments(int parentCommentId);
         ICollection<Category> Categories();
         ICollection<Tag> Tags();
+
+        //Admin features
+        ICollection<Post> Posts(int pageNo, int pageSize, string sortColumn, bool sortByAscending);
+
     }
 }

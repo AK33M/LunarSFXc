@@ -1,9 +1,18 @@
-﻿@{ 
+﻿@{
     Layout = "_AdminLayout";
 }
 
-<div class="row">
-    <div class="col-lg-12">
+@section Scripts{
+    <script type="text/javascript" src="~/lib/angular/angular.min.js"></script>
+    <script type="text/javascript" src="~/lib/angular-messages/angular-messages.min.js"></script>
+    <script type="text/javascript" src="~/lib/angular-route/angular-route.min.js"></script>
+
+
+    <script type="text/javascript" src="~/js/app-admin.js"></script>
+}
+
+<div class="row" ng-app="app-admin">
+    <div ng-view>
 
     </div>
 </div>
