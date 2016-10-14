@@ -5,6 +5,6 @@ namespace LunarSFXc.ViewModels
 {
     public class CommentsViewModel
     {
-        public ICollection<Comment> Comments { get; set; }
+        public ICollection<CommentViewModel> Comments { get; set; }
     }
 }

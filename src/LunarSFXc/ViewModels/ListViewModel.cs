@@ -1,4 +1,4 @@
-﻿using LunarSFXc.Objects;
+﻿using AutoMapper;
 using LunarSFXc.Repositories;
 using System.Collections.Generic;
 
@@ -8,7 +8,7 @@ namespace LunarSFXc.ViewModels
     {
         public ListViewModel(IBlogRepository repo, int p)
         {
-            Posts = repo.Posts(p - 1, 10);
+            Posts = Mapper.Map<ICollection<PostViewModel>>(repo.Posts(p - 1, 10));
             TotalPosts = repo.TotalPosts();
         }
 
@@ -17,26 +17,26 @@ namespace LunarSFXc.ViewModels
             switch (type)
             {
                 case "Tag":
-                    Posts = repo.PostsForTag(text, p - 1, 10);
+                    Posts = Mapper.Map<ICollection<PostViewModel>>(repo.PostsForTag(text, p - 1, 10));
                     TotalPosts = repo.TotalPostsForTag(text);
-                    Tag = repo.Tag(text);
+                    Tag = Mapper.Map<TagViewModel>(repo.Tag(text));
                     break;
                 case "Category":
-                    Posts = repo.PostsForCategory(text, p - 1, 10);
+                    Posts = Mapper.Map<ICollection<PostViewModel>>(repo.PostsForCategory(text, p - 1, 10));
                     TotalPosts = repo.TotalPostsForCategory(text);
-                    Category = repo.Category(text);
+                    Category = Mapper.Map<CategoryViewModel>(repo.Category(text));
                     break;
                 default:
-                    Posts = repo.PostsForSearch(text, p - 1, 10);
+                    Posts = Mapper.Map<ICollection<PostViewModel>>(repo.PostsForSearch(text, p - 1, 10));
                     TotalPosts = repo.TotalPostsForSearch(text);
                     Search = text;
                     break;
             }
         }
-        public ICollection<Post> Posts { get; set; }
+        public ICollection<PostViewModel> Posts { get; set; }
         public int TotalPosts { get; set; }
-        public Category Category { get; set; }
-        public Tag Tag { get; set; }
+        public CategoryViewModel Category { get; set; }
+        public TagViewModel Tag { get; set; }
         public string Search { get; set; }
     }
 }

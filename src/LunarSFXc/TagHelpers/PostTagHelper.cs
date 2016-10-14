@@ -1,4 +1,5 @@
 ﻿using LunarSFXc.Objects;
+using LunarSFXc.ViewModels;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System.Collections.Generic;
 
@@ -6,7 +7,7 @@ namespace LunarSFXc.TagHelpers
 {
     public class PostTagHelper : TagHelper
     {
-        public Post ForPost { get; set; }
+        public PostViewModel ForPost { get; set; }
         public string PostTitle { get; set; } = string.Empty;
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
@@ -28,7 +29,7 @@ namespace LunarSFXc.TagHelpers
 
     public class CategoryTagHelper : TagHelper
     {
-        public Category ForCategory { get; set; }
+        public CategoryViewModel ForCategory { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -72,7 +73,7 @@ namespace LunarSFXc.TagHelpers
     [HtmlTargetElement("tags", Attributes = "tags")]
     public class TagsTagHelper : TagHelper
     {
-        public ICollection<Tag> ForTags { get; set; }
+        public ICollection<TagViewModel> ForTags { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
