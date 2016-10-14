@@ -1,0 +1,19 @@
+﻿@model LunarSFXc.Objects.Post
+
+<!-- First Blog Post -->
+<h2>
+    <post for-post="Model"></post>
+</h2>
+<p class="lead">
+    by <a href="#">@Model.PostedBy?.UserName</a>
+</p>
+<p>
+    <span class="fa fa-clock-o"></span>
+    Posted on @Model.PostedOn.ToString("d")
+</p>
+<hr>
+<img class="img-responsive" src="http://placehold.it/900x300" alt="">
+<hr>
+<p>@Model.ShortDescription</p>
+<post for-post="Model" post-title="continue..."></post>
+<hr>
