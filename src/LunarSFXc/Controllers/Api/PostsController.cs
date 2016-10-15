@@ -11,10 +11,10 @@ namespace LunarSFXc.Controllers.Api
     [Route("api/posts")]
     public class PostsController : Controller
     {
-        private ILogger _logger;
+        private ILogger<PostsController> _logger;
         private IBlogRepository _repo;
 
-        public PostsController(IBlogRepository repo, ILogger logger)
+        public PostsController(IBlogRepository repo, ILogger<PostsController> logger)
         {
             _repo = repo;
             _logger = logger;

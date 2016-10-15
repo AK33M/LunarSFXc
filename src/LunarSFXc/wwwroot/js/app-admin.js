@@ -3,5 +3,9 @@
     "use strict";
 
     //Creating the module
-    var app = angular.module("app-admin", ["services", "routing"]);
+    var app = angular.module("app-admin",
+        [
+            "services",
+            "routing"
+        ]);
 })();
