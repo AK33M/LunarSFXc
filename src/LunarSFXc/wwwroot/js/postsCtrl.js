@@ -14,10 +14,14 @@
                 { field: 'Title' },
                 { field: 'ShortDescription' },
                 { field: 'Description' },
+                { name: 'Category', field: 'Category.Name', enableSorting: false },
+                { name: 'Tags', field: 'TagString', enableSorting: false },
                 { field: 'Published', enableSorting: false },
                 { field: 'PostedOn' },
-                { field: 'Category.Name', enableSorting: false },
-                { field: 'TagString', enableSorting: false }
+                { field: 'PostedBy.UserName' },
+                { field: 'Meta' },
+                { field: 'UrlSlug' },
+
             ],
             onRegisterApi: function (gridApi) {
                 $scope.gridApi = gridApi;
@@ -25,10 +29,9 @@
         };
 
         postsResource.get(function (data) {
-            console.log(data);
             $scope.gridOptions1.data = data.rows;
 
-            
+
         });
     }
 

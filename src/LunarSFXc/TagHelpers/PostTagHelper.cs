@@ -47,28 +47,28 @@ namespace LunarSFXc.TagHelpers
         }
     }
 
-    [HtmlTargetElement("tags", Attributes = "post-tags")]
-    public class PostTagsTagHelper : TagHelper
-    {
-        public ICollection<PostTag> ForTags { get; set; }
+    //[HtmlTargetElement("tags", Attributes = "post-tags")]
+    //public class PostTagsTagHelper : TagHelper
+    //{
+    //    public ICollection<PostTag> ForTags { get; set; }
 
-        public override void Process(TagHelperContext context, TagHelperOutput output)
-        {
-            var tags = ForTags;
-            var html = string.Empty;
-            if (tags != null)
-            {
-                foreach (var tag in tags)
-                {
-                    html = html + $"<li><a href='/Tag/{tag.Tag.UrlSlug}' title='See all posts with {tag.Tag.Name} tag'>#{tag.Tag.Name}</a></li>";
-                }
-            }
+    //    public override void Process(TagHelperContext context, TagHelperOutput output)
+    //    {
+    //        var tags = ForTags;
+    //        var html = string.Empty;
+    //        if (tags != null)
+    //        {
+    //            foreach (var tag in tags)
+    //            {
+    //                html = html + $"<li><a href='/Tag/{tag.Tag.UrlSlug}' title='See all posts with {tag.Tag.Name} tag'>#{tag.Tag.Name}</a></li>";
+    //            }
+    //        }
 
-            output.TagName = "ul";
-            output.Attributes.Add("class", "postTags list-inline pull-right");
-            output.Content.SetHtmlContent(html);
-        }
-    }
+    //        output.TagName = "ul";
+    //        output.Attributes.Add("class", "postTags list-inline pull-right");
+    //        output.Content.SetHtmlContent(html);
+    //    }
+    //}
 
     [HtmlTargetElement("tags", Attributes = "tags")]
     public class TagsTagHelper : TagHelper
