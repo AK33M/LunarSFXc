@@ -1,6 +1,6 @@
 {
-	"name": "LunarSFXc",
-	"private": true,
+  "name": "LunarSFXc",
+  "private": true,
   "dependencies": {
     "bootstrap": "~3.3.7",
     "font-awesome": "~4.6.3",
@@ -10,6 +10,10 @@
     "angular": "~1.5.8",
     "angular-route": "~1.5.8",
     "angular-messages": "~1.5.8",
-    "angular-resource": "*"
+    "angular-resource": "*",
+    "angular-ui-grid": "~3.2.9"
+  },
+  "resolutions": {
+    "angular": "1.5.8"
   }
 }
