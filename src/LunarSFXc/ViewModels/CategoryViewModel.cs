@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace LunarSFXc.ViewModels
@@ -12,7 +13,7 @@ namespace LunarSFXc.ViewModels
         [StringLength(500, ErrorMessage = "UrlSlug: Length should not exceed 500 characters")]
         public string UrlSlug { get; set; }
         public string Description { get; set; }
-        //[JsonIgnore]
+        [JsonIgnore]
         public ICollection<PostViewModel> Posts { get; set; }
     }
 }

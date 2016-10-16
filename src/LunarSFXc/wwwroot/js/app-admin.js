@@ -6,6 +6,7 @@
     var app = angular.module("app-admin",
         [
             "services",
-            "routing"
+            "routing",
+            "ui.grid"
         ]);
 })();

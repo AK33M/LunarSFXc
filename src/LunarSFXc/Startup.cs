@@ -104,10 +104,17 @@ namespace LunarSFXc
 
             Mapper.Initialize(config =>
             {
-                config.CreateMap<PostViewModel, Post>().ReverseMap();
+                config.CreateMap<Post, PostViewModel>()
+                                        .ForMember(dest => dest.Tags, opt => opt.MapFrom(x => x.PostTags))
+                                        .ReverseMap();
                 config.CreateMap<TagViewModel, Tag>().ReverseMap();
                 config.CreateMap<CategoryViewModel, Category>().ReverseMap();
                 config.CreateMap<CommentViewModel, Comment>().ReverseMap();
+
+                config.CreateMap<PostTag, TagViewModel>()
+                        .ForMember(dest => dest.Name, opts => opts.MapFrom(s => s.Tag.Name))
+                        .ForMember(dest => dest.Description, opts => opts.MapFrom(s => s.Tag.Description))
+                        .ForMember(dest => dest.UrlSlug, opts => opts.MapFrom(s => s.Tag.UrlSlug));
             });
 
             //Use MVC always Last.

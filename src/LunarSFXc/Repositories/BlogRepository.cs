@@ -399,10 +399,11 @@ namespace LunarSFXc.Repositories
                     else
                     {
                         posts = _context.Posts
-                                        .OrderByDescending(p => p.Id)
-                                        .Skip(pageNo * pageSize)
-                                        .Take(pageSize)
+                                        //.OrderByDescending(p => p.Id)
+                                        //.Skip(pageNo * pageSize)
+                                        //.Take(pageSize)
                                         .Include(p => p.PostTags)
+                                        .Include(p => p.Category)
                                         .ToList();
 
                         GetTags(posts);

@@ -11,9 +11,9 @@
                             //    templateUrl: "/views/tripsView.html"
                             //});
 
-                            $routeProvider.when("/hello", {
+                            $routeProvider.when("/posts", {
                                 controller: "PostsCtrl as vm",
-                                templateUrl: "/views/hello.html"
+                                templateUrl: "/views/posts.html"
                             });
 
                             $routeProvider.otherwise({

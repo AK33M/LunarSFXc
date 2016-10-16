@@ -26,8 +26,26 @@ namespace LunarSFXc.ViewModels
         public DateTime PostedOn { get; set; }
         public CategoryViewModel Category { get; set; }
         public LunarUser PostedBy { get; set; }
-        public ICollection<PostTag> PostTags { get; set; }
+        public ICollection<TagViewModel> Tags { get; set; }
         public ICollection<Image> Images { get; set; }
         public ICollection<CommentViewModel> Comments { get; set; }
+
+
+        public string TagString
+        {
+            get { return GetTagSting(); }
+        }
+
+        private string GetTagSting()
+        {
+            var result = string.Empty;
+
+            foreach (var tag in Tags)
+            {
+                result = string.Join(",", tag.Name);
+            }
+
+            return result;
+        }
     }
 }

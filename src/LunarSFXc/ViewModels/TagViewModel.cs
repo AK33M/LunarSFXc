@@ -15,6 +15,6 @@ namespace LunarSFXc.ViewModels
         public string Description { get; set; }
         //[JsonIgnore]
         //public ICollection<Post> Posts { get; set; }
-        public ICollection<PostTag> PostTags { get; set; }
+        //public ICollection<PostTag> PostTags { get; set; }
     }
 }
