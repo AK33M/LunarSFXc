@@ -33,19 +33,19 @@ namespace LunarSFXc.ViewModels
 
         public string TagString
         {
-            get { return GetTagSting(); }
+            get { return GetTagString(); }
         }
 
-        private string GetTagSting()
+        private string GetTagString()
         {
             var result = string.Empty;
 
             foreach (var tag in Tags)
             {
-                result = string.Join(",", tag.Name);
+                result = string.Join(", ", tag.Name, result);               
             }
 
-            return result;
+            return result.EndsWith(", ") ? result.Remove(result.LastIndexOf(',')) : result;
         }
     }
 }

@@ -18,7 +18,7 @@
                 { name: 'Tags', field: 'TagString', enableSorting: false },
                 { field: 'Published', enableSorting: false },
                 { field: 'PostedOn' },
-                { field: 'PostedBy.UserName' },
+                { name : 'Posted By', field: 'PostedBy.UserName' },
                 { field: 'Meta' },
                 { field: 'UrlSlug' },
 
