@@ -16,6 +16,11 @@
                                 templateUrl: "/views/posts.html"
                             });
 
+                            $routeProvider.when("/add-post", {
+                                controller: "AddPostCtrl as vm",
+                                templateUrl: "/views/add-post.html"
+                            });
+
                             $routeProvider.otherwise({
                                 redirectTo: "/"
                             });
