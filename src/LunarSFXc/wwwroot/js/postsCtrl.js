@@ -11,16 +11,17 @@
         $scope.gridOptions1 = {
             enableSorting: true,
             columnDefs: [
-                { field: 'Title' },
-                { field: 'ShortDescription' },
-                { field: 'Description' },
-                { name: 'Category', field: 'Category.Name', enableSorting: false },
-                { name: 'Tags', field: 'TagString', enableSorting: false },
-                { field: 'Published', enableSorting: false },
-                { field: 'PostedOn' },
-                { name : 'Posted By', field: 'PostedBy.UserName' },
-                { field: 'Meta' },
-                { field: 'UrlSlug' },
+                { field: 'Title', width: 150 },
+                { field: 'ShortDescription', enableSorting: false, width: 200 },
+                { field: 'Description', enableSorting: false},
+                { name: 'Category', field: 'Category.Name', width: 100 },
+                { name: 'Tags', field: 'TagString', enableSorting: false, width: 100 },
+                { field: 'Published', width: 50, type:'boolean' },
+                { field: 'PostedOn', cellFilter: 'date', width: 100},
+                { field: 'Modified', cellFilter: 'date', width: 100 },
+                { name: 'Posted By', field: 'PostedBy.UserName', width: 100 },
+                { field: 'Meta', width: 100 },
+                { field: 'UrlSlug', width: 100 },
 
             ],
             onRegisterApi: function (gridApi) {
@@ -29,8 +30,6 @@
         };
 
         postsResource.get(function (data) {
-            console.log(data.rows);
-
             $scope.gridOptions1.data = data.rows;
 
         });
