@@ -1,6 +1,10 @@
 //Loads the correct sidebar on window load,
 //collapses the sidebar on window resize.
 // Sets the min-height of #page-wrapper to window size
+$(function () {
+    $('#side-menu').metisMenu();
+});
+
 $(function() {
     $(window).bind("load resize", function() {
         topOffset = 50;
@@ -19,4 +23,20 @@ $(function() {
             $("#page-wrapper").css("min-height", (height) + "px");
         }
     })
+
+    var url = window.location;
+    // var element = $('ul.nav a').filter(function() {
+    //     return this.href == url;
+    // }).addClass('active').parent().parent().addClass('in').parent();
+    var element = $('ul.nav a').filter(function () {
+        return this.href == url;
+    }).addClass('active').parent();
+
+    while (true) {
+        if (element.is('li')) {
+            element = element.parent().addClass('in').parent();
+        } else {
+            break;
+        }
+    }
 })

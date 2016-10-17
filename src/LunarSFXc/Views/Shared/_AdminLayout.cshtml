@@ -14,11 +14,11 @@
     <!-- MetisMenu CSS -->
     <link href="~/lib/sb-admin-2/css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
 
-    <!-- DataTables CSS -->
-    <link href="~/lib/sb-admin-2/css/plugins/dataTables.bootstrap.css" rel="stylesheet" />
+    <!-- DataTables CSS 
+    <link href="~/lib/sb-admin-2/css/plugins/dataTables.bootstrap.css" rel="stylesheet" />-->
 
-    <!-- DataTables Responsive CSS -->
-    <link href="~/lib/sb-admin-2/datatables-responsive/dataTables.responsive.css" rel="stylesheet" />
+    <!-- DataTables Responsive CSS 
+    <link href="~/lib/sb-admin-2/datatables-responsive/dataTables.responsive.css" rel="stylesheet" />-->
 
     <!-- UI GRID CSS -->
     <link href="~/lib/angular-ui-grid/ui-grid.min.css" rel="stylesheet" />
@@ -151,8 +151,20 @@
                             </div>
                             <!-- /input-group -->
                         </li>
+                        @*<li>
+                            <a href="#/addPost"><i class="fa fa-plus-square fa-fw"></i>Add New Blog Post</a>
+                        </li>*@
                         <li>
-                            <a href="#/posts"><i class="fa fa-pencil-square-o fa-fw"></i> Blog Posts</a>
+                            <a href="#">Blog Posts</a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="#/addPosts"><i class="fa fa-pencil-square-o fa-fw"></i> Add New Blog Post</a>
+                                </li>
+                                <li>
+                                    <a href="#/posts"><i class="fa fa-eye fa-fw"></i> View All</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
@@ -179,10 +191,10 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="~/lib/sb-admin-2/js/plugins/metisMenu/metisMenu.min.js"></script>
 
-    <!-- DataTables JavaScript -->
+    <!-- DataTables JavaScript 
     <script src="~/lib/sb-admin-2/js/plugins/dataTables/jquery.dataTables.js"></script>
     <script src="~/lib/sb-admin-2/js/plugins/dataTables/dataTables.bootstrap.js"></script>
-    <script src="~/lib/sb-admin-2/datatables-responsive/dataTables.responsive.js"></script>
+    <script src="~/lib/sb-admin-2/datatables-responsive/dataTables.responsive.js"></script>-->
 
     <!-- Morris Charts JavaScript
     <script src="~/lib/sb-admin-2/js/plugins/morris/raphael.min.js"></script>
