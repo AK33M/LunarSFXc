@@ -25,7 +25,7 @@ namespace LunarSFXc.ViewModels
         [Required(ErrorMessage = "PostedOn: Field is required")]
         public DateTime PostedOn { get; set; }
         public CategoryViewModel Category { get; set; }
-        public LunarUser PostedBy { get; set; }
+        public LunarUserViewModel PostedBy { get; set; }
         public ICollection<TagViewModel> Tags { get; set; }
         public ICollection<Image> Images { get; set; }
         public ICollection<CommentViewModel> Comments { get; set; }

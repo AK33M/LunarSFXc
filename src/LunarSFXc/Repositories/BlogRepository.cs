@@ -271,6 +271,8 @@ namespace LunarSFXc.Repositories
                                         .Skip(pageNo * pageSize)
                                         .Take(pageSize)
                                         .Include(p => p.PostTags)
+                                        .Include(p => p.Category)
+                                        .Include(p => p.PostedBy)
                                         .ToList();
 
                         GetTags(posts);
@@ -282,6 +284,8 @@ namespace LunarSFXc.Repositories
                                         .Skip(pageNo * pageSize)
                                         .Take(pageSize)
                                         .Include(p => p.PostTags)
+                                        .Include(p => p.Category)
+                                        .Include(p => p.PostedBy)
                                         .ToList();
 
                         GetTags(posts);
@@ -295,6 +299,8 @@ namespace LunarSFXc.Repositories
                                         .Skip(pageNo * pageSize)
                                         .Take(pageSize)
                                         .Include(p => p.PostTags)
+                                        .Include(p => p.Category)
+                                        .Include(p => p.PostedBy)
                                         .ToList();
 
                         GetTags(posts);
@@ -306,6 +312,8 @@ namespace LunarSFXc.Repositories
                                         .Skip(pageNo * pageSize)
                                         .Take(pageSize)
                                         .Include(p => p.PostTags)
+                                        .Include(p => p.Category)
+                                        .Include(p => p.PostedBy)
                                         .ToList();
 
                         GetTags(posts);
@@ -319,6 +327,8 @@ namespace LunarSFXc.Repositories
                                         .Skip(pageNo * pageSize)
                                         .Take(pageSize)
                                         .Include(p => p.PostTags)
+                                        .Include(p => p.Category)
+                                        .Include(p => p.PostedBy)
                                         .ToList();
 
                         GetTags(posts);
@@ -330,6 +340,8 @@ namespace LunarSFXc.Repositories
                                         .Skip(pageNo * pageSize)
                                         .Take(pageSize)
                                         .Include(p => p.PostTags)
+                                        .Include(p => p.Category)
+                                        .Include(p => p.PostedBy)
                                         .ToList();
 
                         GetTags(posts);
@@ -343,6 +355,8 @@ namespace LunarSFXc.Repositories
                                         .Skip(pageNo * pageSize)
                                         .Take(pageSize)
                                         .Include(p => p.PostTags)
+                                        .Include(p => p.Category)
+                                        .Include(p => p.PostedBy)
                                         .ToList();
 
                         GetTags(posts);
@@ -354,6 +368,8 @@ namespace LunarSFXc.Repositories
                                         .Skip(pageNo * pageSize)
                                         .Take(pageSize)
                                         .Include(p => p.PostTags)
+                                        .Include(p => p.Category)
+                                        .Include(p => p.PostedBy)
                                         .ToList();
 
                         GetTags(posts);
@@ -367,6 +383,8 @@ namespace LunarSFXc.Repositories
                                         .Skip(pageNo * pageSize)
                                         .Take(pageSize)
                                         .Include(p => p.PostTags)
+                                        .Include(p => p.Category)
+                                        .Include(p => p.PostedBy)
                                         .ToList();
 
                         GetTags(posts);
@@ -378,6 +396,8 @@ namespace LunarSFXc.Repositories
                                         .Skip(pageNo * pageSize)
                                         .Take(pageSize)
                                         .Include(p => p.PostTags)
+                                        .Include(p => p.Category)
+                                        .Include(p => p.PostedBy)
                                         .ToList();
 
                         GetTags(posts);
@@ -392,6 +412,8 @@ namespace LunarSFXc.Repositories
                                         .Skip(pageNo * pageSize)
                                         .Take(pageSize)
                                         .Include(p => p.PostTags)
+                                        .Include(p => p.Category)
+                                        .Include(p => p.PostedBy)
                                         .ToList();
 
                         GetTags(posts);
@@ -404,6 +426,7 @@ namespace LunarSFXc.Repositories
                                         //.Take(pageSize)
                                         .Include(p => p.PostTags)
                                         .Include(p => p.Category)
+                                        .Include(p => p.PostedBy)
                                         .ToList();
 
                         GetTags(posts);

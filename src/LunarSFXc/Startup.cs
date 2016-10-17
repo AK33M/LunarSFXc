@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using LunarSFXc.Contexts;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using LunarSFXc.Autofac;
@@ -115,6 +114,8 @@ namespace LunarSFXc
                         .ForMember(dest => dest.Name, opts => opts.MapFrom(s => s.Tag.Name))
                         .ForMember(dest => dest.Description, opts => opts.MapFrom(s => s.Tag.Description))
                         .ForMember(dest => dest.UrlSlug, opts => opts.MapFrom(s => s.Tag.UrlSlug));
+
+                config.CreateMap<LunarUser, LunarUserViewModel>();
             });
 
             //Use MVC always Last.

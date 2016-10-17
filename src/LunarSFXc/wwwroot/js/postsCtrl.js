@@ -29,8 +29,9 @@
         };
 
         postsResource.get(function (data) {
-            $scope.gridOptions1.data = data.rows;
+            console.log(data.rows);
 
+            $scope.gridOptions1.data = data.rows;
 
         });
     }

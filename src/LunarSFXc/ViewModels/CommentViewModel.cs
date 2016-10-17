@@ -1,5 +1,4 @@
-﻿using LunarSFXc.Objects;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace LunarSFXc.ViewModels
@@ -13,7 +12,7 @@ namespace LunarSFXc.ViewModels
 
         public int Id { get; set; }
 
-        public LunarUser Owner { get; set; }
+        public LunarUserViewModel Owner { get; set; }
         public PostViewModel ParentPost { get; set; }
 
         public ICollection<CommentViewModel> Replies { get; set; }
