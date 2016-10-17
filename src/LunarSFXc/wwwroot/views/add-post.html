@@ -1,7 +1,6 @@
 ﻿<div class="col-lg-8 col-lg-offset-2">
     <h4 class="page-header">New Blog Post</h4>
     <form class="form-horizontal">
-
         <div class="form-group">
             <label for="title" class="col-sm-2 control-label">Post Title</label>
             <div class="col-sm-8">
@@ -51,8 +50,8 @@
         </div>
         <div class="form-group">
             <label for="published" class="col-sm-2 control-label">Publish?</label>
-            <div class="col-sm-8">
-                <div class="checkbox">
+            <div class="">
+                <div class="checkbox col-sm-8">
                     <input id="published" type="checkbox" class="form-control" />
                 </div>
             </div>
@@ -70,6 +69,13 @@
             <div class="col-sm-8">
                 <input type="text" id="url_slug" class="form-control" placeholder="Url Slug" />
             </div>
+        </div>
+    </form>
+
+    <form class="dropzone" asp-controller="" asp-action="" asp-antiforgery="false" id="UploadForm" enctype="multipart/form-data">
+        <div class="fallback">
+            <input name="file" type="file" multiple/>
+            <input type="submit" class="btn btn-primary" value="Upload" />
         </div>
     </form>
 </div>

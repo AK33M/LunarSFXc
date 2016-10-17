@@ -11,7 +11,8 @@
                 "ngTouch",
                 "ui.grid",
                 "ui.grid.pagination",
-                "ui.grid.selection"
+                "ui.grid.selection",
+                "angularFileUpload"
 
             ]);
     //.constant("appSettings",
