@@ -10,6 +10,7 @@
                 "ngAnimate",
                 "ngTouch",
                 "ui.grid",
+                "ui.grid.pagination"
 
             ]);
     //.constant("appSettings",

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LunarSFXc.Objects;
 using LunarSFXc.Repositories;
 using LunarSFXc.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -22,22 +23,23 @@ namespace LunarSFXc.Controllers.Api
         }
 
         [HttpGet]
-        public IActionResult Get(JqInViewModel jqParams)
+        public IActionResult Get(PaginationOptions options)
         {
             try
             {
-                var posts = _repo.Posts(jqParams.page - 1, jqParams.rows, jqParams.sidx, jqParams.sord == "asc");
+                var posts = _repo.Posts(options.pageNumber - 1, options.pageSize, options.columnName, options.sort == "asc");
 
                 var postsViewModels = Mapper.Map<ICollection<PostViewModel>>(posts);
+                var totalPosts = _repo.TotalPosts(false);
 
                 //return Ok(postsViewModels);
 
                 return Content(JsonConvert.SerializeObject(new
                 {
-                    page = jqParams.page,
-                    records = postsViewModels.Count,
+                    page = options.pageNumber,
+                    records = totalPosts,
                     rows = postsViewModels,
-                    total = 1//Math.Ceiling(Convert.ToDouble(posts.Count) / jqParams.rows)
+                    total = Math.Ceiling(Convert.ToDouble(totalPosts) / options.pageSize)
                 }), "application/Json");
             }
             catch (Exception ex)
@@ -45,6 +47,8 @@ namespace LunarSFXc.Controllers.Api
                 _logger.LogError($"Failed to get all Posts: {ex}");
                 return BadRequest("Error occurred");
             }
+
+            //return null;
         }
     }
 }

@@ -421,9 +421,9 @@ namespace LunarSFXc.Repositories
                     else
                     {
                         posts = _context.Posts
-                                        //.OrderByDescending(p => p.Id)
-                                        //.Skip(pageNo * pageSize)
-                                        //.Take(pageSize)
+                                        .OrderByDescending(p => p.Id)
+                                        .Skip(pageNo * pageSize)
+                                        .Take(pageSize)
                                         .Include(p => p.PostTags)
                                         .Include(p => p.Category)
                                         .Include(p => p.PostedBy)
@@ -437,8 +437,10 @@ namespace LunarSFXc.Repositories
             return posts;
         }
 
-
-
-
+        public int TotalPosts(bool checkIsPublished = true)
+        {
+            return _context.Posts
+                             .Count(p => !checkIsPublished || p.Published);
+        }
     }
 }

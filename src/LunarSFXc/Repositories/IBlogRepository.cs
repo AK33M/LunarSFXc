@@ -6,7 +6,7 @@ namespace LunarSFXc.Repositories
     public interface IBlogRepository
     {
         ICollection<Post> Posts(int pageNo, int pageSize);
-        int TotalPosts();
+        int TotalPosts(bool checkIsPublished = true);
         ICollection<Post> PostsForTag(string tagSlug, int pageNo, int pageSize);
         int TotalPostsForTag(string tagSlug);
         Tag Tag(string tagSlug);
