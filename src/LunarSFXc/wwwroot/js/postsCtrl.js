@@ -21,6 +21,13 @@
             useExternalPagination: true,
             useExternalSorting: true,
             enableColumnResizing: true,
+            enableRowSelection: true,
+            enableRowHeaderSelection: false,
+            enableFullRowSelection: true,
+            multiSelect: false,
+            modifierKeysToMultiSelect: false,
+            noUnselect: false,
+
             columnDefs: [
                 { name: 'Title', width: 150, cellTooltip: true },
                 { name: 'ShortDescription', width: 200, cellTooltip: true, enableSorting: false },
@@ -49,7 +56,7 @@
                 gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
                     paginationOptions.pageNumber = newPage;
                     paginationOptions.pageSize = pageSize;
-                    
+
                     getPage();
                 });
             }
@@ -58,12 +65,12 @@
         var getPage = function () {
             postsResource.get(paginationOptions, function (data) {
                 $scope.gridOptions.totalItems = data.records;
-               // var firstRow = (paginationOptions.pageNumber - 1) * paginationOptions.pageSize;
+                // var firstRow = (paginationOptions.pageNumber - 1) * paginationOptions.pageSize;
                 $scope.gridOptions.data = data.rows;//.slice(firstRow, firstRow + paginationOptions.pageSize);
 
             });
         };
-        
+
         getPage();
     }
 
