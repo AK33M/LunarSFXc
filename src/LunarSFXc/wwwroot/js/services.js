@@ -6,11 +6,15 @@
             [
                 "ngResource",
                 "ngMessages",
-                "ngRoute"
+                "ngRoute",
+                "ngAnimate",
+                "ngTouch",
+                "ui.grid",
+
             ]);
-            //.constant("appSettings",
-            //{
-            //    serverPath: ""
-            //})
-            //.service("", function () { });
+    //.constant("appSettings",
+    //{
+    //    serverPath: ""
+    //})
+    //.service("", function () { });
 }());
