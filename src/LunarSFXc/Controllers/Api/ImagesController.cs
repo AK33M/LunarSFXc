@@ -25,10 +25,10 @@ namespace LunarSFXc.Controllers.Api
             _imageServiceOptions = imageServiceOptions;
         }
 
-        [Route("images")]
+        [Route("upload")]
         [HttpPost]
         [ServiceFilter(typeof(ValidateMimeMultipartContentFilter))]
-        public async Task<IActionResult> UploadFiles(ICollection<IFormFile> Files)
+        public async Task<IActionResult> UploadFiles(ImageDescriptionShort file)
         {
             var names = new List<string>();
             var contentTypes = new List<string>();
@@ -38,25 +38,25 @@ namespace LunarSFXc.Controllers.Api
             {
                 // http://www.mikesdotnetting.com/article/288/asp-net-5-uploading-files-with-asp-net-mvc-6
                 // http://dotnetthoughts.net/file-upload-in-asp-net-5-and-mvc-6/
-                foreach (var file in Files)
+                foreach (var f in file.File)
                 {
-                    if (file.Length > 0)
+                    if (f.Length > 0)
                     {
-                        var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                        contentTypes.Add(file.ContentType);
+                        var fileName = ContentDispositionHeaderValue.Parse(f.ContentDisposition).FileName.Trim('"');
+                        contentTypes.Add(f.ContentType);
                         names.Add(fileName);
 
                         // Extension method update RC2 has removed this 
-                        await file.SaveAsAsync(Path.Combine(_imageServiceOptions.Value.ServerUploadFolder, fileName));
+                        await f.SaveAsAsync(Path.Combine(_imageServiceOptions.Value.ServerUploadFolder, fileName));
                     }
 
                     files.Files.Add(new ImageDescription
                     {
-                        ContentType = file.ContentType,
+                        ContentType = f.ContentType,
                         CreatedTimestamp = DateTime.Now,
                         UpdatedTimestamp = DateTime.Now,
                         Description = "",
-                        FileName = file.FileName
+                        FileName = f.FileName
                     });
                 }
             }
@@ -70,9 +70,9 @@ namespace LunarSFXc.Controllers.Api
 
         [Route("download/{id}")]
         [HttpGet]
-        public FileStreamResult Download(int id)
+        public async Task<FileStreamResult> Download(int id)
         {
-            var fileDescription = _repo.GetFileDescription(id);
+            var fileDescription = await _repo.GetFileDescription(id);
 
             var path = _imageServiceOptions.Value.ServerUploadFolder + "\\" + fileDescription.FileName;
             var stream = new FileStream(path, FileMode.Open);

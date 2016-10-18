@@ -66,6 +66,7 @@ namespace LunarSFXc
 
             services.AddDbContext<LunarDbContext>(options => options.UseSqlServer(_config.GetConnectionString("AkeemTaiwoConn")));
             services.Configure<EmailSenderOptions>(_config);
+            services.Configure<ImageServiceOptions>(_config);
             //services.AddTransient<SampleSeedData>();
 
 

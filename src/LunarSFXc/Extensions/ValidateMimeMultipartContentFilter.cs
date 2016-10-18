@@ -7,9 +7,9 @@ namespace LunarSFXc.Extensions
 {
     public class ValidateMimeMultipartContentFilter : ActionFilterAttribute
     {
-        private ILogger _logger;
+        private ILogger<ValidateMimeMultipartContentFilter> _logger;
 
-        public ValidateMimeMultipartContentFilter(ILogger logger)
+        public ValidateMimeMultipartContentFilter(ILogger<ValidateMimeMultipartContentFilter> logger)
         {
             _logger = logger;
         }
