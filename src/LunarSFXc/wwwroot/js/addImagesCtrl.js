@@ -9,7 +9,8 @@
         var vm = this;
 
         var uploader = $scope.uploader = new FileUploader({
-            url: 'api/images/upload'
+            url: 'api/images/upload',
+            queueLimit: 10
         });
 
         // FILTERS

@@ -28,41 +28,31 @@ namespace LunarSFXc.Controllers.Api
         [Route("upload")]
         [HttpPost]
         [ServiceFilter(typeof(ValidateMimeMultipartContentFilter))]
-        public async Task<IActionResult> UploadFiles(ImageDescriptionShort file)
+        public async Task<IActionResult> UploadFiles(Image file)
         {
-            var names = new List<string>();
-            var contentTypes = new List<string>();
-            var files = new ImageResult();
-
             if (ModelState.IsValid)
             {
                 // http://www.mikesdotnetting.com/article/288/asp-net-5-uploading-files-with-asp-net-mvc-6
                 // http://dotnetthoughts.net/file-upload-in-asp-net-5-and-mvc-6/
-                foreach (var f in file.File)
+                if (file.File.Length > 0)
                 {
-                    if (f.Length > 0)
-                    {
-                        var fileName = ContentDispositionHeaderValue.Parse(f.ContentDisposition).FileName.Trim('"');
-                        contentTypes.Add(f.ContentType);
-                        names.Add(fileName);
+                    var fileName = ContentDispositionHeaderValue.Parse(file.File.ContentDisposition).FileName.Trim('"');
 
-                        // Extension method update RC2 has removed this 
-                        await f.SaveAsAsync(Path.Combine(_imageServiceOptions.Value.ServerUploadFolder, fileName));
-                    }
-
-                    files.Files.Add(new ImageDescription
-                    {
-                        ContentType = f.ContentType,
-                        CreatedTimestamp = DateTime.Now,
-                        UpdatedTimestamp = DateTime.Now,
-                        Description = "",
-                        FileName = f.FileName
-                    });
+                    // Extension method update RC2 has removed this 
+                    await file.File.SaveAsAsync(Path.Combine(_imageServiceOptions.Value.ServerUploadFolder, fileName));
                 }
-            }
 
+                var imageDesc = new ImageDescription
+                {
+                    ContentType = file.File.ContentType,
+                    FileName = file.File.FileName,
+                    CreatedTimestamp = DateTime.UtcNow,
+                    UpdatedTimestamp = DateTime.UtcNow,
+                    Description = file.Id
+                };
 
-            _repo.AddFileDescriptions(files);
+                _repo.AddFileDescriptions(imageDesc);
+            }          
 
             //return RedirectToAction("ViewAllFiles", "FileClient");
             return Ok();

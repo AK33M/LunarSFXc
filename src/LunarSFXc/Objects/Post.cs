@@ -32,7 +32,7 @@ namespace LunarSFXc.Objects
         public LunarUser PostedBy { get; set; }
 
         public ICollection<PostTag> PostTags { get; set; }
-        public ICollection<Image> Images { get; set; }
+        public ICollection<ImageDescription> Images { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
     }

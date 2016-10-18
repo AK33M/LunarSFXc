@@ -8,9 +8,10 @@ using LunarSFXc.Contexts;
 namespace LunarSFXc.Migrations
 {
     [DbContext(typeof(LunarDbContext))]
-    partial class LunarDbContextModelSnapshot : ModelSnapshot
+    [Migration("20161018205304_ImageTableAlternate")]
+    partial class ImageTableAlternate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")

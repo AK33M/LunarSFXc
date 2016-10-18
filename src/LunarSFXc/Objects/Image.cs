@@ -1,21 +1,16 @@
-﻿namespace LunarSFXc.Objects
+﻿using Microsoft.AspNetCore.Http;
+using System;
+
+namespace LunarSFXc.Objects
 {
     public class Image
     {
-        public int Id { get; set; }
-        public string FileName { get; set; }
-        public string ContentType { get; set;}
-        public byte[] Content { get; set; }
-
-        public ImagePostPosition Postion { get; set; }
-
-    }
-
-    public enum ImagePostPosition
-    {
-        InPost,
-        HeaderBackground,
-        PostPreview
+        public Image()
+        {
+            Id = Guid.NewGuid().ToString();
+        }
+        public string Id { get; set; }
+        public IFormFile File { get; set; }
     }
 }
 
