@@ -5,6 +5,8 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace LunarSFXc.Repositories
 {
@@ -441,6 +443,17 @@ namespace LunarSFXc.Repositories
         {
             return _context.Posts
                              .Count(p => !checkIsPublished || p.Published);
+        }
+
+        public async Task<ImageDescription> GetFileDescription(int id)
+        {
+            return await _context.ImageDescriptions.SingleOrDefaultAsync(c => c.Id == id);
+        }
+
+        public void AddFileDescriptions(ImageResult files)
+        {
+            _context.ImageDescriptions.AddRange(files.Files);
+            _context.SaveChangesAsync();
         }
     }
 }

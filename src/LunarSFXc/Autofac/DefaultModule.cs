@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using LunarSFXc.Contexts;
+using LunarSFXc.Extensions;
 using LunarSFXc.Repositories;
 using LunarSFXc.Services;
 using Microsoft.AspNetCore.Hosting;
@@ -18,6 +19,8 @@ namespace LunarSFXc.Autofac
             builder.RegisterType<MessageSender>().As<IEmailService>();
 
             builder.RegisterType<MessageSender>().As<ISmsService>();
+
+            builder.RegisterType<ValidateMimeMultipartContentFilter>();
 
             if (_env.IsDevelopment())
             {
