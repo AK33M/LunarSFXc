@@ -29,7 +29,8 @@
     "SendGrid.NetCore": "1.0.0-rtm-00002",
     "Elmah.Io.AspNetCore": "1.0.1-pre-24",
     "Elmah.Io.Extensions.Logging": "1.0.0-pre-10",
-    "Automapper": "4.2.1"
+    "Automapper": "4.2.1",
+    "WindowsAzure.Storage": "7.2.1"
   },
 
   "tools": {

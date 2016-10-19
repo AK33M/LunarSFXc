@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.IO;
 using System.Threading;
@@ -28,6 +29,24 @@ namespace LunarSFXc.Extensions
             {
                 var inputStream = formFile.OpenReadStream();
                 await inputStream.CopyToAsync(fileStream, DefaultBufferSize, cancellationToken);
+            }
+        }
+
+        public async static Task SaveInAzureAsync(this IFormFile formFile, CloudBlobContainer container, string filename, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            if (formFile == null)
+            {
+                throw new ArgumentNullException(nameof(formFile));
+            }
+
+            // Get a reference to a blob named "filename".
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference(filename);
+
+            // Create or overwrite the "blockBlob" blob with the contents of a local file
+            // named “filename”.
+            using (var inputStream = formFile.OpenReadStream())
+            {
+                await blockBlob.UploadFromStreamAsync(inputStream);
             }
         }
     }

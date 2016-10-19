@@ -18,11 +18,13 @@ namespace LunarSFXc.Controllers.Api
     {
         private IOptions<ImageServiceOptions> _imageServiceOptions;
         private IBlogRepository _repo;
+        private ICouldStorageService _cloudStorage;
 
-        public ImagesController(IBlogRepository repo, IOptions<ImageServiceOptions> imageServiceOptions)
+        public ImagesController(IBlogRepository repo, IOptions<ImageServiceOptions> imageServiceOptions, ICouldStorageService cloudStorage)
         {
             _repo = repo;
             _imageServiceOptions = imageServiceOptions;
+            _cloudStorage = cloudStorage;
         }
 
         [Route("upload")]
@@ -39,7 +41,10 @@ namespace LunarSFXc.Controllers.Api
                     var fileName = ContentDispositionHeaderValue.Parse(file.File.ContentDisposition).FileName.Trim('"');
 
                     // Extension method update RC2 has removed this 
-                    await file.File.SaveAsAsync(Path.Combine(_imageServiceOptions.Value.ServerUploadFolder, fileName));
+                    //await file.File.SaveAsAsync(Path.Combine(_imageServiceOptions.Value.ServerUploadFolder, fileName));
+                    var container = _cloudStorage.GetStorageContainer("imagesupload");
+                    await file.File.SaveInAzureAsync(container, fileName);
+
                 }
 
                 var imageDesc = new ImageDescription
@@ -51,7 +56,7 @@ namespace LunarSFXc.Controllers.Api
                     Description = file.Id
                 };
 
-                _repo.AddFileDescriptions(imageDesc);
+                 _repo.AddOrUpdateFileDescriptions(imageDesc);
             }          
 
             //return RedirectToAction("ViewAllFiles", "FileClient");

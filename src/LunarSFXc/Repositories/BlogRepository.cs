@@ -450,10 +450,20 @@ namespace LunarSFXc.Repositories
             return await _context.ImageDescriptions.SingleOrDefaultAsync(c => c.Id == id);
         }
 
-        public void AddFileDescriptions(ImageDescription file)
+        public async void AddOrUpdateFileDescriptions(ImageDescription file)
         {
-            _context.ImageDescriptions.Add(file);
-            _context.SaveChangesAsync();
+            if (_context.ImageDescriptions.Any(x => x.FileName == file.FileName))
+            {
+                var oldFile = _context.ImageDescriptions.FirstOrDefault(x => x.FileName == file.FileName);
+                oldFile.UpdatedTimestamp = DateTime.UtcNow;
+                _context.ImageDescriptions.Update(oldFile);
+            }
+            else
+            {
+                _context.ImageDescriptions.Add(file);
+            }
+
+           await  _context.SaveChangesAsync();
         }
     }
 }
