@@ -74,6 +74,8 @@ namespace LunarSFXc.Controllers.Api
             return BadRequest(new { Message = "Image could not be uploaded, please try again" });
         }
 
+
+
         [Route("download/{id}")]
         [HttpGet]
         public async Task<FileStreamResult> Download(int id)
@@ -83,6 +85,15 @@ namespace LunarSFXc.Controllers.Api
             var path = _imageServiceOptions.Value.ServerUploadFolder + "\\" + fileDescription.FileName;
             var stream = new FileStream(path, FileMode.Open);
             return File(stream, fileDescription.ContentType);
+        }
+
+        [Route("list")]
+        [HttpGet]
+        public IActionResult ListAllImages(string containerName)
+        {
+            _cloudStorage.ListAllBlobs(containerName);
+
+            return null;
         }
     }
 }

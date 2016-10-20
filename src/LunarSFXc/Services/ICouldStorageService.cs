@@ -5,5 +5,6 @@ namespace LunarSFXc.Services
     public interface ICouldStorageService
     {
         CloudBlobContainer GetStorageContainer(string containerName);
+        void ListAllBlobs(string containerName);
     }
 }
