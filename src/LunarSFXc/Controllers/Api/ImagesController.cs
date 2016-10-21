@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -47,20 +48,21 @@ namespace LunarSFXc.Controllers.Api
                         //await file.File.SaveAsAsync(Path.Combine(_imageServiceOptions.Value.ServerUploadFolder, fileName));
                         var container = _cloudStorage.GetStorageContainer("imagesupload");
                         await file.File.SaveInAzureAsync(container, fileName);
+
+                        var imageDesc = new ImageDescription
+                        {
+                            ContentType = file.File.ContentType,
+                            FileName = file.File.FileName,
+                            ContainerName = container.Name,
+                            CreatedTimestamp = DateTime.UtcNow,
+                            UpdatedTimestamp = DateTime.UtcNow,
+                            Description = file.Id
+                        };
+
+                        _repo.AddOrUpdateFileDescriptions(imageDesc);
+
+                        return Ok(new { Message = "Image uploaded" });
                     }
-
-                    var imageDesc = new ImageDescription
-                    {
-                        ContentType = file.File.ContentType,
-                        FileName = file.File.FileName,
-                        CreatedTimestamp = DateTime.UtcNow,
-                        UpdatedTimestamp = DateTime.UtcNow,
-                        Description = file.Id
-                    };
-
-                    _repo.AddOrUpdateFileDescriptions(imageDesc);
-
-                    return Ok(new { Message = "Image uploaded" });
                 }
                 catch (Exception ex)
                 {
@@ -89,11 +91,9 @@ namespace LunarSFXc.Controllers.Api
 
         [Route("list")]
         [HttpGet]
-        public IActionResult ListAllImages(string containerName)
+        public async Task<ICollection<Uri>> ListAllImages(string containerName)
         {
-            _cloudStorage.ListAllBlobs(containerName);
-
-            return null;
+            return await _cloudStorage.ListAllBlobs(containerName);
         }
     }
 }

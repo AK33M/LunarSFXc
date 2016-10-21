@@ -3,9 +3,9 @@
 
     angular
         .module("app-admin")
-        .controller("PostsCtrl", ["$scope", "$interval", "uiGridConstants", "postsResource", PostsCtrl]);
+        .controller("PostsCtrl", ["$scope", "$interval", "uiGridConstants", "dataResource", PostsCtrl]);
 
-    function PostsCtrl($scope, $interval, uiGridConstants, postsResource) {
+    function PostsCtrl($scope, $interval, uiGridConstants, dataResource) {
         var vm = this;
 
         var paginationOptions = {
@@ -63,7 +63,7 @@
         };
 
         var getPage = function () {
-            postsResource.get(paginationOptions, function (data) {
+            dataResource.posts.get(paginationOptions, function (data) {
                 $scope.gridOptions.totalItems = data.records;
                 // var firstRow = (paginationOptions.pageNumber - 1) * paginationOptions.pageSize;
                 $scope.gridOptions.data = data.rows;//.slice(firstRow, firstRow + paginationOptions.pageSize);

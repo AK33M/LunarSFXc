@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using System;
 
 namespace LunarSFXc.Services
 {
@@ -31,7 +32,7 @@ namespace LunarSFXc.Services
             return container;
         }
 
-        public void ListAllBlobs(string containerName)
+        public async Task<ICollection<Uri>> ListAllBlobs(string containerName)
         {
             // Create the blob client.
             CloudBlobClient blobClient = _storageAccount.CreateCloudBlobClient();
@@ -39,7 +40,7 @@ namespace LunarSFXc.Services
             // Retrieve reference to a previously created container.
             CloudBlobContainer container = blobClient.GetContainerReference(containerName);
 
-            var foo = ListBlobsSegmentedInFlatListing(container);
+            return await ListBlobsSegmentedInFlatListing(container);
 
             //// Loop over items within the container and output the length and URI.
             //foreach (IListBlobItem item in container.ListBlobsSegmentedAsync( )
@@ -67,10 +68,11 @@ namespace LunarSFXc.Services
             //}
         }
 
-        async public static Task ListBlobsSegmentedInFlatListing(CloudBlobContainer container)
+        async public static Task<ICollection<Uri>> ListBlobsSegmentedInFlatListing(CloudBlobContainer container)
         {
             //List blobs to the console window, with paging.
-           // Console.WriteLine("List blobs in pages:");
+            // Console.WriteLine("List blobs in pages:");
+            var Uris = new List<Uri>();
 
             int i = 0;
             BlobContinuationToken continuationToken = null;
@@ -90,7 +92,7 @@ namespace LunarSFXc.Services
                 }
                 foreach (var blobItem in resultSegment.Results)
                 {
-                    var foo = blobItem.StorageUri.PrimaryUri;
+                    Uris.Add(blobItem.StorageUri.PrimaryUri);
                     //Console.WriteLine("\t{0}", blobItem.StorageUri.PrimaryUri);
                 }
                 //Console.WriteLine();
@@ -99,6 +101,8 @@ namespace LunarSFXc.Services
                 continuationToken = resultSegment.ContinuationToken;
             }
             while (continuationToken != null);
+
+            return Uris;
         }
     }
 }

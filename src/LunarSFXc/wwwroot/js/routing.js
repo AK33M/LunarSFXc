@@ -16,6 +16,11 @@
                                 templateUrl: "/views/posts.html"
                             });
 
+                            $routeProvider.when("/images", {
+                                controller: "ImagesCtrl as vm",
+                                templateUrl: "/views/images.html"
+                            });
+
                             $routeProvider.when("/add-post", {
                                 controller: "AddPostCtrl as vm",
                                 templateUrl: "/views/add-post.html"

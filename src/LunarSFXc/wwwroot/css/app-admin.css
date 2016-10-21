@@ -10,7 +10,8 @@
 
 .nv-file-over {
     border: dotted 3px red;
-}/* Default class applied to drop zones on over */
+}
+/* Default class applied to drop zones on over */
 
 canvas {
     background-color: #f3f3f3;
@@ -20,4 +21,60 @@ canvas {
     border: 1px solid #c3c3c3;
     height: 100px;
     margin: 6px 0 0 6px;
+}
+
+
+/* Images */
+
+#photos {
+    /* Prevent vertical gaps */
+    line-height: 0;
+    -webkit-column-count: 7;
+    -webkit-column-gap: 0px;
+    -moz-column-count: 7;
+    -moz-column-gap: 0px;
+    column-count: 7;
+    column-gap: 0px;
+}
+
+    #photos img {
+        /* Just in case there are inline attributes */
+        width: 100% !important;
+        height: auto !important;
+    }
+
+.thumbnail {
+    margin-bottom: 0;
+}
+
+@media (max-width: 1200px) {
+    #photos {
+        -moz-column-count: 4;
+        -webkit-column-count: 4;
+        column-count: 4;
+    }
+}
+
+@media (max-width: 1000px) {
+    #photos {
+        -moz-column-count: 3;
+        -webkit-column-count: 3;
+        column-count: 3;
+    }
+}
+
+@media (max-width: 800px) {
+    #photos {
+        -moz-column-count: 2;
+        -webkit-column-count: 2;
+        column-count: 2;
+    }
+}
+
+@media (max-width: 400px) {
+    #photos {
+        -moz-column-count: 1;
+        -webkit-column-count: 1;
+        column-count: 1;
+    }
 }
