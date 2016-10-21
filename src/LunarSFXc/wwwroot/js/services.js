@@ -12,8 +12,9 @@
                 "ui.grid",
                 "ui.grid.pagination",
                 "ui.grid.selection",
-                "angularFileUpload"
-
+                "angularFileUpload",
+                "ui.bootstrap",
+                "bootstrapLightbox"
             ]);
     //.constant("appSettings",
     //{

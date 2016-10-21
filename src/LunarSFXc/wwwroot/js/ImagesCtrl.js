@@ -3,12 +3,16 @@
 
     angular
         .module("app-admin")
-        .controller("ImagesCtrl", ["$scope", "dataResource", ImagesCtrl]);
+        .controller("ImagesCtrl", ["$scope", "dataResource", "Lightbox", ImagesCtrl]);
 
-    function ImagesCtrl($scope, dataResource) {
+    function ImagesCtrl($scope, dataResource, Lightbox) {
         dataResource.images.getAll({ containerName: 'imagesupload' },
             function (data) {
                 $scope.imagesSrcs = data;
             });
+
+        $scope.openLightboxModal = function (index) {
+            Lightbox.openModal($scope.imagesSrcs, index);
+        };
     }
 }());

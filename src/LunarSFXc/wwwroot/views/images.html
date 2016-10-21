@@ -1,7 +1,15 @@
-﻿<div id="photos" class="row">
+﻿<!--<div id="photos" class="row">
     <div ng-repeat="imgSrc in imagesSrcs">
         <a class="thumbnail" href="#">
             <img class="img-responsive" src="{{imgSrc}}" alt="xxx">
         </a>
     </div>
-</div>
+</div>-->
+
+<ul class="gallery gallery1">
+    <li ng-repeat="image in imagesSrcs">
+        <a ng-click="openLightboxModal($index)">
+            <img ng-src="{{image}}" class="img-thumbnail">
+        </a>
+    </li>
+</ul>
