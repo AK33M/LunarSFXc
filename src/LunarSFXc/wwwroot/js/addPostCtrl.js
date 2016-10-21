@@ -4,9 +4,9 @@
 
     angular
         .module("app-admin")
-        .controller("AddPostCtrl", ["$scope", "postsResource", AddPostCtrl]);
+        .controller("AddPostCtrl", ["$scope", "dataResource", AddPostCtrl]);
 
-    function AddPostCtrl($scope, postsResource) {
+    function AddPostCtrl($scope, dataResource) {
         var vm = this;
         $scope.greeting = "Hello Form";
     };

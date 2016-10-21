@@ -6,10 +6,10 @@
     </div>
 </div>-->
 
-<ul class="gallery gallery1">
-    <li ng-repeat="image in imagesSrcs">
+<div class="gallery gallery1">
+    <div class="col-md-2 col-sm-4 col-xs-6 thumbnail" ng-repeat="image in imagesSrcs">
         <a ng-click="openLightboxModal($index)">
             <img ng-src="{{image}}" class="img-thumbnail">
         </a>
-    </li>
-</ul>
+    </div>
+</div>

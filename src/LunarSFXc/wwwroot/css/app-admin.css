@@ -23,12 +23,24 @@ canvas {
     margin: 6px 0 0 6px;
 }
 
+body {
+  margin: 1em 0;
+}
+
+a {
+  cursor: pointer;
+}
+
+nav {
+  margin-bottom: 2em;
+}
+
 
 .gallery {
   padding: 0;
 }
 
-.gallery li {
+/*.gallery li {
   display: inline-block;
   margin: 0 1em 1em 0;
   list-style-type: none;
@@ -39,11 +51,11 @@ canvas {
   .gallery li {
     margin: 0;
   }
-}
+}*/
 
 .gallery1 img {
-  width: 150px;
-  height: auto;
+  width: 100%;
+  max-height: 200px;
 }
 
 .gallery2 img {
@@ -52,6 +64,12 @@ canvas {
 
 .gallery5 img {
   width: 120px;
+}
+
+.thumbnail {
+    margin: 0;
+    border: none;
+    padding: 0;
 }
 
 
@@ -74,9 +92,7 @@ canvas {
         height: auto !important;
     }
 
-.thumbnail {
-    margin-bottom: 0;
-}
+
 
 @media (max-width: 1200px) {
     #photos {
