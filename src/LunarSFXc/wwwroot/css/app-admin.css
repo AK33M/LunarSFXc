@@ -10,8 +10,7 @@
 
 .nv-file-over {
     border: dotted 3px red;
-}
-/* Default class applied to drop zones on over */
+}/* Default class applied to drop zones on over */
 
 canvas {
     background-color: #f3f3f3;
@@ -23,19 +22,7 @@ canvas {
     margin: 6px 0 0 6px;
 }
 
-body {
-  margin: 1em 0;
-}
-
-a {
-  cursor: pointer;
-}
-
-nav {
-  margin-bottom: 2em;
-}
-
-
+/* Missing CSS form Angular Lightbox thingy*/
 .gallery {
   padding: 0;
 }
@@ -66,13 +53,13 @@ nav {
   width: 120px;
 }
 
+
+/* Custom CSS for Images in Admin*/
 .thumbnail {
     margin: 0;
     border: none;
     padding: 0;
 }
-
-
 /* Images 
 
 #photos {*/

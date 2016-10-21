@@ -14,9 +14,5 @@
         $scope.openLightboxModal = function (index) {
             Lightbox.openModal($scope.imagesSrcs, index);
         };
-
-        $scope.openModal = function (index) {
-            Lightbox.openModal($scope.imagesSrcs, index);
-        };
     }
 }());
