@@ -87,3 +87,15 @@ header {
 .portfolio-modal{
     padding-top: 50px;
 }
+
+
+
+.thumb{
+    height: 200px;
+}
+
+.thumb  .img-responsive {
+    display: block;
+    width: auto;
+    max-height: 100%;
+}
