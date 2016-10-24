@@ -89,7 +89,7 @@ header {
 }
 
 
-
+/* height fix for gallery*/
 .thumb{
     height: 200px;
 }
