@@ -110,6 +110,11 @@ namespace LunarSFXc
                 config.CreateMap<TagViewModel, Tag>().ReverseMap();
                 config.CreateMap<CategoryViewModel, Category>().ReverseMap();
                 config.CreateMap<CommentViewModel, Comment>().ReverseMap();
+                config.CreateMap<TimelineEvent, TimelineEventViewModel>()
+                                        //.ForMember(dest =>dest.Image, opt =>opt.MapFrom(x=>x.Image))
+                                        .ReverseMap();
+                config.CreateMap<ImageDescriptionViewModel, ImageDescription>()                                    
+                                        .ReverseMap();
 
                 config.CreateMap<PostTag, TagViewModel>()
                         .ForMember(dest => dest.Name, opts => opts.MapFrom(s => s.Tag.Name))
@@ -117,6 +122,7 @@ namespace LunarSFXc
                         .ForMember(dest => dest.UrlSlug, opts => opts.MapFrom(s => s.Tag.UrlSlug));
 
                 config.CreateMap<LunarUser, LunarUserViewModel>();
+                config.DisableConstructorMapping();
             });
 
             //Use MVC always Last.

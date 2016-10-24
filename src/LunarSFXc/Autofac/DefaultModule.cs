@@ -20,7 +20,7 @@ namespace LunarSFXc.Autofac
 
             builder.RegisterType<MessageSender>().As<ISmsService>();
 
-            builder.RegisterType<CloudStorageService>().As<ICouldStorageService>();
+            builder.RegisterType<CloudStorageService>().As<ICloudStorageService>();
 
             builder.RegisterType<ValidateMimeMultipartContentFilter>().InstancePerLifetimeScope();
 

@@ -21,6 +21,9 @@ namespace LunarSFXc.Repositories
         ICollection<Category> Categories();
         ICollection<Tag> Tags();
 
+        //About Me
+        Task<ICollection<TimelineEvent>> GetTimelineEvents(string sectionName);
+
         //Admin features
         ICollection<Post> Posts(int pageNo, int pageSize, string sortColumn, bool sortByAscending);
         Task<ImageDescription> GetFileDescription(int id);

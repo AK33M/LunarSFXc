@@ -27,7 +27,7 @@ namespace LunarSFXc.ViewModels
         public CategoryViewModel Category { get; set; }
         public LunarUserViewModel PostedBy { get; set; }
         public ICollection<TagViewModel> Tags { get; set; }
-        public ICollection<Image> Images { get; set; }
+        public ICollection<ImageDescription> Images { get; set; }
         public ICollection<CommentViewModel> Comments { get; set; }
 
 

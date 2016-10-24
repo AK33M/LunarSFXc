@@ -8,7 +8,7 @@ using System;
 
 namespace LunarSFXc.Services
 {
-    public class CloudStorageService : ICouldStorageService
+    public class CloudStorageService : ICloudStorageService
     {
         private CloudStorageAccount _storageAccount;
         private IOptions<ImageServiceOptions> _options;
@@ -103,6 +103,19 @@ namespace LunarSFXc.Services
             while (continuationToken != null);
 
             return Uris;
+        }
+
+        public string GetImageUri(string containerName, string fileName)
+        {
+            var blobClient = _storageAccount.CreateCloudBlobClient();
+
+            // Retrieve reference to a previously created container.
+            CloudBlobContainer container = blobClient.GetContainerReference(containerName);
+
+            // Retrieve reference to a blob named "photo1.jpg".
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference(fileName);
+
+            return blockBlob.Uri.AbsoluteUri;
         }
     }
 }

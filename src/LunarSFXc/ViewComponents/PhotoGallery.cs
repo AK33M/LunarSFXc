@@ -7,9 +7,9 @@ namespace LunarSFXc.ViewComponents
 {
     public class PhotoGallery : ViewComponent
     {
-        private ICouldStorageService _cloudService;
+        private ICloudStorageService _cloudService;
 
-        public PhotoGallery(ICouldStorageService cloudService)
+        public PhotoGallery(ICloudStorageService cloudService)
         {
             _cloudService = cloudService;
         }

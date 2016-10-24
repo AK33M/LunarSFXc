@@ -8,9 +8,10 @@ using LunarSFXc.Contexts;
 namespace LunarSFXc.Migrations
 {
     [DbContext(typeof(LunarDbContext))]
-    partial class LunarDbContextModelSnapshot : ModelSnapshot
+    [Migration("20161024112101_AddedTimelineEvent")]
+    partial class AddedTimelineEvent
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -214,30 +215,6 @@ namespace LunarSFXc.Migrations
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("LunarSFXc.Objects.TimelineEvent", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Description")
-                        .IsRequired();
-
-                    b.Property<string>("EndDate");
-
-                    b.Property<int?>("ImageId");
-
-                    b.Property<DateTime>("StartDate");
-
-                    b.Property<string>("Title")
-                        .IsRequired();
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ImageId");
-
-                    b.ToTable("TimelineEvents");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
                 {
                     b.Property<string>("Id");
@@ -390,13 +367,6 @@ namespace LunarSFXc.Migrations
                         .WithMany("PostTags")
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("LunarSFXc.Objects.TimelineEvent", b =>
-                {
-                    b.HasOne("LunarSFXc.Objects.ImageDescription", "Image")
-                        .WithMany()
-                        .HasForeignKey("ImageId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>

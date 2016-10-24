@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace LunarSFXc.Services
 {
-    public interface ICouldStorageService
+    public interface ICloudStorageService
     {
         CloudBlobContainer GetStorageContainer(string containerName);
         Task<ICollection<Uri>> ListAllBlobs(string containerName);
+        string GetImageUri(string containerName, string fileName);
     }
 }

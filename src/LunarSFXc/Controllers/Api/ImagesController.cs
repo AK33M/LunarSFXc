@@ -18,10 +18,10 @@ namespace LunarSFXc.Controllers.Api
     {
         private IOptions<ImageServiceOptions> _imageServiceOptions;
         private IBlogRepository _repo;
-        private ICouldStorageService _cloudStorage;
+        private ICloudStorageService _cloudStorage;
         private ILogger<ImagesController> _logger;
 
-        public ImagesController(IBlogRepository repo, IOptions<ImageServiceOptions> imageServiceOptions, ICouldStorageService cloudStorage, ILogger<ImagesController> logger)
+        public ImagesController(IBlogRepository repo, IOptions<ImageServiceOptions> imageServiceOptions, ICloudStorageService cloudStorage, ILogger<ImagesController> logger)
         {
             _repo = repo;
             _imageServiceOptions = imageServiceOptions;

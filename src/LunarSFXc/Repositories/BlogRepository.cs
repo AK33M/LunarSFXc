@@ -464,5 +464,12 @@ namespace LunarSFXc.Repositories
 
             await _context.SaveChangesAsync();
         }
+
+        public async Task<ICollection<TimelineEvent>> GetTimelineEvents(string sectionName)
+        {
+            return await _context.TimelineEvents.OrderBy(x => x.StartDate)
+                            .Include(x => x.Image)
+                            .ToListAsync();
+        }
     }
 }
