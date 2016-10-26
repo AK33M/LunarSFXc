@@ -21,6 +21,11 @@
                                 templateUrl: "/views/images.html"
                             });
 
+                            $routeProvider.when("/aboutme", {
+                                controller: "AboutMeCtrl as vm",
+                                templateUrl: "/views/about-me-events.html"
+                            });
+
                             $routeProvider.when("/add-post", {
                                 controller: "AddPostCtrl as vm",
                                 templateUrl: "/views/add-post.html"
@@ -29,6 +34,11 @@
                             $routeProvider.when("/add-images", {
                                 controller: "AddImagesCtrl as vm",
                                 templateUrl: "/views/add-images.html"
+                            });
+
+                            $routeProvider.when("/add-aboutme", {
+                                controller: "AddAboutMeCtrl as vm",
+                                templateUrl: "/views/add-about-me-event.html"
                             });
 
                             $routeProvider.otherwise({

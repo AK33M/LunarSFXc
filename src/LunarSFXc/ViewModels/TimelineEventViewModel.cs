@@ -1,5 +1,4 @@
-﻿using LunarSFXc.Objects;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace LunarSFXc.ViewModels

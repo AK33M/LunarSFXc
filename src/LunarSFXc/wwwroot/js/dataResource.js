@@ -11,7 +11,8 @@
             images: $resource("api/images/:action", {}, {
                 'getAll': { method: 'GET', params: { action: 'list', containerName: '@containerName' }, isArray: true },
                 'upload': { method: 'POST', url: "/upload" }
-            })
+            }),
+            aboutme: $resource("api/aboutme/:id")
         };
     };
 }());

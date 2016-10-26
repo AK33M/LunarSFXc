@@ -3,9 +3,9 @@
 
     angular
         .module("app-admin")
-        .controller("PostsCtrl", ["$scope", "$interval", "uiGridConstants", "dataResource", PostsCtrl]);
+        .controller("PostsCtrl", ["$scope", "dataResource", PostsCtrl]);
 
-    function PostsCtrl($scope, $interval, uiGridConstants, dataResource) {
+    function PostsCtrl($scope, dataResource) {
         var vm = this;
 
         var paginationOptions = {
