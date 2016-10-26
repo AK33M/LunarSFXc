@@ -13,7 +13,8 @@
             description: '',
             startDate: '',
             endDate: '',
-            imageId: ''
+            imageId: null,
+            imageUri: null
         }
 
         //AngularFileUpload http://nervgh.github.io/pages/angular-file-upload/examples/simple/
@@ -22,8 +23,8 @@
             scope: $scope,
             url: 'api/images/upload',
             queueLimit: 1,
-            //removeAfterUpload: true,
-            //autoUpload: true,
+            removeAfterUpload: true,
+            autoUpload: true,
             formData: [{ containerName : 'aboutmetimeline' }]
         });
 
@@ -43,11 +44,13 @@
 
         uploader.onSuccessItem = function (fileItem, response, status, headers) {
             console.info('onSuccessItem', fileItem, response, status, headers);
+            $scope.aboutMeEvent.imageId = response.imageId;
+            $scope.aboutMeEvent.imageUri = response.imageUri
+            $scope.aboutMeEvent.imageName =  response.imageName;
         };
 
         uploader.onErrorItem = function (fileItem, response, status, headers) {
             console.info('onErrorItem', fileItem, response, status, headers);
-            $scope.aboutMeEvent.imageId = response.imageId;
         };
     }
 }());

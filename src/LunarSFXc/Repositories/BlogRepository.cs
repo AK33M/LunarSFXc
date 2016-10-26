@@ -451,11 +451,12 @@ namespace LunarSFXc.Repositories
 
         public async Task<int> AddOrUpdateFileDescriptions(ImageDescription file)
         {
-            if (_context.ImageDescriptions.Any(x => x.FileName == file.FileName))
+            if (_context.ImageDescriptions.Any(x => x.FileName == file.FileName && x.ContainerName == file.ContainerName))
             {
                 var oldFile = _context.ImageDescriptions.FirstOrDefault(x => x.FileName == file.FileName);
                 oldFile.UpdatedTimestamp = DateTime.UtcNow;
                 _context.ImageDescriptions.Update(oldFile);
+                file.Id = oldFile.Id;
             }
             else
             {

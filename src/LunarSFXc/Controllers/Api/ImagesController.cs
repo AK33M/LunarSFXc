@@ -59,9 +59,10 @@ namespace LunarSFXc.Controllers.Api
                             Description = file.Id
                         };
 
-                         var imageId = await _repo.AddOrUpdateFileDescriptions(imageDesc);
+                        var imageId = await _repo.AddOrUpdateFileDescriptions(imageDesc);
+                        var imageUri = await ImageUri(imageId);
 
-                        return Ok(new { Message = "Image uploaded", ImageId = imageId });
+                        return Ok(new { Message = "Image uploaded", ImageId = imageId, ImageUri = imageUri, ImageName = imageDesc.FileName });
                     }
                 }
                 catch (Exception ex)
@@ -78,22 +79,32 @@ namespace LunarSFXc.Controllers.Api
 
 
 
-        [Route("download/{id}")]
-        [HttpGet]
-        public async Task<FileStreamResult> Download(int id)
-        {
-            var fileDescription = await _repo.GetFileDescription(id);
+        //[Route("download/{id}")]
+        //[HttpGet]
+        //public async Task<FileStreamResult> Download(int id)
+        //{
+        //    var fileDescription = await _repo.GetFileDescription(id);
 
-            var path = _imageServiceOptions.Value.ServerUploadFolder + "\\" + fileDescription.FileName;
-            var stream = new FileStream(path, FileMode.Open);
-            return File(stream, fileDescription.ContentType);
-        }
+        //    var path = _imageServiceOptions.Value.ServerUploadFolder + "\\" + fileDescription.FileName;
+        //    var stream = new FileStream(path, FileMode.Open);
+        //    return File(stream, fileDescription.ContentType);
+        //}
 
         [Route("list")]
         [HttpGet]
         public async Task<ICollection<Uri>> ListAllImages(string containerName)
         {
             return await _cloudStorage.ListAllBlobs(containerName);
+        }
+
+        [Route("{Id}")]
+        [HttpGet]
+        public async Task<string> ImageUri(int Id)
+        {
+            var desc = await _repo.GetFileDescription(Id);
+            var imguri = _cloudStorage.GetImageUri(desc.ContainerName, desc.FileName);
+
+            return imguri;
         }
     }
 }
