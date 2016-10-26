@@ -449,7 +449,7 @@ namespace LunarSFXc.Repositories
             return await _context.ImageDescriptions.SingleOrDefaultAsync(c => c.Id == id);
         }
 
-        public async void AddOrUpdateFileDescriptions(ImageDescription file)
+        public async Task<int> AddOrUpdateFileDescriptions(ImageDescription file)
         {
             if (_context.ImageDescriptions.Any(x => x.FileName == file.FileName))
             {
@@ -463,6 +463,8 @@ namespace LunarSFXc.Repositories
             }
 
             await _context.SaveChangesAsync();
+
+            return file.Id;
         }
 
         public async Task<ICollection<TimelineEvent>> GetTimelineEvents(string sectionName)

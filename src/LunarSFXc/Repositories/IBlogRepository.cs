@@ -27,6 +27,6 @@ namespace LunarSFXc.Repositories
         //Admin features
         ICollection<Post> Posts(int pageNo, int pageSize, string sortColumn, bool sortByAscending);
         Task<ImageDescription> GetFileDescription(int id);
-        void AddOrUpdateFileDescriptions(ImageDescription file);
+        Task<int> AddOrUpdateFileDescriptions(ImageDescription file);
     }
 }

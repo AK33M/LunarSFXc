@@ -11,8 +11,7 @@ namespace LunarSFXc.Objects
         [Required]
         public string Description { get; set; }
         [Required]
-        [DataType(DataType.Date)]
-        public DateTime StartDate { get; set; }
+        public string StartDate { get; set; }
         public string EndDate { get; set; }
         public ImageDescription Image { get; set; }
     }

@@ -8,9 +8,10 @@ using LunarSFXc.Contexts;
 namespace LunarSFXc.Migrations
 {
     [DbContext(typeof(LunarDbContext))]
-    partial class LunarDbContextModelSnapshot : ModelSnapshot
+    [Migration("20161026141838_ChangedStartDateColumnType")]
+    partial class ChangedStartDateColumnType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")

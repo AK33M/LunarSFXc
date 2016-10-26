@@ -32,7 +32,7 @@ namespace LunarSFXc.Controllers.Api
         [Route("upload")]
         [HttpPost]
         [ServiceFilter(typeof(ValidateMimeMultipartContentFilter))]
-        public async Task<IActionResult> UploadFiles(Image file)
+        public async Task<IActionResult> UploadFiles(Image file, string containerName)
         {
             if (ModelState.IsValid)
             {
@@ -46,7 +46,7 @@ namespace LunarSFXc.Controllers.Api
 
                         // Extension method update RC2 has removed this 
                         //await file.File.SaveAsAsync(Path.Combine(_imageServiceOptions.Value.ServerUploadFolder, fileName));
-                        var container = _cloudStorage.GetStorageContainer("imagesupload");
+                        var container = _cloudStorage.GetStorageContainer(containerName);
                         await file.File.SaveInAzureAsync(container, fileName);
 
                         var imageDesc = new ImageDescription
@@ -59,9 +59,9 @@ namespace LunarSFXc.Controllers.Api
                             Description = file.Id
                         };
 
-                        _repo.AddOrUpdateFileDescriptions(imageDesc);
+                         var imageId = await _repo.AddOrUpdateFileDescriptions(imageDesc);
 
-                        return Ok(new { Message = "Image uploaded" });
+                        return Ok(new { Message = "Image uploaded", ImageId = imageId });
                     }
                 }
                 catch (Exception ex)

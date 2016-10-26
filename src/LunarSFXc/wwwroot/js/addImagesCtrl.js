@@ -10,7 +10,8 @@
 
         var uploader = $scope.uploader = new FileUploader({
             url: 'api/images/upload',
-            queueLimit: 10
+            queueLimit: 10,
+            formData: [{ containerName: 'imagesupload' }]
         });
 
         // FILTERS

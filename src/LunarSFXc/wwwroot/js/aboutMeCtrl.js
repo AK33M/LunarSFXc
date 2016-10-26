@@ -30,7 +30,6 @@
                 { name: 'Description', cellTooltip: true, enableSorting: false },
                 { name: 'StartDate', cellTooltip: false },
                 { name: 'EndDate', enableSorting: false },
-                { name: 'Published', type: 'boolean' },
                 { name: 'Image', field: 'Image.FileName' },
 
             ],
