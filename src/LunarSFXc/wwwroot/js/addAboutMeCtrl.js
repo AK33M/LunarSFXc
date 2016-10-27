@@ -3,19 +3,13 @@
 
     angular
         .module("app-admin")
-        .controller("AddAboutMeCtrl", ["$scope", "FileUploader", AddAboutMeCtrl]);
+        .controller("AddAboutMeCtrl", ["$scope", "dataResource", "FileUploader", AddAboutMeCtrl]);
 
-    function AddAboutMeCtrl($scope, FileUploader) {
+    function AddAboutMeCtrl($scope, dataResource, FileUploader) {
         var vm = this;
 
-        $scope.aboutMeEvent = {
-            title: '',
-            description: '',
-            startDate: '',
-            endDate: '',
-            imageId: null,
-            imageUri: null
-        }
+        $scope.aboutMeEvent = dataResource.aboutme.get({ id: 0 });
+        
 
         //AngularFileUpload http://nervgh.github.io/pages/angular-file-upload/examples/simple/
         // Creates a uploader
@@ -25,7 +19,7 @@
             queueLimit: 1,
             removeAfterUpload: true,
             autoUpload: true,
-            formData: [{ containerName : 'aboutmetimeline' }]
+            formData: [{ containerName: 'aboutmetimeline' }]
         });
 
         // Registers a filter: images only
@@ -39,18 +33,18 @@
 
         //CALL BACKS
         uploader.onProgressItem = function (fileItem, progress) {
-            console.info('onProgressItem', fileItem, progress);
+            //console.info('onProgressItem', fileItem, progress);
         };
 
         uploader.onSuccessItem = function (fileItem, response, status, headers) {
-            console.info('onSuccessItem', fileItem, response, status, headers);
+            //console.info('onSuccessItem', fileItem, response, status, headers);
             $scope.aboutMeEvent.imageId = response.imageId;
             $scope.aboutMeEvent.imageUri = response.imageUri
-            $scope.aboutMeEvent.imageName =  response.imageName;
+            $scope.aboutMeEvent.imageName = response.imageName;
         };
 
         uploader.onErrorItem = function (fileItem, response, status, headers) {
-            console.info('onErrorItem', fileItem, response, status, headers);
+            //console.info('onErrorItem', fileItem, response, status, headers);
         };
     }
 }());

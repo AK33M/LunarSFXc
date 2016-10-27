@@ -470,9 +470,16 @@ namespace LunarSFXc.Repositories
 
         public async Task<ICollection<TimelineEvent>> GetTimelineEvents(string sectionName)
         {
-            return await _context.TimelineEvents.OrderBy(x => x.StartDate)
+            return await _context.TimelineEvents
                             .Include(x => x.Image)
                             .ToListAsync();
+        }
+        
+        public async Task<ICollection<TimelineEvent>> GetTimelineEvents(string sectionName, int id)
+        {
+            return await _context.TimelineEvents
+                            .Include(x => x.Image)
+                            .Where(x => x.Id == id).ToListAsync();
         }
 
         public void AddTimelineEvent(TimelineEvent newEvent)
@@ -489,5 +496,6 @@ namespace LunarSFXc.Repositories
         {
             return await _context.ImageDescriptions.Where(x => x.ContainerName == containerName).ToListAsync();
         }
+
     }
 }

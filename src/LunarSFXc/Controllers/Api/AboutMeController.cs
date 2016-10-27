@@ -26,7 +26,7 @@ namespace LunarSFXc.Controllers.Api
             _cloudService = cloudService;
         }
 
-        [Route("list")]
+        [Route("events")]
         [HttpGet]
         public IActionResult Get()
         {
@@ -44,6 +44,31 @@ namespace LunarSFXc.Controllers.Api
             {
                 _logger.LogError($"Failed to get all Events: {ex}");
                 return BadRequest("Error occurred");
+            }
+        }
+
+        [Route("event/{id}")]
+        [HttpGet]
+        public IActionResult Get(int Id)
+        {
+            try
+            {
+                if (Id != 0)
+                {
+                    var model = new AboutMeViewModel(_cloudService, _repo, Id);
+
+                    return Json(model.Events);
+                }
+                else
+                {
+                    return Json(new TimelineEventViewModel());
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Failed to get event", ex);
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new { Message = ex.Message });
             }
         }
 

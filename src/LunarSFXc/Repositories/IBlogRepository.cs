@@ -24,6 +24,7 @@ namespace LunarSFXc.Repositories
 
         //About Me
         Task<ICollection<TimelineEvent>> GetTimelineEvents(string sectionName);
+        Task<ICollection<TimelineEvent>> GetTimelineEvents(string sectionName, int id);
 
         //Admin features
         ICollection<Post> Posts(int pageNo, int pageSize, string sortColumn, bool sortByAscending);
