@@ -12,7 +12,10 @@
                 'getAll': { method: 'GET', params: { action: 'list', containerName: '@containerName' }, isArray: false },
                 'upload': { method: 'POST', url: "/upload" }
             }),
-            aboutme: $resource("api/aboutme/:id")
+            aboutme: $resource("api/aboutme/:action", {}, {
+                'getAll': { method: 'GET', params: { action: 'list' }, isArray: false },
+                'post' : {method: 'POST', url: '/post'}
+            })
         };
     }
 }());

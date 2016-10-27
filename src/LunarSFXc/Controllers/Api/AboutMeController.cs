@@ -26,6 +26,7 @@ namespace LunarSFXc.Controllers.Api
             _cloudService = cloudService;
         }
 
+        [Route("list")]
         [HttpGet]
         public IActionResult Get()
         {

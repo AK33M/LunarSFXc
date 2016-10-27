@@ -54,7 +54,7 @@
         };
 
         var getPage = function () {
-            dataResource.aboutme.get(function (data) {
+            dataResource.aboutme.getAll(function (data) {
                 $scope.gridOptions.totalItems = data.records;
                 // var firstRow = (paginationOptions.pageNumber - 1) * paginationOptions.pageSize;
                 $scope.gridOptions.data = data.rows;//.slice(firstRow, firstRow + paginationOptions.pageSize);
