@@ -33,22 +33,11 @@ namespace LunarSFXc.Controllers.Api
             {
                 var model = new AboutMeViewModel(_cloudService, _repo);
 
-                //var events = await _repo.GetTimelineEvents("aboutMe");
-                //var timelineViewModels = new List<TimelineEventViewModel>();
-
-                //foreach (var ev in events)
-                //{
-                //    var foo = Mapper.Map<TimelineEventViewModel>(ev);
-                //    //foo.Image.ImageUri = _cloudService.GetImageUri(foo.Image.ContainerName, foo.Image.FileName);
-
-                //    timelineViewModels.Add(foo);
-                //}
-
-                return Content(JsonConvert.SerializeObject(new
+                return Json(new
                 {
                     records = model.Events.Count,
                     rows = model.Events
-                }), "application/Json");
+                });
             }
             catch (Exception ex)
             {

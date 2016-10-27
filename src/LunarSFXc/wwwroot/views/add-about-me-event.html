@@ -3,101 +3,59 @@
     <form class="form-horizontal">
         <div class="form-group">
             <label for="title" class="col-sm-2 control-label">Event Title</label>
-            <div class="col-sm-8">
+            <div class="col-sm-10">
                 <input type="text" id="title" class="form-control" placeholder="Title" />
             </div>
         </div>
         <div class="form-group">
             <label for="description" class="col-sm-2 control-label">Description</label>
-            <div class="col-sm-8">
+            <div class="col-sm-10">
                 <textarea type="text" id="description" class="form-control" rows="5"></textarea>
             </div>
         </div>
         <div class="form-group">
             <label for="startdate" class="col-sm-2 control-label">Start Date</label>
-            <div class="col-sm-8">
+            <div class="col-sm-10">
                 <input type="text" id="startdate" class="form-control" placeholder="Start Date" />
             </div>
         </div>
         <div class="form-group">
             <label for="enddate" class="col-sm-2 control-label">End Date</label>
-            <div class="col-sm-8">
+            <div class="col-sm-10">
                 <input type="text" id="enddate" class="form-control" placeholder="End Date" />
             </div>
         </div>
         <div class="form-group" nv-file-drop="" uploader="uploader">
             <label for="image" class="col-sm-2 control-label">Image</label>
-            <div class="col-sm-4" ng-hide="aboutMeEvent.imageUri">
+            <div class="col-sm-10" ng-show="aboutMeEvent.imageUri">
+                <div class="row col-lg-2">
+                    <img class="img-thumbnail" ng-src="{{aboutMeEvent.imageUri}}" alt="Uploaded Image" />
+                </div>
+                <div class="col-lg-4 text-center">
+                    <strong>{{ aboutMeEvent.imageName }}</strong>
+                </div>
+                <div class="col-lg-6 text-right">
+                    <button type="button" class="btn btn-danger" ng-click="">
+                        <span class="fa fa-trash"></span> Remove
+                    </button>
+                </div>
+            </div>
+            <div class="col-sm-10" ng-hide="aboutMeEvent.imageUri && !uploader.isUploading">
                 <div ng-show="uploader.isHTML5">
-                    <div class="well my-drop-zone" ng-file-over="" uploader="uploader">
+                    <div class="well my-drop-zone" style="height: 250px;" ng-file-over="" uploader="uploader">
                         Drop Image Here
                     </div>
                 </div>
                 <input type="file" nv-file-select="" uploader="uploader" />
             </div>
-            <div class="col-sm-4" ng-show="uploader.queue.length > 0">
-                <table class="table table-responsive">
-                    <thead>
-                        <tr>
-                            <th>Image</th>
-                            <th ng-show="uploader.isHTML5">Info</th>
-                            <th ng-show="uploader.isHTML5">Progress</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="item in uploader.queue">
-                            <td>
-                                <!--<img class="img-thumbnail"
-                                     src="http://placehold.it/350x150" />-->
-
-                                <strong>{{ item.file.name }}</strong>
-                                <!-- Image preview -->
-                                <!--auto height-->
-                                <!--<div ng-thumb="{ file: item.file, width: 100 }"></div>-->
-                                <!--auto width-->
-                                <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>
-                                <!--fixed width and height -->
-                                <!--<div ng-thumb="{ file: item.file, width: 100, height: 100 }"></div>-->
-                            </td>
-                            <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
-                            <td ng-show="uploader.isHTML5">
-                                <div class="progress" style="margin-bottom: 0;">
-                                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
-                                </div>
-                            </td>
-                            <td class="text-center">
-                                <span ng-show="item.isSuccess"><i class="fa fa-check"></i></span>
-                                <span ng-show="item.isCancel"><i class="fa fa-ban"></i></span>
-                                <span ng-show="item.isError"><i class="fa fa-minus-circle"></i></span>
-                            </td>
-                            <td nowrap>
-                                <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
-                                    <span class="fa fa-upload"></span> Upload
-                                </button>
-                                <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
-                                    <span class="fa fa-ban"></span> Cancel
-                                </button>
-                                <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
-                                    <span class="fa fa-trash"></span> Remove
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-            <div class="row col-sm-8" ng-show="aboutMeEvent.imageUri">
-                <div class="row col-lg-4">
-                    <img class="img-thumbnail" ng-src="{{aboutMeEvent.imageUri}}" alt="Uploaded Image" />
+            <div class="col-sm-10 col-sm-offset-2" ng-show="uploader.isHTML5 && uploader.isUploading">
+                <div>Queue progress:</div>
+                <div class="progress" style="">                    
+                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                 </div>
-                <div class="col-lg-4">
-                    <strong>{{ aboutMeEvent.imageName }}</strong>
-                </div>
-                <div class="col-lg-4">
-                    <button type="button" class="btn btn-danger" ng-click="">
-                        <span class="fa fa-trash"></span> Remove
+                <div>
+                    <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
+                        <span class="fa fa-ban"></span> Cancel
                     </button>
                 </div>
             </div>
