@@ -111,9 +111,8 @@ namespace LunarSFXc
                 config.CreateMap<CategoryViewModel, Category>().ReverseMap();
                 config.CreateMap<CommentViewModel, Comment>().ReverseMap();
                 config.CreateMap<TimelineEvent, TimelineEventViewModel>()
-                                        //.ForMember(dest =>dest.Image, opt =>opt.MapFrom(x=>x.Image))
                                         .ReverseMap();
-                config.CreateMap<ImageDescriptionViewModel, ImageDescription>()                                    
+                config.CreateMap<ImageDescriptionViewModel, ImageDescription>()
                                         .ReverseMap();
 
                 config.CreateMap<PostTag, TagViewModel>()

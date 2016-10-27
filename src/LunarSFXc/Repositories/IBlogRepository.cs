@@ -1,6 +1,7 @@
 ﻿using LunarSFXc.Objects;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System;
 
 namespace LunarSFXc.Repositories
 {
@@ -28,5 +29,9 @@ namespace LunarSFXc.Repositories
         ICollection<Post> Posts(int pageNo, int pageSize, string sortColumn, bool sortByAscending);
         Task<ImageDescription> GetFileDescription(int id);
         Task<int> AddOrUpdateFileDescriptions(ImageDescription file);
+        void AddTimelineEvent(TimelineEvent newEvent);
+
+        Task<bool> SaveAllAsync();
+        Task<ICollection<ImageDescription>> GetAllImages(string containerName);
     }
 }

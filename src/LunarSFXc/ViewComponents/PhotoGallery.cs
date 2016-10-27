@@ -1,26 +1,24 @@
-﻿using LunarSFXc.Services;
+﻿using LunarSFXc.Repositories;
+using LunarSFXc.Services;
 using LunarSFXc.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace LunarSFXc.ViewComponents
 {
     public class PhotoGallery : ViewComponent
     {
         private ICloudStorageService _cloudService;
+        private IBlogRepository _repo;
 
-        public PhotoGallery(ICloudStorageService cloudService)
+        public PhotoGallery(ICloudStorageService cloudService, IBlogRepository repo)
         {
             _cloudService = cloudService;
+            _repo = repo;
         }
-        public async Task<IViewComponentResult> InvokeAsync()
+        public IViewComponentResult Invoke(string containerName)
         {
-            var uris = await _cloudService.ListAllBlobs("imagesupload");
 
-            var model = new GalleryViewModel
-            {                
-                 ImageUris = uris
-            };
+            var model = new GalleryViewModel(_cloudService, _repo, containerName);
 
             return View("PhotoGallery", model);
         }

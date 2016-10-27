@@ -8,7 +8,7 @@
     function ImagesCtrl($scope, dataResource, Lightbox) {
         dataResource.images.getAll({ containerName: 'imagesupload' },
             function (data) {
-                $scope.imagesSrcs = data;
+                $scope.imagesSrcs = data.images;
             });
 
         $scope.openLightboxModal = function (index) {

@@ -2,13 +2,12 @@
 using LunarSFXc.Objects;
 using LunarSFXc.Repositories;
 using LunarSFXc.Services;
+using LunarSFXc.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace LunarSFXc.Controllers.Api
@@ -18,14 +17,14 @@ namespace LunarSFXc.Controllers.Api
     {
         private IOptions<ImageServiceOptions> _imageServiceOptions;
         private IBlogRepository _repo;
-        private ICloudStorageService _cloudStorage;
+        private ICloudStorageService _cloudService;
         private ILogger<ImagesController> _logger;
 
-        public ImagesController(IBlogRepository repo, IOptions<ImageServiceOptions> imageServiceOptions, ICloudStorageService cloudStorage, ILogger<ImagesController> logger)
+        public ImagesController(IBlogRepository repo, IOptions<ImageServiceOptions> imageServiceOptions, ICloudStorageService cloudService, ILogger<ImagesController> logger)
         {
             _repo = repo;
             _imageServiceOptions = imageServiceOptions;
-            _cloudStorage = cloudStorage;
+            _cloudService = cloudService;
             _logger = logger;
         }
 
@@ -46,7 +45,7 @@ namespace LunarSFXc.Controllers.Api
 
                         // Extension method update RC2 has removed this 
                         //await file.File.SaveAsAsync(Path.Combine(_imageServiceOptions.Value.ServerUploadFolder, fileName));
-                        var container = _cloudStorage.GetStorageContainer(containerName);
+                        var container = _cloudService.GetStorageContainer(containerName);
                         await file.File.SaveInAzureAsync(container, fileName);
 
                         var imageDesc = new ImageDescription
@@ -92,17 +91,18 @@ namespace LunarSFXc.Controllers.Api
 
         [Route("list")]
         [HttpGet]
-        public async Task<ICollection<Uri>> ListAllImages(string containerName)
+        public GalleryViewModel ListAllImages(string containerName)
         {
-            return await _cloudStorage.ListAllBlobs(containerName);
+            return new GalleryViewModel(_cloudService, _repo, containerName);
         }
 
+        //TODO:What is this?
         [Route("{Id}")]
         [HttpGet]
         public async Task<string> ImageUri(int Id)
         {
             var desc = await _repo.GetFileDescription(Id);
-            var imguri = _cloudStorage.GetImageUri(desc.ContainerName, desc.FileName);
+            var imguri = _cloudService.GetImageUri(desc.ContainerName, desc.FileName);
 
             return imguri;
         }

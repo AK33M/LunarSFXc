@@ -1,10 +1,7 @@
-﻿using AutoMapper;
-using LunarSFXc.Repositories;
+﻿using LunarSFXc.Repositories;
 using LunarSFXc.Services;
 using LunarSFXc.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace LunarSFXc.ViewComponents
 {
@@ -19,21 +16,11 @@ namespace LunarSFXc.ViewComponents
             _cloudService = cloudService;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public IViewComponentResult Invoke()
         {
-            var events = await _repo.GetTimelineEvents("aboutMe");
-            var timelineViewModels = new List<TimelineEventViewModel>();
+            var model = new AboutMeViewModel(_cloudService, _repo);
 
-            foreach(var ev in events)
-            {
-                var foo = Mapper.Map<TimelineEventViewModel>(ev);
-                foo.Image.ImageUri = _cloudService.GetImageUri(foo.Image.ContainerName, foo.Image.FileName);
-
-                timelineViewModels.Add(foo);                
-            }
-
-
-            return View("AboutMe", timelineViewModels);
+            return View("AboutMe", model);
         }
     }
 }

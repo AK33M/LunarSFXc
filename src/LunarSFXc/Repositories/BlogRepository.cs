@@ -474,5 +474,20 @@ namespace LunarSFXc.Repositories
                             .Include(x => x.Image)
                             .ToListAsync();
         }
+
+        public void AddTimelineEvent(TimelineEvent newEvent)
+        {
+            _context.TimelineEvents.Add(newEvent);
+        }
+
+        public async Task<bool> SaveAllAsync()
+        {
+            return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<ICollection<ImageDescription>> GetAllImages(string containerName)
+        {
+            return await _context.ImageDescriptions.Where(x => x.ContainerName == containerName).ToListAsync();
+        }
     }
 }

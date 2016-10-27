@@ -8,7 +8,7 @@
 <!-- Photos Gallery -->
 <section id="photos">
     <div class="container">
-        @Component.InvokeAsync("PhotoGallery").Result
+        @Component.InvokeAsync("PhotoGallery" , new { containerName = "imagesupload" }).Result
     </div>
 </section>
 <!-- My Work Section -->

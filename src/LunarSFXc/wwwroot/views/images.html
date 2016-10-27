@@ -9,7 +9,7 @@
 <div class="gallery gallery1">
     <div class="col-md-2 col-sm-4 col-xs-6 thumbnail" ng-repeat="image in imagesSrcs">
         <a ng-click="openLightboxModal($index)">
-            <img ng-src="{{image}}" class="img-thumbnail">
+            <img ng-src="{{image.imageUri}}" class="img-thumbnail">
         </a>
     </div>
 </div>

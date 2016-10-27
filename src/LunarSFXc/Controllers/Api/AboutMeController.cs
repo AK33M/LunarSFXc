@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LunarSFXc.Objects;
 using LunarSFXc.Repositories;
 using LunarSFXc.Services;
 using LunarSFXc.ViewModels;
@@ -6,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace LunarSFXc.Controllers.Api
@@ -26,25 +27,27 @@ namespace LunarSFXc.Controllers.Api
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public IActionResult Get()
         {
             try
             {
-                var events = await _repo.GetTimelineEvents("aboutMe");
-                var timelineViewModels = new List<TimelineEventViewModel>();
+                var model = new AboutMeViewModel(_cloudService, _repo);
 
-                foreach (var ev in events)
-                {
-                    var foo = Mapper.Map<TimelineEventViewModel>(ev);
-                    foo.Image.ImageUri = _cloudService.GetImageUri(foo.Image.ContainerName, foo.Image.FileName);
+                //var events = await _repo.GetTimelineEvents("aboutMe");
+                //var timelineViewModels = new List<TimelineEventViewModel>();
 
-                    timelineViewModels.Add(foo);
-                }
+                //foreach (var ev in events)
+                //{
+                //    var foo = Mapper.Map<TimelineEventViewModel>(ev);
+                //    //foo.Image.ImageUri = _cloudService.GetImageUri(foo.Image.ContainerName, foo.Image.FileName);
+
+                //    timelineViewModels.Add(foo);
+                //}
 
                 return Content(JsonConvert.SerializeObject(new
                 {
-                    records = timelineViewModels.Count,
-                    rows = timelineViewModels
+                    records = model.Events.Count,
+                    rows = model.Events
                 }), "application/Json");
             }
             catch (Exception ex)
@@ -52,6 +55,38 @@ namespace LunarSFXc.Controllers.Api
                 _logger.LogError($"Failed to get all Events: {ex}");
                 return BadRequest("Error occurred");
             }
+        }
+
+        [Route("post")]
+        [HttpPost]
+        public async Task<IActionResult> Post(TimelineEventViewModel timelineEvent)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var newEvent = Mapper.Map<TimelineEvent>(timelineEvent);
+
+                    //Save to the database
+                    _logger.LogInformation("Attempting to save a new event");
+                    _repo.AddTimelineEvent(newEvent);
+
+                    if (await _repo.SaveAllAsync())
+                    {
+                        Response.StatusCode = (int)HttpStatusCode.Created;
+                        return Json(Mapper.Map<TimelineEventViewModel>(newEvent));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError("Failed to Save new Event", ex);
+                    Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    return Json(new { Message = ex.Message });
+                }
+            }
+
+            Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            return Json(new { Message = "Failed", ModelState = ModelState });
         }
     }
 }
