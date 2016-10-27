@@ -4,35 +4,35 @@
         <div class="form-group">
             <label for="title" class="col-sm-2 control-label">Event Title</label>
             <div class="col-sm-10">
-                <input type="text" id="title" class="form-control" placeholder="Title" />
+                <input ng-model="aboutMeEvent.title" type="text" id="title" class="form-control" placeholder="Title" />
             </div>
         </div>
         <div class="form-group">
             <label for="description" class="col-sm-2 control-label">Description</label>
             <div class="col-sm-10">
-                <textarea type="text" id="description" class="form-control" rows="5"></textarea>
+                <textarea ng-model="aboutMeEvent.description" type="text" id="description" class="form-control" rows="5"></textarea>
             </div>
         </div>
         <div class="form-group">
             <label for="startdate" class="col-sm-2 control-label">Start Date</label>
             <div class="col-sm-10">
-                <input type="text" id="startdate" class="form-control" placeholder="Start Date" />
+                <input ng-model="aboutMeEvent.startDate" type="text" id="startdate" class="form-control" placeholder="Start Date" />
             </div>
         </div>
         <div class="form-group">
             <label for="enddate" class="col-sm-2 control-label">End Date</label>
             <div class="col-sm-10">
-                <input type="text" id="enddate" class="form-control" placeholder="End Date" />
+                <input ng-model="aboutMeEvent.endDate" type="text" id="enddate" class="form-control" placeholder="End Date" />
             </div>
         </div>
         <div class="form-group" nv-file-drop="" uploader="uploader">
             <label for="image" class="col-sm-2 control-label">Image</label>
-            <div class="col-sm-10" ng-show="aboutMeEvent.imageUri">
+            <div class="col-sm-10" ng-show="aboutMeEvent.image">
                 <div class="row col-lg-2">
-                    <img class="img-thumbnail" ng-src="{{aboutMeEvent.imageUri}}" alt="Uploaded Image" />
+                    <img class="img-thumbnail" ng-src="{{aboutMeEvent.image.imageUri}}" alt="Uploaded Image" />
                 </div>
                 <div class="col-lg-4 text-center">
-                    <strong>{{ aboutMeEvent.imageName }}</strong>
+                    <strong>{{ aboutMeEvent.image.imageName }}</strong>
                 </div>
                 <div class="col-lg-6 text-right">
                     <button type="button" class="btn btn-danger" ng-click="">
@@ -40,7 +40,7 @@
                     </button>
                 </div>
             </div>
-            <div class="col-sm-10" ng-hide="aboutMeEvent.imageUri && !uploader.isUploading">
+            <div class="col-sm-10" ng-hide="aboutMeEvent.image && !uploader.isUploading">
                 <div ng-show="uploader.isHTML5">
                     <div class="well my-drop-zone" style="height: 250px;" ng-file-over="" uploader="uploader">
                         Drop Image Here
@@ -50,7 +50,7 @@
             </div>
             <div class="col-sm-10 col-sm-offset-2" ng-show="uploader.isHTML5 && uploader.isUploading">
                 <div>Queue progress:</div>
-                <div class="progress" style="">                    
+                <div class="progress" style="">
                     <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                 </div>
                 <div>

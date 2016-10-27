@@ -1,4 +1,5 @@
-﻿using LunarSFXc.Extensions;
+﻿using AutoMapper;
+using LunarSFXc.Extensions;
 using LunarSFXc.Objects;
 using LunarSFXc.Repositories;
 using LunarSFXc.Services;
@@ -58,10 +59,12 @@ namespace LunarSFXc.Controllers.Api
                             Description = file.Id
                         };
 
-                        var imageId = await _repo.AddOrUpdateFileDescriptions(imageDesc);
-                        var imageUri = await ImageUri(imageId);
+                        var image = await _repo.AddOrUpdateFileDescriptions(imageDesc);
+                        var imageModel = Mapper.Map<ImageDescriptionViewModel>(image);
 
-                        return Ok(new { Message = "Image uploaded", ImageId = imageId, ImageUri = imageUri, ImageName = imageDesc.FileName });
+                        GetImageUri(imageModel);
+
+                        return Ok(new { Message = "Image uploaded", Image = imageModel });
                     }
                 }
                 catch (Exception ex)
@@ -75,8 +78,6 @@ namespace LunarSFXc.Controllers.Api
             ModelState.AddModelError("", "Invalid Model Error");
             return BadRequest(new { Message = "Image could not be uploaded, please try again" });
         }
-
-
 
         //[Route("download/{id}")]
         //[HttpGet]
@@ -96,15 +97,21 @@ namespace LunarSFXc.Controllers.Api
             return new GalleryViewModel(_cloudService, _repo, containerName);
         }
 
-        //TODO:What is this?
-        [Route("{Id}")]
-        [HttpGet]
-        public async Task<string> ImageUri(int Id)
-        {
-            var desc = await _repo.GetFileDescription(Id);
-            var imguri = _cloudService.GetImageUri(desc.ContainerName, desc.FileName);
+        ////TODO:What is this?
+        //[Route("{Id}")]
+        //[HttpGet]
+        //public async Task<string> ImageUri(int Id)
+        //{
+        //    var desc = await _repo.GetFileDescription(Id);
+        //    var imguri = _cloudService.GetImageUri(desc.ContainerName, desc.FileName);
 
-            return imguri;
+        //    return imguri;
+        //}
+
+        private void GetImageUri(ImageDescriptionViewModel model)
+        {
+           model.ImageUri = _cloudService.GetImageUri(model.ContainerName, model.FileName);
         }
+
     }
 }

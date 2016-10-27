@@ -8,11 +8,11 @@
     function AddAboutMeCtrl($scope, dataResource, FileUploader) {
         var vm = this;
         var TimelineEvent = dataResource.aboutme.get({ id: 0 });
+        $scope.aboutMeEvent = TimelineEvent;
 
         $scope.saveEvent = function () {
-            TimelineEvent.title = "foo";
-            console.log(TimelineEvent);
-            TimelineEvent.$post();
+            console.log($scope.aboutMeEvent);
+            $scope.aboutMeEvent.$post();
         };
         
 
@@ -42,10 +42,8 @@
         };
 
         uploader.onSuccessItem = function (fileItem, response, status, headers) {
-            //console.info('onSuccessItem', fileItem, response, status, headers);
-            $scope.aboutMeEvent.imageId = response.imageId;
-            $scope.aboutMeEvent.imageUri = response.imageUri
-            $scope.aboutMeEvent.imageName = response.imageName;
+            console.info('onSuccessItem', fileItem, response, status, headers);
+            $scope.aboutMeEvent.image = response.image;            
         };
 
         uploader.onErrorItem = function (fileItem, response, status, headers) {

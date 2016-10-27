@@ -449,14 +449,14 @@ namespace LunarSFXc.Repositories
             return await _context.ImageDescriptions.SingleOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task<int> AddOrUpdateFileDescriptions(ImageDescription file)
+        public async Task<ImageDescription> AddOrUpdateFileDescriptions(ImageDescription file)
         {
             if (_context.ImageDescriptions.Any(x => x.FileName == file.FileName && x.ContainerName == file.ContainerName))
             {
                 var oldFile = _context.ImageDescriptions.FirstOrDefault(x => x.FileName == file.FileName);
                 oldFile.UpdatedTimestamp = DateTime.UtcNow;
                 _context.ImageDescriptions.Update(oldFile);
-                file.Id = oldFile.Id;
+                file = oldFile;
             }
             else
             {
@@ -465,7 +465,7 @@ namespace LunarSFXc.Repositories
 
             await _context.SaveChangesAsync();
 
-            return file.Id;
+            return file;
         }
 
         public async Task<ICollection<TimelineEvent>> GetTimelineEvents(string sectionName)
@@ -482,9 +482,24 @@ namespace LunarSFXc.Repositories
                             .Where(x => x.Id == id).ToListAsync();
         }
 
-        public void AddTimelineEvent(TimelineEvent newEvent)
+        public async void AddTimelineEvent(TimelineEvent newEvent)
         {
-            _context.TimelineEvents.Add(newEvent);
+            try
+            {
+                var image = await _context.ImageDescriptions.SingleOrDefaultAsync(x => x.FileName == newEvent.Image.FileName && x.ContainerName == newEvent.Image.ContainerName);
+
+                newEvent.Image = image;
+                _context.Entry(newEvent.Image).State = EntityState.Modified;
+                //breaking here....
+                _context.TimelineEvents.Add(newEvent);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            
         }
 
         public async Task<bool> SaveAllAsync()
