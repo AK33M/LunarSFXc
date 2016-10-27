@@ -15,7 +15,7 @@
             aboutme: $resource("api/aboutme/:action/:id", {}, {
                 'getAll': { method: 'GET', params: { action: 'events' }, isArray: false },
                 'get': { method: 'GET', params: { action: 'event', id: '@id' }, isArray: false },
-                'post': { method: 'POST', url: '/post' }
+                'post': { method: 'POST', params: { action: 'post' } }
             })
         };
     }

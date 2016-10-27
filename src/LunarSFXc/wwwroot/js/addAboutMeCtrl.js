@@ -7,8 +7,13 @@
 
     function AddAboutMeCtrl($scope, dataResource, FileUploader) {
         var vm = this;
+        var TimelineEvent = dataResource.aboutme.get({ id: 0 });
 
-        $scope.aboutMeEvent = dataResource.aboutme.get({ id: 0 });
+        $scope.saveEvent = function () {
+            TimelineEvent.title = "foo";
+            console.log(TimelineEvent);
+            TimelineEvent.$post();
+        };
         
 
         //AngularFileUpload http://nervgh.github.io/pages/angular-file-upload/examples/simple/

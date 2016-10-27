@@ -74,7 +74,7 @@ namespace LunarSFXc.Controllers.Api
 
         [Route("post")]
         [HttpPost]
-        public async Task<IActionResult> Post(TimelineEventViewModel timelineEvent)
+        public async Task<IActionResult> Post([FromBody]TimelineEventViewModel timelineEvent)
         {
             if (ModelState.IsValid)
             {
