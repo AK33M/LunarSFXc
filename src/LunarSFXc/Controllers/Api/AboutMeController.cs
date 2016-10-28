@@ -34,11 +34,11 @@ namespace LunarSFXc.Controllers.Api
             {
                 var model = new AboutMeViewModel(_cloudService, _repo);
 
-                return Json(new
+                return Content(JsonConvert.SerializeObject(new
                 {
                     records = model.Events.Count,
                     rows = model.Events
-                });
+                }));
             }
             catch (Exception ex)
             {
