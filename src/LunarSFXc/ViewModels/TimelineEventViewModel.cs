@@ -5,6 +5,7 @@ namespace LunarSFXc.ViewModels
 {
     public class TimelineEventViewModel
     {
+        public int Id { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]

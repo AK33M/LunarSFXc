@@ -3,14 +3,20 @@
 
     angular
         .module("app-admin")
-        .controller("AboutMeCtrl", ["$scope", "$location", "dataResource", AboutMeCtrl]);
+        .controller("AboutMeCtrl", ["$scope", "$log", "$location", "dataResource", "uiGridConstants", AboutMeCtrl]);
 
-    function AboutMeCtrl($scope, $location, dataResource) {
+    function AboutMeCtrl($scope, $log, $location, dataResource, uiGridConstants) {
         var vm = this;
 
         $scope.go = function (path) {
             $location.path(path);
         };
+
+        $scope.edit = function (path) {
+           $location.path(path);
+        };
+
+
 
         var paginationOptions = {
             pageNumber: 1,
@@ -23,13 +29,20 @@
             enableSorting: true,
             enableColumnResizing: true,
             enableRowSelection: true,
-            enableRowHeaderSelection: false,
+            enableRowHeaderSelection: true,
             enableFullRowSelection: true,
+
             multiSelect: false,
             modifierKeysToMultiSelect: false,
             noUnselect: false,
 
+            enableSelectAll: true,
+            selectionRowHeaderWidth: 35,
+            rowHeight: 35,
+            showGridFooter: true,
+
             columnDefs: [
+                 { name: 'Id', visible: false },
                 { name: 'Title', cellTooltip: true },
                 { name: 'Description', cellTooltip: true, enableSorting: false },
                 { name: 'StartDate', cellTooltip: false },
@@ -39,22 +52,27 @@
             ],
             onRegisterApi: function (gridApi) {
                 $scope.gridApi = gridApi;
-                //$scope.gridApi.core.on.sortChanged($scope, function (grid, sortColumns) {
-                //    if (sortColumns.length == 0) {
-                //        paginationOptions.sort = null;
-                //    } else {
-                //        paginationOptions.sort = sortColumns[0].sort.direction;
-                //        paginationOptions.columnName = sortColumns[0].name;
-                //    }
-                //    getPage();
-                //});
-                //gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
-                //    paginationOptions.pageNumber = newPage;
-                //    paginationOptions.pageSize = pageSize;
+                gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+                    if (row.isSelected) {
+                        var msg = 'row selected ' + row.entity.Id;
+                        $scope.rowSelected = row.entity.Id;
+                       // $log.log(msg);
+                        $scope.eventToEdit = gridApi.selection.getSelectedRows();
+                    } else {
+                        $scope.rowSelected = null;
+                        $scope.eventToEdit = null;
+                    }
+                });
 
-                //    getPage();
+                //gridApi.selection.on.rowSelectionChangedBatch($scope, function (rows) {
+                //    //var msg = 'rows changed ' + rows.length;
+                //    //$log.log(msg);
                 //});
             }
+        };
+
+        $scope.gridOptions.rowIdentity = function (row) {
+            return row.id;
         };
 
         var getPage = function () {

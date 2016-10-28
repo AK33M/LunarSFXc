@@ -474,7 +474,7 @@ namespace LunarSFXc.Repositories
                             .Include(x => x.Image)
                             .ToListAsync();
         }
-        
+
         public async Task<ICollection<TimelineEvent>> GetTimelineEvents(string sectionName, int id)
         {
             return await _context.TimelineEvents
@@ -482,18 +482,32 @@ namespace LunarSFXc.Repositories
                             .Where(x => x.Id == id).ToListAsync();
         }
 
-        public void AddTimelineEvent(TimelineEvent newEvent)
+        public void AddOrUpdateTimelineEvent(TimelineEvent newEvent)
         {
             try
             {
                 newEvent.Image = AddOrUpdateFileDescriptions(newEvent.Image);
-                _context.TimelineEvents.Add(newEvent);
+
+                if (_context.TimelineEvents.Any(x => x.Id == newEvent.Id))
+                {
+                    var oldEvent = _context.TimelineEvents.FirstOrDefault(x => x.Id == newEvent.Id);
+                    oldEvent =  newEvent;
+                    //_context.Entry(newEvent).State = EntityState.Detached;
+                    //Breaking Here!
+                    _context.TimelineEvents.Update(oldEvent);
+                }
+                else
+                {
+                    _context.TimelineEvents.Add(newEvent);
+                }
+
+                _context.SaveChanges();
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Error", ex);
                 throw ex;
-            }            
+            }
         }
 
         public async Task<bool> SaveAllAsync()
@@ -506,7 +520,7 @@ namespace LunarSFXc.Repositories
             {
                 _logger.LogError($"Error: Saving All", ex);
                 throw ex;
-            }           
+            }
         }
 
         public async Task<ICollection<ImageDescription>> GetAllImages(string containerName)

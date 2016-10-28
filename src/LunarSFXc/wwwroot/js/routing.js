@@ -36,7 +36,7 @@
                                 templateUrl: "/views/add-images.html"
                             });
 
-                            $routeProvider.when("/add-aboutme", {
+                            $routeProvider.when("/add-aboutme/:Id", {
                                 controller: "AddAboutMeCtrl as vm",
                                 templateUrl: "/views/add-about-me-event.html"
                             });

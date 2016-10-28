@@ -3,18 +3,18 @@
 
     angular
         .module("app-admin")
-        .controller("AddAboutMeCtrl", ["$scope", "$location", "dataResource", "FileUploader", AddAboutMeCtrl]);
+        .controller("AddAboutMeCtrl", ["$scope", "$location", "$routeParams", "$log", "dataResource", "FileUploader", AddAboutMeCtrl]);
 
-    function AddAboutMeCtrl($scope, $location, dataResource, FileUploader) {
+    function AddAboutMeCtrl($scope, $location, $routeParams,$log,  dataResource, FileUploader) {
         var vm = this;
 
         $scope.go = function (path) {
-            $location.path(path);
+            $location.path(path);           
         };
 
-        var TimelineEvent = dataResource.aboutme.get({ id: 0 });
+        //myVar === "two" ? "it's true" : "it's false"
+        var TimelineEvent = dataResource.aboutme.get({ id: $routeParams.Id === null ? 0 : $routeParams.Id });
         $scope.aboutMeEvent = TimelineEvent;
-
 
 
         $scope.saveEvent = function () {

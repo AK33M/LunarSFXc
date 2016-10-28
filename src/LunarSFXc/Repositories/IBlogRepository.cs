@@ -30,7 +30,7 @@ namespace LunarSFXc.Repositories
         ICollection<Post> Posts(int pageNo, int pageSize, string sortColumn, bool sortByAscending);
         Task<ImageDescription> GetFileDescription(int id);
         ImageDescription AddOrUpdateFileDescriptions(ImageDescription file);
-        void AddTimelineEvent(TimelineEvent newEvent);
+        void AddOrUpdateTimelineEvent(TimelineEvent newEvent);
 
         Task<bool> SaveAllAsync();
         Task<ICollection<ImageDescription>> GetAllImages(string containerName);

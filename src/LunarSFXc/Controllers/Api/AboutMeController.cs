@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -56,8 +58,9 @@ namespace LunarSFXc.Controllers.Api
                 if (Id != 0)
                 {
                     var model = new AboutMeViewModel(_cloudService, _repo, Id);
+                    List<TimelineEventViewModel> results = (List<TimelineEventViewModel>)Mapper.Map<ICollection<TimelineEventViewModel>>(model.Events);
 
-                    return Json(model.Events);
+                    return Json(results.ToArray()[0]);
                 }
                 else
                 {
@@ -84,7 +87,7 @@ namespace LunarSFXc.Controllers.Api
 
                     //Save to the database
                     _logger.LogInformation("Attempting to save a new event");
-                    _repo.AddTimelineEvent(newEvent);
+                    _repo.AddOrUpdateTimelineEvent(newEvent);
 
                     if (await _repo.SaveAllAsync())
                     {
