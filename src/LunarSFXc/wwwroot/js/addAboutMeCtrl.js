@@ -12,7 +12,11 @@
 
         $scope.saveEvent = function () {
             console.log($scope.aboutMeEvent);
-            $scope.aboutMeEvent.$post();
+            $scope.aboutMeEvent.$post(function (response) {
+                //success callback
+            }, function (error) {
+                //error callback                
+            });
         };
         
 
