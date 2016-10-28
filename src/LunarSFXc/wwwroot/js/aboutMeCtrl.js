@@ -3,10 +3,14 @@
 
     angular
         .module("app-admin")
-        .controller("AboutMeCtrl", ["$scope", "dataResource", AboutMeCtrl]);
+        .controller("AboutMeCtrl", ["$scope", "$location", "dataResource", AboutMeCtrl]);
 
-    function AboutMeCtrl($scope, dataResource) {
+    function AboutMeCtrl($scope, $location, dataResource) {
         var vm = this;
+
+        $scope.go = function (path) {
+            $location.path(path);
+        };
 
         var paginationOptions = {
             pageNumber: 1,

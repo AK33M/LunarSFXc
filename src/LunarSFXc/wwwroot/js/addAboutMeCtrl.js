@@ -7,13 +7,20 @@
 
     function AddAboutMeCtrl($scope, $location, dataResource, FileUploader) {
         var vm = this;
+
+        $scope.go = function (path) {
+            $location.path(path);
+        };
+
         var TimelineEvent = dataResource.aboutme.get({ id: 0 });
         $scope.aboutMeEvent = TimelineEvent;
+
+
 
         $scope.saveEvent = function () {
             $scope.aboutMeEvent.$post(function (response) {
                 //success callback
-                $location.path('aboutme');
+                $location.path('/aboutme');
             }, function (error) {
                 //error callback 
                 //console.log(error);
