@@ -449,7 +449,7 @@ namespace LunarSFXc.Repositories
             return await _context.ImageDescriptions.SingleOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task<ImageDescription> AddOrUpdateFileDescriptions(ImageDescription file)
+        public ImageDescription AddOrUpdateFileDescriptions(ImageDescription file)
         {
             if (_context.ImageDescriptions.Any(x => x.FileName == file.FileName && x.ContainerName == file.ContainerName))
             {
@@ -463,7 +463,7 @@ namespace LunarSFXc.Repositories
                 _context.ImageDescriptions.Add(file);
             }
 
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return file;
         }
@@ -482,29 +482,30 @@ namespace LunarSFXc.Repositories
                             .Where(x => x.Id == id).ToListAsync();
         }
 
-        public async void AddTimelineEvent(TimelineEvent newEvent)
+        public void AddTimelineEvent(TimelineEvent newEvent)
         {
             try
             {
-                var image = await _context.ImageDescriptions.SingleOrDefaultAsync(x => x.FileName == newEvent.Image.FileName && x.ContainerName == newEvent.Image.ContainerName);
-
-                newEvent.Image = image;
-                _context.Entry(newEvent.Image).State = EntityState.Modified;
-                //breaking here....
+                newEvent.Image = AddOrUpdateFileDescriptions(newEvent.Image);
                 _context.TimelineEvents.Add(newEvent);
             }
             catch (Exception ex)
             {
-
-                throw ex;
-            }
-
-            
+                _logger.LogError($"Error", ex);
+            }            
         }
 
         public async Task<bool> SaveAllAsync()
         {
-            return await _context.SaveChangesAsync() > 0;
+            try
+            {
+                return await _context.SaveChangesAsync() > 0;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error: Saving All", ex);
+                throw;
+            }           
         }
 
         public async Task<ICollection<ImageDescription>> GetAllImages(string containerName)
