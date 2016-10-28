@@ -492,6 +492,7 @@ namespace LunarSFXc.Repositories
             catch (Exception ex)
             {
                 _logger.LogError($"Error", ex);
+                throw ex;
             }            
         }
 
@@ -504,7 +505,7 @@ namespace LunarSFXc.Repositories
             catch (Exception ex)
             {
                 _logger.LogError($"Error: Saving All", ex);
-                throw;
+                throw ex;
             }           
         }
 

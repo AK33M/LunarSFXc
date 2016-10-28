@@ -3,23 +3,44 @@
     <div class="col-sm-offset-2">
         <div uib-alert dismiss-on-timeout="5000" ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)">{{alert.msg}}</div>
     </div>
-    <form class="form-horizontal">
+    <form class="form-horizontal" name="aboutMeEventForm" id="aboutMeEventForm" novalidate ng-submit="aboutMeEventForm.$valid && saveEvent()">
         <div class="form-group">
             <label for="title" class="col-sm-2 control-label">Event Title</label>
             <div class="col-sm-10">
-                <input ng-model="aboutMeEvent.title" type="text" id="title" class="form-control" placeholder="Title" />
+                <input required ng-model="aboutMeEvent.title" type="text" id="title" name="title" class="form-control" placeholder="Title" />
+
+                <div class="help-block has-error text-muted" ng-messages="aboutMeEventForm.title.$error" role="alert">
+                    <div ng-message="required">Title is required.</div>
+                </div>
             </div>
         </div>
         <div class="form-group">
             <label for="description" class="col-sm-2 control-label">Description</label>
             <div class="col-sm-10">
-                <textarea ng-model="aboutMeEvent.description" type="text" id="description" class="form-control" rows="5"></textarea>
+                <textarea required ng-model="aboutMeEvent.description"
+                          ng-minlength="50"
+                          ng-maxlength="250"
+                          type="text"
+                          id="description"
+                          name="description"
+                          class="form-control"
+                          rows="5"></textarea>
+
+                <div class="help-block has-error text-muted" ng-messages="aboutMeEventForm.description.$error">
+                    <div ng-message="required">Description is required.</div>
+                    <div ng-message="minlength">Description is too short.</div>
+                    <div ng-message="maxlength">Description is too long.</div>
+                </div>
             </div>
         </div>
         <div class="form-group">
             <label for="startdate" class="col-sm-2 control-label">Start Date</label>
             <div class="col-sm-10">
-                <input ng-model="aboutMeEvent.startDate" type="text" id="startdate" class="form-control" placeholder="Start Date" />
+                <input required ng-model="aboutMeEvent.startDate" type="text" id="startdate" name="startdate" class="form-control" placeholder="Start Date (e.g. MAY 2015)" />
+
+                <div class="help-block has-error text-muted" ng-messages="aboutMeEventForm.startdate.$error">
+                    <div ng-message="required">Start Date is required.</div>
+                </div>
             </div>
         </div>
         <div class="form-group">
@@ -65,7 +86,7 @@
         </div>
         <div class="form-group">
             <div class="col-sm-10 col-sm-offset-2">
-                <button type="submit" class="btn btn-primary btn-lg" ng-click="saveEvent()">Submit</button>
+                <button type="submit" class="btn btn-primary btn-lg">Submit</button>
             </div>
         </div>
     </form>

@@ -94,14 +94,14 @@ namespace LunarSFXc.Controllers.Api
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError("Failed to Save new Event", ex);
+                    _logger.LogError("Failed to Save new event", ex);
                     Response.StatusCode = (int)HttpStatusCode.BadRequest;
                     return Json(new { Message = ex.Message });
                 }
             }
 
             Response.StatusCode = (int)HttpStatusCode.BadRequest;
-            return Json(new { Message = "Failed", ModelState = ModelState });
+            return Json(new { Message = "Failed to Save new event", ModelState = ModelState });
         }
     }
 }

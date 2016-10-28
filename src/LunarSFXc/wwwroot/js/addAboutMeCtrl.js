@@ -16,7 +16,15 @@
                 $location.path('aboutme');
             }, function (error) {
                 //error callback 
-                $scope.alerts = [{ type: 'danger', msg: 'Oops!: ' + error.data.message }];
+                //console.log(error);
+                $scope.alerts = [{ type: 'danger', msg: error.data.message }];
+                var errorMessage = '';
+                angular.forEach(error.data.modelState, function (value, key) {
+                    errorMessage = value.errors[0].errorMessage;
+                    $scope.alerts.push({ type: 'danger', msg: errorMessage })
+                });
+
+                //$scope.alerts = [{ type: 'danger', msg: 'Oops!: ' + errorMessage }];
             });
         };
 
