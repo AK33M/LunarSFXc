@@ -1,5 +1,8 @@
 ﻿<div class="col-lg-8 col-lg-offset-2">
     <h4 class="page-header">New Event</h4>
+    <div class="col-sm-offset-2">
+        <div uib-alert dismiss-on-timeout="5000" ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)">{{alert.msg}}</div>
+    </div>
     <form class="form-horizontal">
         <div class="form-group">
             <label for="title" class="col-sm-2 control-label">Event Title</label>

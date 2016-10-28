@@ -3,22 +3,27 @@
 
     angular
         .module("app-admin")
-        .controller("AddAboutMeCtrl", ["$scope", "dataResource", "FileUploader", AddAboutMeCtrl]);
+        .controller("AddAboutMeCtrl", ["$scope", "$location", "dataResource", "FileUploader", AddAboutMeCtrl]);
 
-    function AddAboutMeCtrl($scope, dataResource, FileUploader) {
+    function AddAboutMeCtrl($scope, $location, dataResource, FileUploader) {
         var vm = this;
         var TimelineEvent = dataResource.aboutme.get({ id: 0 });
         $scope.aboutMeEvent = TimelineEvent;
 
         $scope.saveEvent = function () {
-            console.log($scope.aboutMeEvent);
             $scope.aboutMeEvent.$post(function (response) {
                 //success callback
+                $location.path('aboutme');
             }, function (error) {
-                //error callback                
+                //error callback 
+                $scope.alerts = [{ type: 'danger', msg: 'Oops!: ' + error.data.message }];
             });
         };
-        
+
+        $scope.closeAlert = function (index) {
+            $scope.alerts.splice(index, 1);
+        };
+
 
         //AngularFileUpload http://nervgh.github.io/pages/angular-file-upload/examples/simple/
         // Creates a uploader
@@ -47,7 +52,7 @@
 
         uploader.onSuccessItem = function (fileItem, response, status, headers) {
             console.info('onSuccessItem', fileItem, response, status, headers);
-            $scope.aboutMeEvent.image = response.image;            
+            $scope.aboutMeEvent.image = response.image;
         };
 
         uploader.onErrorItem = function (fileItem, response, status, headers) {
