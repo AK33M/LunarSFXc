@@ -51,15 +51,13 @@
         </div>
         <div class="form-group" nv-file-drop="" uploader="uploader">
             <label for="image" class="col-sm-2 control-label">Image</label>
-            <div class="col-sm-10" ng-show="aboutMeEvent.image">
-                <div class="row col-lg-2">
+            <div class="row col-sm-10" ng-show="aboutMeEvent.image">
+                <div class="col-sm-6 col-lg-6">
                     <img class="img-thumbnail" ng-src="{{aboutMeEvent.image.imageUri}}" alt="Uploaded Image" />
+                    <p><span class="text-muted">File name: {{ aboutMeEvent.image.fileName }}</span></p>
                 </div>
-                <div class="col-lg-4 text-center">
-                    <strong>{{ aboutMeEvent.image.imageName }}</strong>
-                </div>
-                <div class="col-lg-6 text-right">
-                    <button type="button" class="btn btn-danger" ng-click="">
+                <div class="col-sm-6 col-lg-6">
+                    <button type="button" class="btn btn-danger pull-right" ng-click="removeImage()">
                         <span class="fa fa-trash"></span> Remove
                     </button>
                 </div>

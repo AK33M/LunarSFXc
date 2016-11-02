@@ -39,6 +39,10 @@
             $scope.alerts.splice(index, 1);
         };
 
+        $scope.removeImage = function () {
+            $scope.aboutMeEvent.image = null;
+        };
+
 
         //AngularFileUpload http://nervgh.github.io/pages/angular-file-upload/examples/simple/
         // Creates a uploader
