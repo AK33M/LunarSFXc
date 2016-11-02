@@ -32,7 +32,6 @@ namespace LunarSFXc.Repositories
         ImageDescription AddOrUpdateFileDescriptions(ImageDescription file);
         void AddOrUpdateTimelineEvent(TimelineEvent newEvent);
 
-        Task<bool> SaveAllAsync();
         Task<ICollection<ImageDescription>> GetAllImages(string containerName);
     }
 }

@@ -89,11 +89,8 @@ namespace LunarSFXc.Controllers.Api
                     _logger.LogInformation("Attempting to save a new event");
                     _repo.AddOrUpdateTimelineEvent(newEvent);
 
-                    if (await _repo.SaveAllAsync())
-                    {
-                        Response.StatusCode = (int)HttpStatusCode.Created;
-                        return Json(Mapper.Map<TimelineEventViewModel>(newEvent));
-                    }
+                    Response.StatusCode = (int)HttpStatusCode.Created;
+                    return Json(Mapper.Map<TimelineEventViewModel>(newEvent));
                 }
                 catch (Exception ex)
                 {

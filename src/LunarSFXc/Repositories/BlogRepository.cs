@@ -490,10 +490,9 @@ namespace LunarSFXc.Repositories
 
                 if (_context.TimelineEvents.Any(x => x.Id == newEvent.Id))
                 {
+                    _context.TimelineEvents.Attach(newEvent);
                     var oldEvent = _context.TimelineEvents.FirstOrDefault(x => x.Id == newEvent.Id);
-                    oldEvent =  newEvent;
-                    //_context.Entry(newEvent).State = EntityState.Detached;
-                    //Breaking Here!
+                    oldEvent = newEvent;
                     _context.TimelineEvents.Update(oldEvent);
                 }
                 else
@@ -506,19 +505,6 @@ namespace LunarSFXc.Repositories
             catch (Exception ex)
             {
                 _logger.LogError($"Error", ex);
-                throw ex;
-            }
-        }
-
-        public async Task<bool> SaveAllAsync()
-        {
-            try
-            {
-                return await _context.SaveChangesAsync() > 0;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Error: Saving All", ex);
                 throw ex;
             }
         }
