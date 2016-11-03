@@ -7,7 +7,9 @@
 
     function dataResource($resource) {
         return {
-            posts: $resource("api/posts/:id"),
+            posts: $resource("api/posts/:action/:id", {}, {
+                'getCategories': { method: 'GET', params: { action: 'categories' }, isArray: false }
+            }),
             images: $resource("api/images/:action", {}, {
                 'getAll': { method: 'GET', params: { action: 'list', containerName: '@containerName' }, isArray: false },
                 'upload': { method: 'POST', url: "/upload" }

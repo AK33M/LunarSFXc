@@ -4,17 +4,18 @@
 
     angular
         .module("app-admin")
-        .controller("AddPostCtrl", ["$scope", "$location", "$routeParams", "dataResource", "FileUploader", AddPostCtrl]);
+        .controller("AddPostCtrl", ["$scope", "$log", "$location", "$routeParams", "dataResource", "FileUploader", AddPostCtrl]);
 
-    function AddPostCtrl($scope, $location, $routeParams, dataResource, FileUploader) {
+    function AddPostCtrl($scope, $log, $location, $routeParams, dataResource, FileUploader) {
         var vm = this;
-        $scope.greeting = "Hello Form";
 
-
-
-
-
-
+        dataResource.posts.getCategories(function (data) {
+            //success
+            $scope.categories = data.categories
+        }, function (error) {
+            //error
+            $log.log(error);
+        });
 
 
         //AngularFileUpload http://nervgh.github.io/pages/angular-file-upload/examples/simple/

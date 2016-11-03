@@ -47,8 +47,22 @@ namespace LunarSFXc.Controllers.Api
                 _logger.LogError($"Failed to get all Posts: {ex}");
                 return BadRequest("Error occurred");
             }
+        }
 
-            //return null;
+        [HttpGet]
+        [Route("categories")]
+        public IActionResult GetCategories()
+        {
+            try
+            {
+                var categories = Mapper.Map<ICollection<CategoryViewModel>>(_repo.Categories());
+                return Json(new { Categories = categories });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to get all Categories: {ex}");
+                return BadRequest("Error occurred");
+            }
         }
     }
 }
