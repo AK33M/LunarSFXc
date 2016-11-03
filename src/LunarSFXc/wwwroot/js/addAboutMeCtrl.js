@@ -15,12 +15,12 @@
         $scope.alerts = [];
 
         //myVar === "two" ? "it's true" : "it's false"
-        var TimelineEvent = dataResource.aboutme.get({ id: $routeParams.Id === null ? 0 : $routeParams.Id });
+        var TimelineEvent = dataResource.aboutme.get({ id: $routeParams.Id == null ? 0 : $routeParams.Id });
         $scope.aboutMeEvent = TimelineEvent;
 
 
         $scope.saveEvent = function () {
-            $scope.aboutMeEvent.$post(function (response) {
+            $scope.aboutMeEvent.$save(function (response) {
                 //success callback
                 $location.path('/aboutme');
             }, function (error) {

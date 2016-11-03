@@ -8,13 +8,15 @@
                 "ngMessages",
                 "ngRoute",
                 "ngAnimate",
+                "ngSanitize",
                 "ngTouch",
                 "ui.grid",
                 "ui.grid.pagination",
                 "ui.grid.selection",
                 "angularFileUpload",
                 "ui.bootstrap",
-                "bootstrapLightbox"
+                "bootstrapLightbox",
+                "ui.select"
             ]);
     //.constant("appSettings",
     //{

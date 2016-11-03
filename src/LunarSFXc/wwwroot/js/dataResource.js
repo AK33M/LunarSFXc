@@ -8,6 +8,8 @@
     function dataResource($resource) {
         return {
             posts: $resource("api/posts/:action/:id", {}, {
+                'getAll': { method: 'GET', params: { id: '@paginationOptions' }, isArray: false },
+                'getPost': { method: 'GET', params: { action: 'post', id: '@id' }, isArray: false },
                 'getCategories': { method: 'GET', params: { action: 'categories' }, isArray: false },
                 'getTags': { method: 'GET', params: { action: 'tags' }, isArray: false }
             }),
@@ -18,7 +20,7 @@
             aboutme: $resource("api/aboutme/:action/:id", {}, {
                 'getAll': { method: 'GET', params: { action: 'events' }, isArray: false },
                 'get': { method: 'GET', params: { action: 'event', id: '@id' }, isArray: false },
-                'post': { method: 'POST', params: { action: 'post' } },
+                'save': { method: 'POST', params: { action: 'save' } },
                 'delete': { method: 'DELETE', params: { action: 'delete', id: '@id' } }
             })
         };

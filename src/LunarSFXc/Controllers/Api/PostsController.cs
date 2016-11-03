@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Net;
 
 namespace LunarSFXc.Controllers.Api
 {
@@ -46,6 +47,30 @@ namespace LunarSFXc.Controllers.Api
             {
                 _logger.LogError($"Failed to get all Posts: {ex}");
                 return BadRequest("Error occurred");
+            }
+        }
+
+        [Route("post/{id}")]
+        [HttpGet]
+        public IActionResult Get(int Id)
+        {
+            try
+            {
+                if (Id != 0)
+                {
+                    //var 
+                    return Json(new PostViewModel());
+                }
+                else
+                {
+                    return Json(new PostViewModel());
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Failed to get event", ex);
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new { Message = ex.Message });
             }
         }
 

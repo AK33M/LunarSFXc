@@ -63,11 +63,12 @@
         };
 
         var getPage = function () {
-            dataResource.posts.get(paginationOptions, function (data) {
+            dataResource.posts.getAll(paginationOptions, function (data) {
                 $scope.gridOptions.totalItems = data.records;
                 // var firstRow = (paginationOptions.pageNumber - 1) * paginationOptions.pageSize;
                 $scope.gridOptions.data = data.rows;//.slice(firstRow, firstRow + paginationOptions.pageSize);
-
+            }, function (error) {
+                //Error
             });
         };
 

@@ -9,6 +9,15 @@
     function AddPostCtrl($scope, $log, $location, $routeParams, dataResource, FileUploader) {
         var vm = this;
 
+        dataResource.posts.getPost({ id: $routeParams.Id == null ? 0 : $routeParams.Id },
+                    function (data) {
+                        //Success
+                        $scope.blogPost = data
+                        $log.log($scope.blogPost);
+                    }, function (error) {
+                        //Error
+                    });
+
         dataResource.posts.getCategories(function (data) {
             //success
             $scope.categories = data.categories
@@ -28,6 +37,22 @@
         $scope.go = function (path) {
             $location.path(path);
         };
+
+        $scope.tagTransform = function (newTag) {
+            var tag = {
+                name: newTag,
+                description: "About " + newTag,
+                urlSlug: newTag.replace(/[\. ,:-]+/g, '-').toLowerCase()//OR this /[\. ,:-]+/
+            };
+            return tag;
+        };
+
+        $scope.onSelectCallBack = function (item, model) {
+            //$log.log(item);
+            $log.log($scope.blogPost.tags);
+        };
+
+
 
         //AngularFileUpload http://nervgh.github.io/pages/angular-file-upload/examples/simple/
         // Creates a uploader
