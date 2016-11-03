@@ -1,27 +1,74 @@
 ﻿<div class="col-lg-8 col-lg-offset-2">
     <h4 class="page-header">New Blog Post</h4>
-    <form class="form-horizontal">
+    <div class="col-sm-offset-2">
+        <div uib-alert dismiss-on-timeout="5000" ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)">{{alert.msg}}</div>
+    </div>
+    <form class="form-horizontal"
+          name="blogPostForm"
+          id="blogPostForm"
+          novalidate
+          ng-submit="blogPostForm.$valid && saveBlogPost()">
         <div class="form-group">
             <label for="title" class="col-sm-2 control-label">Post Title</label>
-            <div class="col-sm-8">
-                <input type="text" id="title" class="form-control" placeholder="Title" />
+            <div class="col-sm-10">
+                <input required
+                       ng-model="blogPost.title"
+                       type="text"
+                       id="title"
+                       name="title"
+                       ng-maxlength="500"
+                       class="form-control"
+                       placeholder="Title" />
+
+                <div class="help-block has-error text-muted" ng-messages="blogPostForm.title.$error" role="alert">
+                    <div ng-message="required">Title is required.</div>
+                    <div ng-message="maxlength">Title is too long.</div>
+                </div>
             </div>
         </div>
         <div class="form-group">
             <label for="shortDescription" class="col-sm-2 control-label">Short Description</label>
-            <div class="col-sm-8">
-                <textarea type="text" id="shortDescription" class="form-control" rows="5"></textarea>
+            <div class="col-sm-10">
+                <textarea required
+                          ng-model="blogPost.shortDescription"
+                          ng-minlength="50"
+                          ng-maxlength="250"
+                          type="text"
+                          id="shortDescription"
+                          name="shortDescription"
+                          class="form-control"
+                          rows="5"></textarea>
+
+                <div class="help-block has-error text-muted" ng-messages="blogPostForm.shortDescription.$error">
+                    <div ng-message="required">Short Description is required.</div>
+                    <div ng-message="minlength">Short Description is too short.</div>
+                    <div ng-message="maxlength">Short Description is too long.</div>
+                </div>
             </div>
         </div>
         <div class="form-group">
             <label for="description" class="col-sm-2 control-label">Blog Post</label>
-            <div class="col-sm-8">
-                <textarea type="text" id="description" class="form-control" rows="15"></textarea>
+            <div class="col-sm-10">
+                <textarea required
+                          ng-model="blogPost.description"
+                          ng-minlength="50"
+                          ng-maxlength="5000"
+                          type="text"
+                          id="description"
+                          name="description"
+                          class="form-control"
+                          rows="15"></textarea>
+
+                <div class="help-block has-error text-muted" ng-messages="blogPostForm.description.$error">
+                    <div ng-message="required">Description is required.</div>
+                    <div ng-message="minlength">Description is too short.</div>
+                    <div ng-message="maxlength">Description is too long.</div>
+                </div>
             </div>
         </div>
         <div class="form-group">
             <label for="category" class="col-sm-2 control-label">Category</label>
-            <div class="col-sm-8">
+            <div class="col-sm-10">
                 <select id="category" class="form-control">
                     <option>1</option>
                     <option>2</option>
@@ -42,40 +89,102 @@
                 </select>
             </div>
         </div>
-        <div class="form-group">
+        <!--<div class="form-group">
             <label for="image" class="col-sm-2 control-label">Upload Image</label>
             <div class="col-sm-8">
                 <input id="image" type="file">
             </div>
+        </div>-->
+        <div class="form-group" nv-file-drop="" uploader="uploader">
+            <label for="image" class="col-sm-2 control-label">Image</label>
+            <div class="row col-sm-10" ng-show="blogPost.image">
+                <div class="col-sm-6 col-lg-6">
+                    <img class="img-thumbnail" ng-src="{{blogPost.image.imageUri}}" alt="Uploaded Image" />
+                    <p><span class="text-muted">File name: {{ blogPost.image.fileName }}</span></p>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <button type="button" class="btn btn-danger pull-right" ng-click="removeImage()">
+                        <span class="fa fa-trash"></span> Remove
+                    </button>
+                </div>
+            </div>
+            <div class="col-sm-10" ng-hide="blogPost.image && !uploader.isUploading">
+                <div ng-show="uploader.isHTML5">
+                    <div class="well my-drop-zone" style="height: 250px;" ng-file-over="" uploader="uploader">
+                        Drop Image Here
+                    </div>
+                </div>
+                <input type="file" nv-file-select="" uploader="uploader" />
+            </div>
+            <div class="col-sm-10 col-sm-offset-2" ng-show="uploader.isHTML5 && uploader.isUploading">
+                <div>Queue progress:</div>
+                <div class="progress" style="">
+                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
+                        <span class="fa fa-ban"></span> Cancel
+                    </button>
+                </div>
+            </div>
         </div>
         <div class="form-group">
             <label for="published" class="col-sm-2 control-label">Publish?</label>
-            <div class="">
-                <div class="checkbox col-sm-8">
-                    <input id="published" type="checkbox" class="form-control" />
-                </div>
+            <div class="checkbox col-sm-10">
+                <input id="published" 
+                       name="published" 
+                       ng-model="blogPost.published"
+                       type="checkbox" 
+                       class="form-control" />
             </div>
         </div>
 
         <hr />
         <div class="form-group">
             <label for="meta" class="col-sm-2 control-label pull-left">Meta (SEO)</label>
-            <div class="col-sm-8">
-                <input type="text" id="meta" class="form-control" placeholder="Meta Tags for Google SEO" />
+            <div class="col-sm-10">
+                <input type="text" 
+                       id="meta"
+                       name="meta"
+                       ng-model="blogPost.meta"
+                       ng-maxlength="1000"
+                       required 
+                       class="form-control" 
+                       placeholder="Meta Tags for Google SEO" />
+
+                <div class="help-block has-error text-muted" ng-messages="blogPostForm.meta.$error" role="alert">
+                    <div ng-message="required">Meta is required.</div>
+                    <div ng-message="maxlength">Meta is too long.</div>
+                </div>
             </div>
         </div>
         <div class="form-group">
             <label for="url_slug" class="col-sm-2 control-label pull-left">Url Slug</label>
-            <div class="col-sm-8">
-                <input type="text" id="url_slug" class="form-control" placeholder="Url Slug" />
+            <div class="col-sm-10">
+                <input type="text"
+                       readonly
+                       id="url_slug"
+                       ng-model="blogPost.urlSlug"
+                       ng-maxlength="50"
+                       name="url_slug" 
+                       class="form-control" 
+                       placeholder="Url Slug" />
+
+                <div class="help-block has-error text-muted" ng-messages="blogPostForm.url_slug.$error" role="alert">
+                    <div ng-message="required">Url Slug is required.</div>
+                    <div ng-message="maxlength">Url Slug is too long.</div>
+                </div>
             </div>
         </div>
-    </form>
+        <div class="form-group">
+            <div class="col-sm-10 col-sm-offset-2">
+                <div>
+                    <button type="submit" class="btn btn-primary btn-lg"><i class="fa fa-save"></i> Submit</button>
+                    <button type="button" class="btn btn-danger btn-lg" ng-click="open(blogPost.id)"><i class="fa fa-trash-o"></i> Delete this post</button>
 
-    <form class="dropzone" asp-controller="" asp-action="" asp-antiforgery="false" id="UploadForm" enctype="multipart/form-data">
-        <div class="fallback">
-            <input name="file" type="file" multiple/>
-            <input type="submit" class="btn btn-primary" value="Upload" />
+                    <button type="button" ng-click="go('/posts')" class="pull-right btn btn-default btn-lg"><i class="fa fa-remove"></i> Cancel</button>
+                </div>
+            </div>
         </div>
     </form>
 </div>
