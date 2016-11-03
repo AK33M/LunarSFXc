@@ -3,9 +3,9 @@
 
     angular
         .module("app-admin")
-        .controller("AddAboutMeCtrl", ["$scope", "$location", "$routeParams", "$log", "dataResource", "FileUploader", AddAboutMeCtrl]);
+        .controller("AddAboutMeCtrl", ["$scope", "$location", "$routeParams", "$uibModal", "$log", "dataResource", "FileUploader", AddAboutMeCtrl]);
 
-    function AddAboutMeCtrl($scope, $location, $routeParams, $log, dataResource, FileUploader) {
+    function AddAboutMeCtrl($scope, $location, $routeParams, $uibModal, $log, dataResource, FileUploader) {
         var vm = this;
 
         $scope.go = function (path) {
@@ -25,11 +25,15 @@
                 $location.path('/aboutme');
             }, function (error) {
                 //error callback 
-                $scope.alerts.push({ type: 'danger', msg: error.data.message });
+                $scope.alerts.push({
+                    type: 'danger', msg: error.data.message
+                });
                 var errorMessage = '';
                 angular.forEach(error.data.modelState, function (value, key) {
                     errorMessage = value.errors[0].errorMessage;
-                    $scope.alerts.push({ type: 'danger', msg: errorMessage });
+                    $scope.alerts.push({
+                        type: 'danger', msg: errorMessage
+                    });
                 });
 
                 //$scope.alerts = [{ type: 'danger', msg: 'Oops!: ' + errorMessage }];
@@ -50,12 +54,39 @@
                 $scope.go('/aboutme');
             }, function (error) {
                 //error
-                $scope.alerts.push({ type: 'danger', msg: error.data.message });
+                $scope.alerts.push({
+                    type: 'danger', msg: error.data.message
+                });
             });
-            $log.log(eventId);
         };
 
+        $scope.open = function (eventId, size, parentSelector) {
+            var parentElem = parentSelector ?
+              angular.element($document[0].querySelector('#aboutMeEventForm' + parentSelector)) : undefined;
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'views/confirmDelete.html',
+                controller: 'ModalInstanceCtrl',
+                controllerAs: '$ctrl',
+                size: 'sm',
+                appendTo: parentElem,
+                resolve: {
+                    item : function () {
+                        return eventId;
+                    }
+                }
+            });
 
+            modalInstance.result.then(function (eventId) {
+                //if OK/Agreed
+                $scope.deleteEvent(eventId);
+            }, function () {
+                //if Cancel/Not Agreed/Dismissed Modal
+                $log.info('modal-component dismissed at: ' + new Date());
+            });
+        };
 
 
 
@@ -68,7 +99,9 @@
             queueLimit: 1,
             removeAfterUpload: true,
             autoUpload: true,
-            formData: [{ containerName: 'aboutmetimeline' }]
+            formData: [{
+                containerName: 'aboutmetimeline'
+            }]
         });
 
         // Registers a filter: images only

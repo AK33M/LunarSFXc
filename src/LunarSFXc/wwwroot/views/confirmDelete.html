@@ -1,0 +1,12 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">
+        Please confirm.
+    </h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <p>Are you sure you would like to delete event number {{$ctrl.eventId}}</p>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-danger pull-left" type="button" ng-click="$ctrl.ok()"> Yes, Delete!</button>
+    <button class="btn btn-default" type="button" ng-click="$ctrl.cancel()"> No</button>
+</div>
