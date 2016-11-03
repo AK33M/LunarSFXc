@@ -17,7 +17,6 @@
             $log.log(error);
         });
 
-
         //AngularFileUpload http://nervgh.github.io/pages/angular-file-upload/examples/simple/
         // Creates a uploader
         var uploader = $scope.uploader = new FileUploader({

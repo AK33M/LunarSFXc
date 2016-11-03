@@ -69,13 +69,15 @@
         <div class="form-group">
             <label for="category" class="col-sm-2 control-label">Category</label>
             <div class="col-sm-10">
-                <select id="category" class="form-control">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                </select>
+                <select id="category"
+                        required
+                        name="category"
+                        class="form-control"
+                        ng-options="cat as cat.name for cat in categories track by cat.id"
+                        ng-model="blogPost.category"></select>
+                <div class="help-block has-error text-muted" ng-messages="blogPostForm.category.$error">
+                    <div ng-message="required">Category is required.</div>
+                </div>
             </div>
         </div>
 
@@ -131,10 +133,10 @@
         <div class="form-group">
             <label for="published" class="col-sm-2 control-label">Publish?</label>
             <div class="checkbox col-sm-10">
-                <input id="published" 
-                       name="published" 
+                <input id="published"
+                       name="published"
                        ng-model="blogPost.published"
-                       type="checkbox" 
+                       type="checkbox"
                        class="form-control" />
             </div>
         </div>
@@ -143,13 +145,13 @@
         <div class="form-group">
             <label for="meta" class="col-sm-2 control-label pull-left">Meta (SEO)</label>
             <div class="col-sm-10">
-                <input type="text" 
+                <input type="text"
                        id="meta"
                        name="meta"
                        ng-model="blogPost.meta"
                        ng-maxlength="1000"
-                       required 
-                       class="form-control" 
+                       required
+                       class="form-control"
                        placeholder="Meta Tags for Google SEO" />
 
                 <div class="help-block has-error text-muted" ng-messages="blogPostForm.meta.$error" role="alert">
@@ -166,8 +168,8 @@
                        id="url_slug"
                        ng-model="blogPost.urlSlug"
                        ng-maxlength="50"
-                       name="url_slug" 
-                       class="form-control" 
+                       name="url_slug"
+                       class="form-control"
                        placeholder="Url Slug" />
 
                 <div class="help-block has-error text-muted" ng-messages="blogPostForm.url_slug.$error" role="alert">
