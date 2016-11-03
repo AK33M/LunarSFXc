@@ -5,12 +5,14 @@
         .module("app-admin")
         .controller("AddAboutMeCtrl", ["$scope", "$location", "$routeParams", "$log", "dataResource", "FileUploader", AddAboutMeCtrl]);
 
-    function AddAboutMeCtrl($scope, $location, $routeParams,$log,  dataResource, FileUploader) {
+    function AddAboutMeCtrl($scope, $location, $routeParams, $log, dataResource, FileUploader) {
         var vm = this;
 
         $scope.go = function (path) {
-            $location.path(path);           
+            $location.path(path);
         };
+
+        $scope.alerts = [];
 
         //myVar === "two" ? "it's true" : "it's false"
         var TimelineEvent = dataResource.aboutme.get({ id: $routeParams.Id === null ? 0 : $routeParams.Id });
@@ -23,12 +25,11 @@
                 $location.path('/aboutme');
             }, function (error) {
                 //error callback 
-                //console.log(error);
-                $scope.alerts = [{ type: 'danger', msg: error.data.message }];
+                $scope.alerts.push({ type: 'danger', msg: error.data.message });
                 var errorMessage = '';
                 angular.forEach(error.data.modelState, function (value, key) {
                     errorMessage = value.errors[0].errorMessage;
-                    $scope.alerts.push({ type: 'danger', msg: errorMessage })
+                    $scope.alerts.push({ type: 'danger', msg: errorMessage });
                 });
 
                 //$scope.alerts = [{ type: 'danger', msg: 'Oops!: ' + errorMessage }];
@@ -42,6 +43,21 @@
         $scope.removeImage = function () {
             $scope.aboutMeEvent.image = null;
         };
+
+        $scope.deleteEvent = function (eventId) {
+            dataResource.aboutme.delete({ id: $routeParams.Id }, function (response) {
+                //success
+                $scope.go('/aboutme');
+            }, function (error) {
+                //error
+                $scope.alerts.push({ type: 'danger', msg: error.data.message });
+            });
+            $log.log(eventId);
+        };
+
+
+
+
 
 
         //AngularFileUpload http://nervgh.github.io/pages/angular-file-upload/examples/simple/

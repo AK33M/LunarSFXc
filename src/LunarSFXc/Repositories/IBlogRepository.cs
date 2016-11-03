@@ -33,5 +33,6 @@ namespace LunarSFXc.Repositories
         void AddOrUpdateTimelineEvent(TimelineEvent newEvent);
 
         Task<ICollection<ImageDescription>> GetAllImages(string containerName);
+        Task<int> DeleteTimelineEvent(int id);
     }
 }

@@ -77,7 +77,7 @@ namespace LunarSFXc.Controllers.Api
 
         [Route("post")]
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]TimelineEventViewModel timelineEvent)
+        public IActionResult Post([FromBody]TimelineEventViewModel timelineEvent)
         {
             if (ModelState.IsValid)
             {
@@ -102,6 +102,29 @@ namespace LunarSFXc.Controllers.Api
 
             Response.StatusCode = (int)HttpStatusCode.BadRequest;
             return Json(new { Message = "Failed to Save new event", ModelState = ModelState });
+        }
+
+        [Route("delete/{id}")]
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int Id)
+        {
+            try
+            {
+                var result = await _repo.DeleteTimelineEvent(Id);
+
+                if (result > 0)
+                {
+                    Response.StatusCode = (int)HttpStatusCode.OK;
+                    return Json(new { Message = $"Event {Id} has been deleted!" });
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to delete event {Id}", ex);
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            }
+
+            return Json(new { Message = $"Could not delete Event {Id}! Please try again later." });
         }
     }
 }

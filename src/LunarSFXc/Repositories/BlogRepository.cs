@@ -514,5 +514,21 @@ namespace LunarSFXc.Repositories
             return await _context.ImageDescriptions.Where(x => x.ContainerName == containerName).ToListAsync();
         }
 
+        public async Task<int> DeleteTimelineEvent(int id)
+        {
+            try
+            {
+                var timelineEvent = await _context.TimelineEvents.FirstOrDefaultAsync(x => x.Id == id);
+
+                _context.Remove(timelineEvent);
+
+                return await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error", ex);
+                throw ex;
+            }            
+        }
     }
 }

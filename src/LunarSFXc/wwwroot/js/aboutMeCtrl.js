@@ -16,8 +16,6 @@
            $location.path(path);
         };
 
-
-
         var paginationOptions = {
             pageNumber: 1,
             pageSize: 25,
