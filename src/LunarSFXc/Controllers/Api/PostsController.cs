@@ -50,8 +50,8 @@ namespace LunarSFXc.Controllers.Api
             }
         }
 
-        [Route("post/{year}/{month}/{title?}")]
         [HttpGet]
+        [Route("post/{year}/{month}/{title?}")]
         public IActionResult Get(int year, int month, string title)
         {
             try
@@ -59,11 +59,11 @@ namespace LunarSFXc.Controllers.Api
                 var post = _repo.Post(year, month, title);
 
                 if (post == null)
-                    return Json(new { post = new PostViewModel() });
+                    return Json(new PostViewModel());
 
                 var model = Mapper.Map<PostViewModel>(post);
 
-                return Json(new { post = model});
+                return Json(model);
             }
             catch (Exception ex)
             {

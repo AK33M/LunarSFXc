@@ -3,9 +3,9 @@
 
     angular
         .module("app-admin")
-        .controller("PostsCtrl", ["$scope", "dataResource", PostsCtrl]);
+        .controller("PostsCtrl", ["$scope", "$log", "dataResource", "uiGridConstants", PostsCtrl]);
 
-    function PostsCtrl($scope, dataResource) {
+    function PostsCtrl($scope, $log, dataResource, uiGridConstants) {
         var vm = this;
 
         var paginationOptions = {
@@ -22,11 +22,14 @@
             useExternalSorting: true,
             enableColumnResizing: true,
             enableRowSelection: true,
-            enableRowHeaderSelection: false,
+            enableRowHeaderSelection: true,
             enableFullRowSelection: true,
             multiSelect: false,
             modifierKeysToMultiSelect: false,
             noUnselect: false,
+            selectionRowHeaderWidth: 35,
+            rowHeight: 35,
+            showGridFooter: true,
 
             columnDefs: [
                 { name: 'Title', width: 150, cellTooltip: true },
@@ -58,6 +61,17 @@
                     paginationOptions.pageSize = pageSize;
 
                     getPage();
+                });
+                gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+                    if (row.isSelected) {
+                        var msg = 'row selected ' + row.entity.Id;
+                        $scope.rowSelected = row.entity.Id;                        
+                        $scope.postToEdit = gridApi.selection.getSelectedRows();
+                        $log.log($scope.postToEdit);
+                    } else {
+                        $scope.rowSelected = null;
+                        $scope.postToEdit = null;
+                    }
                 });
             }
         };

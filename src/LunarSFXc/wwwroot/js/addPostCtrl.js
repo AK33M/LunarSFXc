@@ -17,7 +17,7 @@
 
         dataResource.posts.getPost(blogPostId, function (data) {
             //Success
-            $scope.blogPost = data.post
+            $scope.blogPost = data
         }, function (error) {
             //Error
         });
