@@ -64,5 +64,21 @@ namespace LunarSFXc.Controllers.Api
                 return BadRequest("Error occurred");
             }
         }
+
+        [HttpGet]
+        [Route("tags")]
+        public IActionResult GetTags()
+        {
+            try
+            {
+                var tags = Mapper.Map<ICollection<TagViewModel>>(_repo.Tags());
+                return Json(new { Tags = tags });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to get all Categories: {ex}");
+                return BadRequest("Error occurred");
+            }
+        }
     }
 }

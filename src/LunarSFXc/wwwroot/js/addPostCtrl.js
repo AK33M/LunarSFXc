@@ -17,6 +17,18 @@
             $log.log(error);
         });
 
+        dataResource.posts.getTags(function (data) {
+            //success
+            $scope.tags = data.tags
+        }, function (error) {
+            //error
+            $log.log(error);
+        });
+
+        $scope.go = function (path) {
+            $location.path(path);
+        };
+
         //AngularFileUpload http://nervgh.github.io/pages/angular-file-upload/examples/simple/
         // Creates a uploader
         var uploader = $scope.uploader = new FileUploader({
