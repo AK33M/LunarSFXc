@@ -50,25 +50,24 @@ namespace LunarSFXc.Controllers.Api
             }
         }
 
-        [Route("post/{id}")]
+        [Route("post/{year}/{month}/{title?}")]
         [HttpGet]
-        public IActionResult Get(int Id)
+        public IActionResult Get(int year, int month, string title)
         {
             try
             {
-                if (Id != 0)
-                {
-                    //var 
-                    return Json(new PostViewModel());
-                }
-                else
-                {
-                    return Json(new PostViewModel());
-                }
+                var post = _repo.Post(year, month, title);
+
+                if (post == null)
+                    return Json(new { post = new PostViewModel() });
+
+                var model = Mapper.Map<PostViewModel>(post);
+
+                return Json(new { post = model});
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to get event", ex);
+                _logger.LogError("Failed to get post", ex);
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return Json(new { Message = ex.Message });
             }

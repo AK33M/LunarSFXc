@@ -9,14 +9,18 @@
     function AddPostCtrl($scope, $log, $location, $routeParams, dataResource, FileUploader) {
         var vm = this;
 
-        dataResource.posts.getPost({ id: $routeParams.Id == null ? 0 : $routeParams.Id },
-                    function (data) {
-                        //Success
-                        $scope.blogPost = data
-                        $log.log($scope.blogPost);
-                    }, function (error) {
-                        //Error
-                    });
+        var blogPostId = {
+            year: 0,
+            month: 0,
+            title: ''
+        };
+
+        dataResource.posts.getPost(blogPostId, function (data) {
+            //Success
+            $scope.blogPost = data.post
+        }, function (error) {
+            //Error
+        });
 
         dataResource.posts.getCategories(function (data) {
             //success
