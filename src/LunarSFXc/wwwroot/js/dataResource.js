@@ -11,7 +11,8 @@
                 'getAll': { method: 'GET', params: { id: '@paginationOptions' }, isArray: false },
                 'getPost': { method: 'GET', params: { action: 'post', year: '@blogPostId.year', month: '@blogPostId.month', title: '@blogPostId.title' }, isArray: false },
                 'getCategories': { method: 'GET', params: { action: 'categories' }, isArray: false },
-                'getTags': { method: 'GET', params: { action: 'tags' }, isArray: false }
+                'getTags': { method: 'GET', params: { action: 'tags' }, isArray: false },
+                'save': { method: 'POST', params: { action: 'save' } },
             }),
             images: $resource("api/images/:action", {}, {
                 'getAll': { method: 'GET', params: { action: 'list', containerName: '@containerName' }, isArray: false },

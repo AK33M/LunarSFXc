@@ -104,8 +104,8 @@ namespace LunarSFXc
 
             Mapper.Initialize(config =>
             {
-                config.CreateMap<Post, PostViewModel>()
-                                        .ForMember(dest => dest.Tags, opt => opt.MapFrom(x => x.PostTags))
+                config.CreateMap<PostViewModel, Post>()
+                                        .ForMember(dest => dest.PostTags, opt => opt.MapFrom(x => x.Tags))
                                         .ReverseMap();
                 config.CreateMap<TagViewModel, Tag>().ReverseMap();
                 config.CreateMap<CategoryViewModel, Category>().ReverseMap();
@@ -118,9 +118,10 @@ namespace LunarSFXc
                 config.CreateMap<PostTag, TagViewModel>()
                         .ForMember(dest => dest.Name, opts => opts.MapFrom(s => s.Tag.Name))
                         .ForMember(dest => dest.Description, opts => opts.MapFrom(s => s.Tag.Description))
-                        .ForMember(dest => dest.UrlSlug, opts => opts.MapFrom(s => s.Tag.UrlSlug));
+                        .ForMember(dest => dest.UrlSlug, opts => opts.MapFrom(s => s.Tag.UrlSlug))
+                        .ReverseMap();
 
-                config.CreateMap<LunarUser, LunarUserViewModel>();
+                config.CreateMap<LunarUser, LunarUserViewModel>().ReverseMap();
                 config.DisableConstructorMapping();
             });
 

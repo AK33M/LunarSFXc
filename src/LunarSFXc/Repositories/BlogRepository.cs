@@ -509,6 +509,34 @@ namespace LunarSFXc.Repositories
             }
         }
 
+        public void AddOrUpdateBlogPost(Post post, LunarUser user)
+        {
+            try
+            {
+                var oldPost = Post(post.PostedOn.Year, post.PostedOn.Month, post.UrlSlug);
+
+                if (oldPost != null)
+                {
+                    _context.Posts.Attach(post);
+                    oldPost = post;
+                    _context.Posts.Update(oldPost);
+                }
+                else
+                {
+                    post.PostedBy = user;
+                    post.PostedOn = DateTime.Now;
+                    _context.Posts.Add(post);
+                }
+
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error", ex);
+                throw ex;
+            }
+        }
+
         public async Task<ICollection<ImageDescription>> GetAllImages(string containerName)
         {
             return await _context.ImageDescriptions.Where(x => x.ContainerName == containerName).ToListAsync();
@@ -528,7 +556,7 @@ namespace LunarSFXc.Repositories
             {
                 _logger.LogError($"Error", ex);
                 throw ex;
-            }            
+            }
         }
     }
 }

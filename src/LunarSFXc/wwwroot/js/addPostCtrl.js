@@ -54,6 +54,15 @@
             $log.log($scope.blogPost.tags);
         };
 
+        $scope.saveBlogPost = function () {
+            //$log.log($scope.blogPost);
+            $scope.blogPost.$save(function (response) {
+
+            }, function (error) {
+
+            });
+        };
+
 
 
         //AngularFileUpload http://nervgh.github.io/pages/angular-file-upload/examples/simple/
