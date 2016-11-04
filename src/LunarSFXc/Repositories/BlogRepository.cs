@@ -513,6 +513,8 @@ namespace LunarSFXc.Repositories
         {
             try
             {
+                AddOrUpdateTags(post.PostTags);
+
                 var oldPost = Post(post.PostedOn.Year, post.PostedOn.Month, post.UrlSlug);
 
                 if (oldPost != null)
@@ -535,6 +537,33 @@ namespace LunarSFXc.Repositories
                 _logger.LogError($"Error", ex);
                 throw ex;
             }
+        }
+
+        private void AddOrUpdateTags(ICollection<PostTag> postTags)
+        {
+            foreach (var pt in postTags)
+            {
+
+                //TODO: UPDATE MY TAGS!!!!!
+                //IsNotNEW
+                if (_context.Tags.Any(x => x.Name == pt.Tag.Name && x.UrlSlug == pt.Tag.UrlSlug))
+                {
+                    var oldTag = _context.Tags.FirstOrDefault(x => x.Name == pt.Tag.Name && x.UrlSlug == pt.Tag.UrlSlug);
+
+                    _context.Tags.Attach(oldTag);
+                    pt.TagId = oldTag.Id;
+                    oldTag = pt.Tag;
+                    _context.Tags.Update(oldTag);
+                }
+                else //IsNew
+                {
+                    _context.Tags.Add(pt.Tag);
+                }
+
+                _context.SaveChanges();
+            }
+
+            // 
         }
 
         public async Task<ICollection<ImageDescription>> GetAllImages(string containerName)

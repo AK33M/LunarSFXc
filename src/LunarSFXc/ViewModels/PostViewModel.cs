@@ -39,11 +39,15 @@ namespace LunarSFXc.ViewModels
         private string GetTagString()
         {
             var result = string.Empty;
-
-            foreach (var tag in Tags)
+            if (Tags != null)
             {
-                result = string.Join(", ", tag.Name, result);               
+
+                foreach (var tag in Tags)
+                {
+                    result = string.Join(", ", tag.Name, result);
+                }
             }
+
 
             return result.EndsWith(", ") ? result.Remove(result.LastIndexOf(',')) : result;
         }

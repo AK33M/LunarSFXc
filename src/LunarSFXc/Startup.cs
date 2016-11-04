@@ -16,6 +16,7 @@ using LunarSFXc.Services;
 using Elmah.Io.Extensions.Logging;
 using AutoMapper;
 using LunarSFXc.ViewModels;
+using System.Collections.Generic;
 
 namespace LunarSFXc
 {
@@ -62,7 +63,7 @@ namespace LunarSFXc
                 config.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";
             })
             .AddEntityFrameworkStores<LunarDbContext>()
-            .AddDefaultTokenProviders();      
+            .AddDefaultTokenProviders();
 
             services.AddDbContext<LunarDbContext>(options => options.UseSqlServer(_config.GetConnectionString("AkeemTaiwoConn")));
             services.Configure<EmailSenderOptions>(_config);
@@ -89,7 +90,7 @@ namespace LunarSFXc
             if (_env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-               //await seeder.EnsureSeedDataAsync();
+                //await seeder.EnsureSeedDataAsync();
 
                 loggerFactory.AddDebug(LogLevel.Information);
             }
@@ -104,9 +105,26 @@ namespace LunarSFXc
 
             Mapper.Initialize(config =>
             {
-                config.CreateMap<PostViewModel, Post>()
-                                        .ForMember(dest => dest.PostTags, opt => opt.MapFrom(x => x.Tags))
+                config.CreateMap<Post, PostViewModel>()
+                                        .ForMember(dest => dest.Tags, opt => opt.MapFrom(x => x.PostTags))
                                         .ReverseMap();
+
+                config.CreateMap<PostViewModel, Post>()
+                        .AfterMap((pv, p) =>
+                        {
+                            p.PostTags = new List<PostTag>();
+
+                            foreach (var item in pv.Tags)
+                            {
+                                p.PostTags.Add(new PostTag()
+                                {
+                                    Post = p,
+                                    PostId = p.Id,
+                                    Tag = Mapper.Map<Tag>(item),
+                                });
+                            }
+                        });
+
                 config.CreateMap<TagViewModel, Tag>().ReverseMap();
                 config.CreateMap<CategoryViewModel, Category>().ReverseMap();
                 config.CreateMap<CommentViewModel, Comment>().ReverseMap();
