@@ -51,7 +51,7 @@ namespace LunarSFXc.Controllers.Api
         }
 
         [HttpGet]
-        [Route("post/{year}/{month}/{title?}")]
+        [Route("post/{year?}/{month?}/{title?}")]
         public IActionResult Get(int year, int month, string title)
         {
             try

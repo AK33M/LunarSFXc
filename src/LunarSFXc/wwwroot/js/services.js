@@ -17,7 +17,27 @@
                 "ui.bootstrap",
                 "bootstrapLightbox",
                 "ui.select"
-            ]);
+            ])
+        .service("blogPostService",
+            function ($filter) {
+                var blogPostId = {};
+
+                //functions
+                var getBlogPostId = function () {
+                    return blogPostId;
+                }
+
+                var setBlogPostId = function (value) {
+                    blogPostId.year = $filter('date')(value.PostedOn, 'yyyy');
+                    blogPostId.month = $filter('date')(value.PostedOn, 'MM');
+                    blogPostId.title = value.UrlSlug;
+                }
+
+                return {
+                    getBlogPostId: getBlogPostId,
+                    setBlogPostId: setBlogPostId
+                };
+        });
     //.constant("appSettings",
     //{
     //    serverPath: ""

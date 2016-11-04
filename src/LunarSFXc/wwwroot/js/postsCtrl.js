@@ -3,9 +3,9 @@
 
     angular
         .module("app-admin")
-        .controller("PostsCtrl", ["$scope", "$log", "dataResource", "uiGridConstants", PostsCtrl]);
+        .controller("PostsCtrl", ["$scope", "$location", "$log", "blogPostService", "dataResource", "uiGridConstants", PostsCtrl]);
 
-    function PostsCtrl($scope, $log, dataResource, uiGridConstants) {
+    function PostsCtrl($scope, $location, $log, blogPostService, dataResource, uiGridConstants) {
         var vm = this;
 
         var paginationOptions = {
@@ -64,16 +64,25 @@
                 });
                 gridApi.selection.on.rowSelectionChanged($scope, function (row) {
                     if (row.isSelected) {
-                        var msg = 'row selected ' + row.entity.Id;
-                        $scope.rowSelected = row.entity.Id;                        
-                        $scope.postToEdit = gridApi.selection.getSelectedRows();
-                        $log.log($scope.postToEdit);
+                        //var msg = 'row selected ' + row.entity;
+                        blogPostToEdit(row.entity);
+                        $scope.rowSelected = blogPostService.getBlogPostId();
+
+                        //$log.log(gridApi.selection.getSelectedRows());
                     } else {
-                        $scope.rowSelected = null;
-                        $scope.postToEdit = null;
+                        blogPostToEdit({});
+                        $scope.rowSelected = blogPostService.getBlogPostId();
                     }
                 });
             }
+        };
+
+        $scope.edit = function () {
+            $location.path('add-post');
+        };
+
+        $scope.add = function () {
+            $location.path('add-post/1');
         };
 
         var getPage = function () {
@@ -86,7 +95,12 @@
             });
         };
 
+        var blogPostToEdit = function (value) {
+            blogPostService.setBlogPostId(value);
+        };
+
         getPage();
+        blogPostToEdit({});
     }
 
 }());

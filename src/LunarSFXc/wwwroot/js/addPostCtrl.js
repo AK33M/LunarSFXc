@@ -4,18 +4,16 @@
 
     angular
         .module("app-admin")
-        .controller("AddPostCtrl", ["$scope", "$log", "$location", "$routeParams", "dataResource", "FileUploader", AddPostCtrl]);
+        .controller("AddPostCtrl", ["$scope", "$log", "$location", "$routeParams", "blogPostService", "dataResource", "FileUploader", AddPostCtrl]);
 
-    function AddPostCtrl($scope, $log, $location, $routeParams, dataResource, FileUploader) {
+    function AddPostCtrl($scope, $log, $location, $routeParams, blogPostService, dataResource, FileUploader) {
         var vm = this;
 
-        var blogPostId = {
-            year: 0,
-            month: 0,
-            title: ''
-        };
+        if ($routeParams.isNew) {
+            blogPostService.setBlogPostId({});
+        }   
 
-        dataResource.posts.getPost(blogPostId, function (data) {
+        dataResource.posts.getPost(blogPostService.getBlogPostId(), function (data) {
             //Success
             $scope.blogPost = data
         }, function (error) {
