@@ -139,8 +139,8 @@ namespace LunarSFXc
                         .ForMember(dest => dest.UrlSlug, opts => opts.MapFrom(s => s.Tag.UrlSlug))
                         .ReverseMap();
 
-                config.CreateMap<LunarUser, LunarUserViewModel>().ReverseMap();
-                config.DisableConstructorMapping();
+                config.CreateMap<LunarUser, LunarUserViewModel>()
+                                .ReverseMap();
             });
 
             //Use MVC always Last.

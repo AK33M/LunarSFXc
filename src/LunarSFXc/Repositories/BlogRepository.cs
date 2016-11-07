@@ -513,14 +513,17 @@ namespace LunarSFXc.Repositories
         {
             try
             {
-                AddOrUpdateTags(post.PostTags);
+                AddOrUpdateTags(post);
 
-                var oldPost = Post(post.PostedOn.Year, post.PostedOn.Month, post.UrlSlug);
-
-                if (oldPost != null)
+                if (_context.Posts.Any(x => x.Id == post.Id))
                 {
                     _context.Posts.Attach(post);
-                    oldPost = post;
+                    var oldPost = _context.Posts.FirstOrDefault(x => x.Id == post.Id);
+
+                    //Almost there!!!!!!!!!! PostTags Not updating.
+                    oldPost.PostTags = post.PostTags;
+                    oldPost.PostedBy = user;
+                    oldPost.Modified = DateTime.Now;
                     _context.Posts.Update(oldPost);
                 }
                 else
@@ -539,31 +542,37 @@ namespace LunarSFXc.Repositories
             }
         }
 
-        private void AddOrUpdateTags(ICollection<PostTag> postTags)
+        private void AddOrUpdateTags(Post post)
         {
-            foreach (var pt in postTags)
-            {
+            var postId = _context.Posts.AsNoTracking().FirstOrDefault(x => x.PostedOn.Year == post.PostedOn.Year &&
+                                                                x.PostedOn.Month == post.PostedOn.Month &&
+                                                                 x.UrlSlug == post.UrlSlug) == null ? 0 : _context.Posts.AsNoTracking().FirstOrDefault(x => x.PostedOn.Year == post.PostedOn.Year &&
+                                                                x.PostedOn.Month == post.PostedOn.Month &&
+                                                                 x.UrlSlug == post.UrlSlug).Id;
+            post.Id = postId;
 
-                //TODO: UPDATE MY TAGS!!!!!
+
+            post.Category = _context.Categories.FirstOrDefault(x => x.Id == post.CategoryId);
+            
+
+            foreach (var pt in post.PostTags)
+            {
                 //IsNotNEW
                 if (_context.Tags.Any(x => x.Name == pt.Tag.Name && x.UrlSlug == pt.Tag.UrlSlug))
                 {
                     var oldTag = _context.Tags.FirstOrDefault(x => x.Name == pt.Tag.Name && x.UrlSlug == pt.Tag.UrlSlug);
-
-                    _context.Tags.Attach(oldTag);
                     pt.TagId = oldTag.Id;
-                    oldTag = pt.Tag;
-                    _context.Tags.Update(oldTag);
+                    pt.Tag = oldTag;
                 }
                 else //IsNew
                 {
                     _context.Tags.Add(pt.Tag);
                 }
 
-                _context.SaveChanges();
+                pt.PostId = postId;
             }
 
-            // 
+            //_context.SaveChanges();
         }
 
         public async Task<ICollection<ImageDescription>> GetAllImages(string containerName)

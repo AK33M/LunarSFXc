@@ -57,7 +57,7 @@
         $scope.saveBlogPost = function () {
             //$log.log($scope.blogPost);
             $scope.blogPost.$save(function (response) {
-
+                $scope.go('posts');
             }, function (error) {
 
             });
