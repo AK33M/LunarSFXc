@@ -11,7 +11,14 @@
 
         if ($routeParams.isNew) {
             blogPostService.setBlogPostId({});
-        }   
+            $scope.readonlyTitle = false;
+        } else {
+            $scope.readonlyTitle = true;
+        }
+
+        $scope.writeUrlSlug = function (input) {
+            $scope.blogPost.urlSlug = input.replace(/[\. ,:-]+/g, '_').toLowerCase()
+        };
 
         dataResource.posts.getPost(blogPostService.getBlogPostId(), function (data) {
             //Success

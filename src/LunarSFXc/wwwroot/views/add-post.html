@@ -13,6 +13,8 @@
             <div class="col-sm-10">
                 <input required
                        ng-model="blogPost.title"
+                       ng-readonly="readonlyTitle"
+                       ng-change="writeUrlSlug(blogPost.title)"
                        type="text"
                        id="title"
                        name="title"
@@ -168,7 +170,7 @@
             <label for="url_slug" class="col-sm-2 control-label pull-left">Url Slug</label>
             <div class="col-sm-10">
                 <input type="text"
-                       readonly
+                       ng-readonly="true"
                        id="url_slug"
                        ng-model="blogPost.urlSlug"
                        ng-maxlength="50"
