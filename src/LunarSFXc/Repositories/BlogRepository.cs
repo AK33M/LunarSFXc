@@ -513,7 +513,7 @@ namespace LunarSFXc.Repositories
         {
             try
             {
-                AddOrUpdateTags(post);
+                AddOrUpdateChildEntities(post);
 
                 if (_context.Posts.Any(x => x.Id == post.Id))
                 {
@@ -543,8 +543,10 @@ namespace LunarSFXc.Repositories
             }
         }
 
-        private void AddOrUpdateTags(Post post)
+        private void AddOrUpdateChildEntities(Post post)
         {
+
+            //Gets the Id of the Post, Why you dont just use the Id in the first place is beyond me. You like to punish yourself!
             var postId = _context.Posts.AsNoTracking().FirstOrDefault(x => x.PostedOn.Year == post.PostedOn.Year &&
                                                                 x.PostedOn.Month == post.PostedOn.Month &&
                                                                  x.UrlSlug == post.UrlSlug) == null ? 0 : _context.Posts.AsNoTracking().FirstOrDefault(x => x.PostedOn.Year == post.PostedOn.Year &&
@@ -584,22 +586,17 @@ namespace LunarSFXc.Repositories
 
             var oldpost = _context.Posts.AsNoTracking().Include(x => x.PostTags).SingleOrDefault(x => x.Id == postId);
 
-            var removedTags = oldpost.PostTags.ToList().Except(newTags, new PostTagComparer()).ToList();           
+            var removedTags = oldpost?.PostTags.ToList().Except(newTags, new PostTagComparer()).ToList();
 
-            if (removedTags.Any())
+            if (removedTags != null && removedTags.Any())
             {
-                //_context.Entry(oldpost).State = EntityState.Detached;
-
                 foreach (var tag in removedTags)
                 {
                     tag.Post = null;
                     tag.Tag = null;
-                    _context.Entry(tag).State = EntityState.Detached;
                 }
                 _context.PostTags.RemoveRange(removedTags);
             }
-
-           // _context.SaveChanges();
         }
 
         public async Task<ICollection<ImageDescription>> GetAllImages(string containerName)

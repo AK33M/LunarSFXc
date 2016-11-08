@@ -118,7 +118,7 @@ namespace LunarSFXc
                             {
                                 p.PostTags.Add(new PostTag()
                                 {
-                                    Post = p,
+                                    //Post = p,
                                     PostId = p.Id,
                                     Tag = Mapper.Map<Tag>(item),
                                 });
