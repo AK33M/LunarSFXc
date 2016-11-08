@@ -20,7 +20,7 @@ namespace LunarSFXc.Contexts
         public DbSet<Comment> Comments { get; set; }
         public DbSet<ImageDescription> ImageDescriptions { get; set; }
         public DbSet<TimelineEvent> TimelineEvents { get; set; }
-        //public DbSet<PostTag> PostTags { get; set; }
+        public DbSet<PostTag> PostTags { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -43,8 +43,13 @@ namespace LunarSFXc.Contexts
             //    .Property(c => c.Replies)
             //    .HasColumnName("ChildCommentId");
 
+            modelBuilder.Entity<PostTag>().ToTable("PostTag");
+
             modelBuilder.Entity<PostTag>()
                 .HasKey(t => new { t.PostId, t.TagId });
+
+            //modelBuilder.Entity<PostTag>()
+            //    .HasIndex(u => new { u.PostId, u.TagId }).IsUnique();
 
             modelBuilder.Entity<PostTag>()
                 .HasOne(pt => pt.Post)

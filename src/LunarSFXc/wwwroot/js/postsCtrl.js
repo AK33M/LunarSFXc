@@ -67,11 +67,10 @@
                         //var msg = 'row selected ' + row.entity;
                         blogPostToEdit(row.entity);
                         $scope.rowSelected = blogPostService.getBlogPostId();
-
                         //$log.log(gridApi.selection.getSelectedRows());
                     } else {
                         blogPostToEdit({});
-                        $scope.rowSelected = blogPostService.getBlogPostId();
+                        $scope.rowSelected = null;
                     }
                 });
             }
