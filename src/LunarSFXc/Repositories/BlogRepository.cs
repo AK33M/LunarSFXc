@@ -525,6 +525,7 @@ namespace LunarSFXc.Repositories
                     oldPost.PostedBy = user;
                     oldPost.Modified = DateTime.Now;
                     _context.Posts.Update(oldPost);
+                    //_context.PostTags.UpdateRange(oldPost.PostTags);
                 }
                 else
                 {
@@ -533,6 +534,7 @@ namespace LunarSFXc.Repositories
                     _context.Posts.Add(post);
                 }
 
+               
                 _context.SaveChanges();
             }
             catch (Exception ex)
@@ -557,21 +559,33 @@ namespace LunarSFXc.Repositories
 
             foreach (var pt in post.PostTags)
             {
+                pt.PostId = postId;
                 //IsNotNEW
                 if (_context.Tags.Any(x => x.Name == pt.Tag.Name && x.UrlSlug == pt.Tag.UrlSlug))
                 {
                     var oldTag = _context.Tags.FirstOrDefault(x => x.Name == pt.Tag.Name && x.UrlSlug == pt.Tag.UrlSlug);
                     pt.TagId = oldTag.Id;
                     pt.Tag = oldTag;
+
+                    if(_context.PostTags.Any(x=>x.PostId  == pt.PostId && x.TagId == pt.TagId))
+                    {
+                        //_context.PostTags.Update(pt);
+                        //_context.Entry(pt).State = EntityState.Unchanged;
+                    }
+                    else
+                    {
+                        pt.Post = null;
+                        _context.PostTags.Add(pt);
+                        //_context.SaveChanges();
+                    }
+
                 }
                 else //IsNew
                 {
                     _context.Tags.Add(pt.Tag);
                 }
-
-                pt.PostId = postId;
             }
-
+            
             //_context.SaveChanges();
         }
 
