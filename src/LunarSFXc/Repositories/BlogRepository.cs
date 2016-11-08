@@ -517,15 +517,14 @@ namespace LunarSFXc.Repositories
 
                 if (_context.Posts.Any(x => x.Id == post.Id))
                 {
-                    _context.Posts.Attach(post);
-                    var oldPost = _context.Posts.FirstOrDefault(x => x.Id == post.Id);
+                   // _context.Posts.Attach(post);
+                    var oldPost = _context.Posts.AsNoTracking().FirstOrDefault(x => x.Id == post.Id);
 
                     //Almost there!!!!!!!!!! PostTags Not updating.
                     oldPost.PostTags = post.PostTags;
                     oldPost.PostedBy = user;
                     oldPost.Modified = DateTime.Now;
                     _context.Posts.Update(oldPost);
-                    //_context.PostTags.UpdateRange(oldPost.PostTags);
                 }
                 else
                 {
@@ -534,7 +533,7 @@ namespace LunarSFXc.Repositories
                     _context.Posts.Add(post);
                 }
 
-               
+
                 _context.SaveChanges();
             }
             catch (Exception ex)
@@ -555,7 +554,8 @@ namespace LunarSFXc.Repositories
 
 
             post.Category = _context.Categories.FirstOrDefault(x => x.Id == post.CategoryId);
-            
+
+            var newTags = new List<PostTag>();
 
             foreach (var pt in post.PostTags)
             {
@@ -563,30 +563,41 @@ namespace LunarSFXc.Repositories
                 //IsNotNEW
                 if (_context.Tags.Any(x => x.Name == pt.Tag.Name && x.UrlSlug == pt.Tag.UrlSlug))
                 {
-                    var oldTag = _context.Tags.FirstOrDefault(x => x.Name == pt.Tag.Name && x.UrlSlug == pt.Tag.UrlSlug);
+                    var oldTag = _context.Tags.AsNoTracking().FirstOrDefault(x => x.Name == pt.Tag.Name && x.UrlSlug == pt.Tag.UrlSlug);
                     pt.TagId = oldTag.Id;
                     pt.Tag = oldTag;
 
-                    if(_context.PostTags.Any(x=>x.PostId  == pt.PostId && x.TagId == pt.TagId))
-                    {
-                        //_context.PostTags.Update(pt);
-                        //_context.Entry(pt).State = EntityState.Unchanged;
-                    }
-                    else
+                    newTags.Add(_context.PostTags.AsNoTracking().SingleOrDefault(x => x.PostId == pt.PostId && x.TagId == pt.TagId));
+
+                    if (!_context.PostTags.Any(x => x.PostId == pt.PostId && x.TagId == pt.TagId))
                     {
                         pt.Post = null;
+                        pt.Tag = null;
                         _context.PostTags.Add(pt);
-                        //_context.SaveChanges();
                     }
-
                 }
                 else //IsNew
                 {
                     _context.Tags.Add(pt.Tag);
                 }
             }
-            
-            //_context.SaveChanges();
+
+            var oldpost = _context.Posts.AsNoTracking().Include(x => x.PostTags).SingleOrDefault(x => x.Id == postId);
+
+            var removedTags = oldpost.PostTags.ToList().Except(newTags, new PostTagComparer()).ToList();           
+
+            if (removedTags.Any())
+            {
+                //_context.Entry(oldpost).State = EntityState.Detached;
+
+                //foreach (var tag in removedTags)
+                //{
+                //    _context.Entry(tag).State = EntityState.Detached;
+                //}
+                _context.PostTags.RemoveRange(removedTags);
+            }
+
+            _context.SaveChanges();
         }
 
         public async Task<ICollection<ImageDescription>> GetAllImages(string containerName)
