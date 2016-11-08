@@ -517,8 +517,8 @@ namespace LunarSFXc.Repositories
 
                 if (_context.Posts.Any(x => x.Id == post.Id))
                 {
-                   // _context.Posts.Attach(post);
-                    var oldPost = _context.Posts.AsNoTracking().FirstOrDefault(x => x.Id == post.Id);
+                    _context.Posts.Attach(post);
+                    var oldPost = _context.Posts.FirstOrDefault(x => x.Id == post.Id);
 
                     //Almost there!!!!!!!!!! PostTags Not updating.
                     oldPost.PostTags = post.PostTags;
@@ -590,14 +590,16 @@ namespace LunarSFXc.Repositories
             {
                 //_context.Entry(oldpost).State = EntityState.Detached;
 
-                //foreach (var tag in removedTags)
-                //{
-                //    _context.Entry(tag).State = EntityState.Detached;
-                //}
+                foreach (var tag in removedTags)
+                {
+                    tag.Post = null;
+                    tag.Tag = null;
+                    _context.Entry(tag).State = EntityState.Detached;
+                }
                 _context.PostTags.RemoveRange(removedTags);
             }
 
-            _context.SaveChanges();
+           // _context.SaveChanges();
         }
 
         public async Task<ICollection<ImageDescription>> GetAllImages(string containerName)
