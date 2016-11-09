@@ -29,7 +29,7 @@ namespace LunarSFXc.Repositories
         //Admin features
         ICollection<Post> Posts(int pageNo, int pageSize, string sortColumn, bool sortByAscending);
         Task<ImageDescription> GetFileDescription(int id);
-        ImageDescription AddOrUpdateFileDescriptions(ImageDescription file);
+        void AddOrUpdateFileDescriptions(ImageDescription file);
         void AddOrUpdateTimelineEvent(TimelineEvent newEvent);
 
         Task<ICollection<ImageDescription>> GetAllImages(string containerName);

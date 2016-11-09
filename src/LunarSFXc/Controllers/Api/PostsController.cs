@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using LunarSFXc.Objects;
 using LunarSFXc.Repositories;
+using LunarSFXc.Services;
 using LunarSFXc.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -23,10 +24,16 @@ namespace LunarSFXc.Controllers.Api
         private ILogger<PostsController> _logger;
         private IBlogRepository _repo;
         private UserManager<LunarUser> _userManager;
+        private ICloudStorageService _cloudService;
 
-        public PostsController(IBlogRepository repo, ILogger<PostsController> logger, IHttpContextAccessor httpContextAccessor, UserManager<LunarUser> userManager)
+        public PostsController(IBlogRepository repo, 
+                                ICloudStorageService cloudService,
+                                ILogger<PostsController> logger, 
+                                IHttpContextAccessor httpContextAccessor, 
+                                UserManager<LunarUser> userManager)
         {
             _repo = repo;
+            _cloudService = cloudService;
             _logger = logger;
             _userManager = userManager;
             _currentUserId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
@@ -71,6 +78,11 @@ namespace LunarSFXc.Controllers.Api
                     return Json(new PostViewModel());
 
                 var model = Mapper.Map<PostViewModel>(post);
+
+                foreach (var item in model.Images)
+                {
+                    item.ImageUri = _cloudService.GetImageUri(item.ContainerName, item.FileName);
+                }
 
                 return Json(model);
             }

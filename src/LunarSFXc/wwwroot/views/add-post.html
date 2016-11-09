@@ -107,14 +107,16 @@
             <label for="image" class="col-sm-2 control-label">Image</label>
             <div class="col-sm-10" ng-show="blogPost.images">
                 <div ng-repeat="image in blogPost.images">
-                    <div class="col-sm-6 col-lg-6">
-                        <img class="img-thumbnail" ng-src="{{image.imageUri}}" alt="Uploaded Image" />
-                        <p><span class="text-muted">File name: {{ image.fileName }}</span></p>
-                    </div>
-                    <div class="col-sm-6 col-lg-6">
-                        <button type="button" class="btn btn-danger pull-right" ng-click="removeImage()">
-                            <span class="fa fa-trash"></span> Remove
-                        </button>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <img class="img-thumbnail" ng-src="{{image.imageUri}}" alt="Uploaded Image" />
+                            <p><span class="text-muted">File name: {{ image.fileName }}</span></p>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <button type="button" class="btn btn-danger pull-right" ng-click="removeImage($index)">
+                                <span class="fa fa-trash"></span> Remove
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

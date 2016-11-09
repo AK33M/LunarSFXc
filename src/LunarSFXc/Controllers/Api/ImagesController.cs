@@ -59,8 +59,8 @@ namespace LunarSFXc.Controllers.Api
                             Description = file.Id
                         };
 
-                        var image =  _repo.AddOrUpdateFileDescriptions(imageDesc);
-                        var imageModel = Mapper.Map<ImageDescriptionViewModel>(image);
+                        _repo.AddOrUpdateFileDescriptions(imageDesc);
+                        var imageModel = Mapper.Map<ImageDescriptionViewModel>(imageDesc);
 
                         GetImageUri(imageModel);
 

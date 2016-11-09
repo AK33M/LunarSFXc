@@ -450,11 +450,11 @@ namespace LunarSFXc.Repositories
             return await _context.ImageDescriptions.SingleOrDefaultAsync(c => c.Id == id);
         }
 
-        public ImageDescription AddOrUpdateFileDescriptions(ImageDescription file)
+        public void AddOrUpdateFileDescriptions(ImageDescription file)
         {
             if (_context.ImageDescriptions.Any(x => x.FileName == file.FileName && x.ContainerName == file.ContainerName))
             {
-                var oldFile = _context.ImageDescriptions.FirstOrDefault(x => x.FileName == file.FileName);
+                var oldFile = _context.ImageDescriptions.FirstOrDefault(x => x.FileName == file.FileName && x.ContainerName == file.ContainerName);
                 oldFile.UpdatedTimestamp = DateTime.UtcNow;
                 _context.ImageDescriptions.Update(oldFile);
                 file = oldFile;
@@ -466,7 +466,7 @@ namespace LunarSFXc.Repositories
 
             _context.SaveChanges();
 
-            return file;
+            //return file;
         }
 
         public async Task<ICollection<TimelineEvent>> GetTimelineEvents(string sectionName)
@@ -487,7 +487,7 @@ namespace LunarSFXc.Repositories
         {
             try
             {
-                newEvent.Image = AddOrUpdateFileDescriptions(newEvent.Image);
+                AddOrUpdateFileDescriptions(newEvent.Image);
 
                 if (_context.TimelineEvents.Any(x => x.Id == newEvent.Id))
                 {
@@ -598,6 +598,12 @@ namespace LunarSFXc.Repositories
                 }
                 _context.PostTags.RemoveRange(removedTags);
             }
+
+            foreach (var image in post.Images)
+            {
+                AddOrUpdateFileDescriptions(image);
+            }
+
         }
 
         public async Task<ICollection<ImageDescription>> GetAllImages(string containerName)

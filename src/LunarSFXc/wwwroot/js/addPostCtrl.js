@@ -70,6 +70,10 @@
             });
         };
 
+        $scope.removeImage = function ($index) {
+            //$log.log($index);
+            $scope.blogPost.images.splice($index, 1);
+        };
 
 
         //AngularFileUpload http://nervgh.github.io/pages/angular-file-upload/examples/simple/
