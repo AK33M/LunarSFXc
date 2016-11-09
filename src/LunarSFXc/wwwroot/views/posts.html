@@ -1,9 +1,30 @@
-﻿<div id="grid1" ui-grid="gridOptions" ui-grid-pagination  ui-grid-selection class="grid"> 
+﻿<div class="col-lg-12">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h5 class="">Blog Posts</h5>
+        </div>
+        <div class="panel-body">
+            <div id="grid1" ui-grid="gridOptions" ui-grid-pagination ui-grid-selection class="grid">
 
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="form-group">
+                <button class="btn btn-primary btn-lg" ng-click="add()"><i class="fa fa-plus"></i> Add New Post</button>
+                <button class="btn btn-default btn-lg pull-right" ng-click="edit()" ng-disabled="!rowSelected"><i class="fa fa-edit"></i> Edit Selected Post</button>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="row col-md-12">
-    <div class="form-group">
-        <button class="btn btn-primary btn-lg" ng-click="add()"><i class="fa fa-plus"></i> Add New Post</button>
-        <button class="btn btn-default btn-lg pull-right" ng-click="edit()" ng-disabled="!rowSelected"><i class="fa fa-edit"></i> Edit Selected Post</button>
+<div class="col-lg-6">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h5 class="">Categories</h5>
+        </div>
+        <div class="panel-body">
+            <div id="grid2" ui-grid="gridOptions2" ui-grid-selection class="grid">
+
+            </div>
+        </div>
     </div>
 </div>
