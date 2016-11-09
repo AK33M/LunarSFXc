@@ -90,8 +90,8 @@
             columnDefs: [
                 { name: 'Id', visible: false },
                 { name: 'Name', field: 'name', cellTooltip: true },
-                { name: 'UrlSlug', field: 'urlSlug', cellTooltip: true },
                 { name: 'Description', field: 'description', cellTooltip: true, enableSorting: false },
+                { name: 'UrlSlug', field: 'urlSlug', cellTooltip: true },
             ],
             onRegisterApi: function (gridApi) {
                 $scope.gridApi = gridApi;
@@ -107,7 +107,40 @@
                         //$scope.rowSelected = null;
                     }
                 });
-                getCategories();
+            }
+        };
+
+        $scope.gridOptions3 = {
+            enableColumnResizing: true,
+            enableRowSelection: true,
+            enableRowHeaderSelection: true,
+            enableFullRowSelection: true,
+            noUnselect: false,
+            multiSelect: false,
+            selectionRowHeaderWidth: 35,
+            rowHeight: 35,
+            showGridFooter: false,
+
+            columnDefs: [
+                { name: 'Id', visible: false },
+                { name: 'Name', field: 'name', cellTooltip: true },
+                { name: 'Description', field: 'description', cellTooltip: true, enableSorting: false },
+                { name: 'UrlSlug', field: 'urlSlug', cellTooltip: true },
+            ],
+            onRegisterApi: function (gridApi) {
+                $scope.gridApi = gridApi;
+                gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+                    if (row.isSelected) {
+                        $log.log(row);
+                        //var msg = 'row selected ' + row.entity;
+                        //blogPostToEdit(row.entity);
+                        //$scope.rowSelected = blogPostService.getBlogPostId();
+                        //$log.log(gridApi.selection.getSelectedRows());
+                    } else {
+                        //blogPostToEdit({});
+                        //$scope.rowSelected = null;
+                    }
+                });
             }
         };
 
@@ -138,12 +171,22 @@
             });
         };
 
+        var getTags = function () {
+            dataResource.posts.getTags(function (data) {
+                $scope.gridOptions3.totalItems = data.tags.length;
+                $scope.gridOptions3.data = data.tags;
+            }, function (error) {
+                //Error
+            });
+        };
+
         var blogPostToEdit = function (value) {
             blogPostService.setBlogPostId(value);
         };
 
         getPage();
         getCategories();
+        getTags();
         blogPostToEdit({});
     }
 
