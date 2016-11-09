@@ -44,12 +44,12 @@
                 { name: 'Meta', width: 100, enableSorting: false },
                 { name: 'UrlSlug', width: 100, enableSorting: false },
 
-            ],
+            ],                                               
             onRegisterApi: function (gridApi) {
                 $scope.gridApi = gridApi;
                 $scope.gridApi.core.on.sortChanged($scope, function (grid, sortColumns) {
-                    if (sortColumns.length == 0) {
-                        paginationOptions.sort = null;
+                    if (sortColumns.length === 0) {
+                        paginationOptions.sort = null;                                               
                     } else {
                         paginationOptions.sort = sortColumns[0].sort.direction;
                         paginationOptions.columnName = sortColumns[0].name;

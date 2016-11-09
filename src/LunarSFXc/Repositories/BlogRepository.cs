@@ -620,5 +620,20 @@ namespace LunarSFXc.Repositories
                 throw ex;
             }
         }
+
+        public void AddOrUpdateCategory(Category cat)
+        {
+            try
+            {
+                _context.Categories.Add(cat);
+
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error", ex);
+                throw;
+            }
+        }
     }
 }

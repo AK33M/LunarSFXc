@@ -144,5 +144,58 @@ namespace LunarSFXc.Controllers.Api
             Response.StatusCode = (int)HttpStatusCode.BadRequest;
             return Json(new { Message = "Failed to Save new post", ModelState = ModelState });
         }
+
+        [HttpPost]
+        [Route("saveCategory")]
+        public IActionResult SaveCategory([FromBody]CategoryViewModel categoryModel)
+        {
+            if (ModelState.IsValid)
+            {
+
+                try
+                {
+                    var cat = Mapper.Map<Category>(categoryModel);
+
+                    //Save to the database
+                    _logger.LogInformation("Attempting to save a category");
+                    _repo.AddOrUpdateCategory(cat);
+
+                    Response.StatusCode = (int)HttpStatusCode.Created;
+                    return Json(Mapper.Map<CategoryViewModel>(cat));
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError("Failed to Save category", ex);
+                    Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    return Json(new { Message = ex.Message });
+                }
+            }
+
+            Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            return Json(new { Message = "Failed to Save category", ModelState = ModelState });
+        }
+
+        [HttpGet]
+        [Route("category/{id?}")]
+        public IActionResult GetCategory(int id)
+        {
+            try
+            {
+                //var cat = _repo.Post(year, month, title);
+
+                //if (post == null)
+                //    return Json(new PostViewModel());
+
+                var model = new CategoryViewModel();// Mapper.Map<PostViewModel>(post);
+
+                return Json(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Failed to get category", ex);
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new { Message = ex.Message });
+            }
+        }
     }
 }

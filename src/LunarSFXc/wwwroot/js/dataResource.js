@@ -13,6 +13,8 @@
                 'getCategories': { method: 'GET', params: { action: 'categories' }, isArray: false },
                 'getTags': { method: 'GET', params: { action: 'tags' }, isArray: false },
                 'save': { method: 'POST', params: { action: 'save' } },
+                'getCategory': { method: 'GET', params: { action: 'category', id: '@categoryId' }, isArray: false },
+                'saveCategory': { method: 'POST', params: { action: 'saveCategory' } },
             }),
             images: $resource("api/images/:action", {}, {
                 'getAll': { method: 'GET', params: { action: 'list', containerName: '@containerName' }, isArray: false },

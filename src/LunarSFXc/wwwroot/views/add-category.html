@@ -1,0 +1,80 @@
+﻿<div class="col-lg-8 col-lg-offset-2">
+    <h4 class="page-header">New Category</h4>
+    <div class="col-sm-offset-2">
+        <div uib-alert dismiss-on-timeout="5000" ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)">{{alert.msg}}</div>
+    </div>
+    <form class="form-horizontal"
+          name="categoryForm"
+          id="categoryForm"
+          novalidate
+          ng-submit="categoryForm.$valid && saveCategory()">
+
+        <div class="form-group">
+            <label for="title" class="col-sm-2 control-label">Post Title</label>
+            <div class="col-sm-10">
+                <input required
+                       ng-model="category.name"
+                       ng-readonly="readonlyTitle"
+                       ng-change="writeUrlSlug(category.name)"
+                       type="text"
+                       id="name"
+                       name="name"
+                       ng-maxlength="500"
+                       class="form-control"
+                       placeholder="Category Name" />
+
+                <div class="help-block has-error text-muted" ng-messages="categoryForm.name.$error" role="alert">
+                    <div ng-message="required">Name is required.</div>
+                    <div ng-message="maxlength">Name is too long.</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="url_slug" class="col-sm-2 control-label pull-left">Url Slug</label>
+            <div class="col-sm-10">
+                <input type="text"
+                       ng-readonly="true"
+                       id="url_slug"
+                       ng-model="category.urlSlug"
+                       ng-maxlength="50"
+                       name="url_slug"
+                       class="form-control"
+                       placeholder="Url Slug" />
+
+                <div class="help-block has-error text-muted" ng-messages="categoryForm.url_slug.$error" role="alert">
+                    <div ng-message="required">Url Slug is required.</div>
+                    <div ng-message="maxlength">Url Slug is too long.</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description" class="col-sm-2 control-label"> Description</label>
+            <div class="col-sm-10">
+                <textarea required
+                          ng-model="category.description"
+                          ng-minlength="50"
+                          ng-maxlength="250"
+                          type="text"
+                          id="description"
+                          name="description"
+                          class="form-control"
+                          rows="5"></textarea>
+
+                <div class="help-block has-error text-muted" ng-messages="categoryForm.description.$error">
+                    <div ng-message="required"> Description is required.</div>
+                    <div ng-message="minlength"> Description is too short.</div>
+                    <div ng-message="maxlength"> Description is too long.</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-10 col-sm-offset-2">
+                <div>
+                    <button type="submit" class="btn btn-primary btn-lg"><i class="fa fa-save"></i> Submit</button>
+
+                    <button type="button" ng-click="go('/posts')" class="pull-right btn btn-default btn-lg"><i class="fa fa-remove"></i> Cancel</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

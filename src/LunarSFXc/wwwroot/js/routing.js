@@ -41,6 +41,11 @@
                                 templateUrl: "/views/add-about-me-event.html"
                             });
 
+                            $routeProvider.when("/add-category", {
+                                controller: "AddCategoryCtrl as vm",
+                                templateUrl: "/views/add-category.html"
+                            });
+
                             $routeProvider.otherwise({
                                 redirectTo: "/"
                             });
