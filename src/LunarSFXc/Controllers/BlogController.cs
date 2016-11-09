@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LunarSFXc.Repositories;
+using LunarSFXc.Services;
 using LunarSFXc.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,10 +11,12 @@ namespace LunarSFXc.Controllers
     public class BlogController : Controller
     {
         private IBlogRepository _repo;
+        private ICloudStorageService _cloudService;
 
-        public BlogController(IBlogRepository repo)
+        public BlogController(IBlogRepository repo, ICloudStorageService cloudService)
         {
             _repo = repo;
+            _cloudService = cloudService;
         }
 
         public IActionResult Posts(int p = 1)
@@ -36,6 +39,11 @@ namespace LunarSFXc.Controllers
                 throw new Exception("The post is not published");
 
             var model = Mapper.Map<PostViewModel>(post);
+
+            foreach (var item in model.Images)
+            {
+                item.ImageUri = _cloudService.GetImageUri(item.ContainerName, item.FileName);
+            }
             
             return View(model);
         }
