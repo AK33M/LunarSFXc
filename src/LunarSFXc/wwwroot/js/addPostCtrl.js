@@ -77,11 +77,11 @@
         var uploader = $scope.uploader = new FileUploader({
             scope: $scope,
             url: 'api/images/upload',
-            queueLimit: 1,
+            queueLimit: 3,
             removeAfterUpload: true,
-            autoUpload: true,
+            autoUpload: false,
             formData: [{
-                containerName: 'aboutmetimeline'
+                containerName: 'blogphotos'
             }]
         });
 
@@ -101,7 +101,7 @@
 
         uploader.onSuccessItem = function (fileItem, response, status, headers) {
             console.info('onSuccessItem', fileItem, response, status, headers);
-            $scope.aboutMeEvent.image = response.image;
+            $scope.blogPost.images.push(response.image);
         };
 
         uploader.onErrorItem = function (fileItem, response, status, headers) {
