@@ -185,6 +185,7 @@ namespace LunarSFXc.Repositories
             {
                 var query = _context.Posts
                                 .Where(p => p.PostedOn.Year == year && p.PostedOn.Month == month && p.UrlSlug.Equals(titleSlug))
+                                .Include(p => p.Images)
                                 .Include(p => p.Category)
                                 .Include(p => p.PostTags)
                                 .Include(p => p.PostedBy)

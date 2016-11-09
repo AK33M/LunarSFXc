@@ -106,10 +106,10 @@
         <div class="form-group" nv-file-drop="" uploader="uploader">
             <label for="image" class="col-sm-2 control-label">Image</label>
             <div class="col-sm-10" ng-show="blogPost.images">
-                <div ng-repeat="images in blogPost.images">
+                <div ng-repeat="image in blogPost.images">
                     <div class="col-sm-6 col-lg-6">
-                        <img class="img-thumbnail" ng-src="{{blogPost.image.imageUri}}" alt="Uploaded Image" />
-                        <p><span class="text-muted">File name: {{ blogPost.image.fileName }}</span></p>
+                        <img class="img-thumbnail" ng-src="{{image.imageUri}}" alt="Uploaded Image" />
+                        <p><span class="text-muted">File name: {{ image.fileName }}</span></p>
                     </div>
                     <div class="col-sm-6 col-lg-6">
                         <button type="button" class="btn btn-danger pull-right" ng-click="removeImage()">
