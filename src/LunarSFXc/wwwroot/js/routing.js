@@ -47,7 +47,7 @@
                             });
 
                             $routeProvider.otherwise({
-                                redirectTo: "/"
+                                redirectTo: "/posts"
                             });
                         }]);
 }());
