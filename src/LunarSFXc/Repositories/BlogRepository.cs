@@ -665,5 +665,10 @@ namespace LunarSFXc.Repositories
                 throw;
             }
         }
+
+        public void AddOrUpdateComment(Comment comment)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

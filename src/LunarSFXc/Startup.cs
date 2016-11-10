@@ -196,6 +196,11 @@ namespace LunarSFXc
                     template: "Contact/Send",
                     defaults: new { controller = "Contact", action = "Send" });
 
+            routeBuilder.MapRoute(
+                    name: "Comment",
+                    template: "Comment/Save",
+                    defaults: new { controller = "Comment", action = "Save" });
+
             //routeBuilder.MapRoute(
             //        name: "Default",
             //        template: "{controller=Home}/{action=Index}/{id?}");

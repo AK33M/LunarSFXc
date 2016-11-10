@@ -61,7 +61,7 @@
                     <!-- Blog Comments-->
                     <!-- Comments Form -->
                     <div class="well">
-                        @Component.InvokeAsync("CommentForm").Result
+                        @Component.InvokeAsync("CommentForm", new { user = User.Identity.Name, parentPost = Model }).Result
                     </div>
                 }
                 else

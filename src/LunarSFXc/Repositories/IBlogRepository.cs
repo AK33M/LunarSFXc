@@ -14,6 +14,7 @@ namespace LunarSFXc.Repositories
         Tag Tag(string tagSlug);
         ICollection<Post> PostsForCategory(string categorySlug, int pageNo, int pageSize);
         int TotalPostsForCategory(string categorySlug);
+        void AddOrUpdateComment(Comment comment);
         Category Category(string categorySlug);
         ICollection<Post> PostsForSearch(string search, int pageNo, int pageSize);
         int TotalPostsForSearch(string search);
