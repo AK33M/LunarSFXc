@@ -523,6 +523,7 @@ namespace LunarSFXc.Repositories
 
                     //Almost there!!!!!!!!!! PostTags Not updating.
                     oldPost.PostTags = post.PostTags;
+                    oldPost.Images = post.Images;
                     oldPost.PostedBy = user;
                     oldPost.Modified = DateTime.Now;
                     _context.Posts.Update(oldPost);
@@ -558,6 +559,7 @@ namespace LunarSFXc.Repositories
 
             post.Category = _context.Categories.FirstOrDefault(x => x.Id == post.CategoryId);
 
+            //Tags
             var newTags = new List<PostTag>();
 
             foreach (var pt in post.PostTags)
@@ -585,9 +587,14 @@ namespace LunarSFXc.Repositories
                 }
             }
 
-            var oldpost = _context.Posts.AsNoTracking().Include(x => x.PostTags).SingleOrDefault(x => x.Id == postId);
+            var oldPost = _context.Posts.AsNoTracking()
+                                        .Include(x => x.PostTags)
+                                        .Include(x => x.Images)
+                                        .SingleOrDefault(x => x.Id == postId);
 
-            var removedTags = oldpost?.PostTags.ToList().Except(newTags, new PostTagComparer()).ToList();
+
+
+            var removedTags = oldPost?.PostTags.Except(newTags, new PostTagComparer()).ToList();
 
             if (removedTags != null && removedTags.Any())
             {
@@ -599,11 +606,23 @@ namespace LunarSFXc.Repositories
                 _context.PostTags.RemoveRange(removedTags);
             }
 
+
+            //Images
+            var images = new List<ImageDescription>();
+
             foreach (var image in post.Images)
             {
-                AddOrUpdateFileDescriptions(image);
+                images.Add(_context.ImageDescriptions.SingleOrDefault(x => x.FileName == image.FileName &&
+                                                                   x.ContainerName == image.ContainerName));
             }
 
+            post.Images = images;
+            var removedImages = oldPost.Images.Except(images, new ImageDescriptionComparer()).ToList();
+
+            if (removedImages != null && removedImages.Any())
+                _context.ImageDescriptions.RemoveRange(removedImages);
+
+            _context.ImageDescriptions.UpdateRange(post.Images);
         }
 
         public async Task<ICollection<ImageDescription>> GetAllImages(string containerName)
