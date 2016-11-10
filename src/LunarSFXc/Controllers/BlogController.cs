@@ -21,7 +21,7 @@ namespace LunarSFXc.Controllers
 
         public IActionResult Posts(int p = 1)
         {
-            var viewModel = new ListViewModel(_repo, p);
+            var viewModel = new ListViewModel(_repo, _cloudService, p);
 
             ViewBag.Title = "Latest Posts";
 
@@ -31,7 +31,7 @@ namespace LunarSFXc.Controllers
         public IActionResult Post(int year, int month, string title)
         {
             var post = _repo.Post(year, month, title);
-            
+
             if (post == null)
                 throw new Exception("Post not found");
 
@@ -44,25 +44,25 @@ namespace LunarSFXc.Controllers
             {
                 item.ImageUri = _cloudService.GetImageUri(item.ContainerName, item.FileName);
             }
-            
+
             return View(model);
         }
 
         public IActionResult Category(string category, int p = 1)
         {
-            var viewModel = new ListViewModel(_repo, category, "Category", p);
+            var viewModel = new ListViewModel(_repo, _cloudService, category, "Category", p);
 
             if (viewModel.Category == null)
                 throw new Exception("Category not found");
 
             ViewBag.Title = $"Latest posts on category {viewModel.Category.Name}";
-                               
+
             return View("List", viewModel);
         }
 
         public IActionResult Tag(string tag, int p = 1)
         {
-            var viewModel = new ListViewModel(_repo, tag, "Tag", p);
+            var viewModel = new ListViewModel(_repo, _cloudService, tag, "Tag", p);
 
             if (viewModel.Tag == null)
                 throw new Exception("Tag not found");
@@ -76,8 +76,8 @@ namespace LunarSFXc.Controllers
         {
             ViewBag.Title = $"Lists of posts found for search text {s}";
 
-            var viewModel = new ListViewModel(_repo, s, "Search", p);
+            var viewModel = new ListViewModel(_repo, _cloudService, s, "Search", p);
             return View("List", viewModel);
-        }        
+        }
     }
 }

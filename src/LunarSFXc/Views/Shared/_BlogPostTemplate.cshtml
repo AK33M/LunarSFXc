@@ -11,7 +11,14 @@
     Posted on @Model.PostedOn.ToString("d")
 </p>
 <hr>
-<img class="img-responsive" src="http://placehold.it/900x300" alt="">
+@if (!Model.Images.Any())
+{
+    <img class="img-responsive" src="http://placehold.it/900x300" alt="" />
+}
+else
+{
+    <img class="img-responsive" src="@Model.Images.FirstOrDefault()?.ImageUri" alt="@Model.Images.FirstOrDefault()?.FileName" />
+}
 <hr>
 <p>@Model.ShortDescription</p>
 <post for-post="Model" post-title="continue..."></post>

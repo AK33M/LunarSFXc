@@ -2,7 +2,16 @@
 <!--Heading-->
 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 blog-col">
     <div class="hovereffect">
-        <img src="~/img/blog_typewriter.jpg" alt="Alternate Text" class="img-responsive" />
+        
+        <!-- Preview Image -->
+        @if (!Model.Images.Any())
+        {
+            <img class="img-responsive" src="http://placehold.it/500x300" alt="" />
+        }
+        else
+        {
+            <img class="img-responsive" src="@Model.Images.FirstOrDefault()?.ImageUri" alt="@Model.Images.FirstOrDefault()?.FileName" />
+        }
         <div class="overlay">
             <h3>
                 <post for-post="Model"></post>                              
