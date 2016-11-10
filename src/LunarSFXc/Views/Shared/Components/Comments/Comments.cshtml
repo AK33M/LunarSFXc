@@ -9,15 +9,16 @@
         </a>
         <div class="media-body">
             <h4 class="media-heading">
-                @comment.Owner.UserName
-                <small>August 25, 2014 at 9:30 PM</small>
+                @comment.User
+                <small>@comment.CreatedDate.ToString("D") at @comment.CreatedDate.TimeOfDay.ToString("g")</small>
             </h4>
-            <p> @comment.Content</p>
+            <p>@comment.Content <button class="btn btn-sm btn-default pull-right">Reply</button></p>
+            <hr />
             <!-- Nested Comments -->
-            @if (comment.Replies.Any())
+            @if (comment.Replies != null && comment.Replies.Any())
             {
                 @Component.InvokeAsync("Comments", new { comments = comment.Replies }).Result;               
-            }
-        </div>
+            }            
+        </div>   
     </div>
 }

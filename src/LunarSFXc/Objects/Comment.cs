@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace LunarSFXc.Objects
 {
@@ -9,6 +10,9 @@ namespace LunarSFXc.Objects
 
         public LunarUser Owner { get; set; }
         public Post ParentPost { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+        public DateTime ModifiedDate { get; set; }
 
         public ICollection<Comment> Replies { get; set; }
     }

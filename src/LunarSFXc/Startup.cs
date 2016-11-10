@@ -127,7 +127,12 @@ namespace LunarSFXc
 
                 config.CreateMap<TagViewModel, Tag>().ReverseMap();
                 config.CreateMap<CategoryViewModel, Category>().ReverseMap();
-                config.CreateMap<CommentViewModel, Comment>().ReverseMap();
+                config.CreateMap<Comment, CommentViewModel>()
+                                    .ForMember(dest => dest.User, opts => opts.MapFrom(s => s.Owner.UserName))
+                                    .ForMember(dest => dest.PostTitle, opts => opts.MapFrom(s => s.ParentPost.UrlSlug))
+                                    .ForMember(dest => dest.Year, opts => opts.MapFrom(s => s.ParentPost.PostedOn.Year))
+                                    .ForMember(dest => dest.Month, opts => opts.MapFrom(s => s.ParentPost.PostedOn.Month))
+                                    .ReverseMap();
                 config.CreateMap<TimelineEvent, TimelineEventViewModel>()
                                         .ReverseMap();
                 config.CreateMap<ImageDescriptionViewModel, ImageDescription>()

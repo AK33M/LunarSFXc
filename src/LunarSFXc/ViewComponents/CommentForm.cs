@@ -1,8 +1,4 @@
-﻿using AutoMapper;
-using LunarSFXc.Objects;
-using LunarSFXc.Repositories;
-using LunarSFXc.ViewModels;
-using Microsoft.AspNetCore.Identity;
+﻿using LunarSFXc.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LunarSFXc.ViewComponents
@@ -12,7 +8,7 @@ namespace LunarSFXc.ViewComponents
         public IViewComponentResult Invoke(string user, PostViewModel parentPost)
         {
             var model = new CommentViewModel(user, 
-                                                parentPost.Title, 
+                                                parentPost.UrlSlug, 
                                                 parentPost.PostedOn.Year, 
                                                 parentPost.PostedOn.Month);
 

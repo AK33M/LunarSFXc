@@ -1,5 +1,4 @@
-﻿using LunarSFXc.Objects;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace LunarSFXc.ViewModels
 {

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using LunarSFXc.Objects;
 using LunarSFXc.Repositories;
 using LunarSFXc.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +24,7 @@ namespace LunarSFXc.ViewComponents
                 model.Comments = comments;
                 foreach (var c in model.Comments)
                 {
+                    
                     c.Replies = Mapper.Map<ICollection<CommentViewModel>>(_repo.GetChildComments(c.Id));
                 }
             }

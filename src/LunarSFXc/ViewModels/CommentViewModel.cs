@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -34,6 +35,10 @@ namespace LunarSFXc.ViewModels
         public int Year { get; set; }
         [HiddenInput]
         public int Month { get; set; }
+
+
+        public DateTime CreatedDate { get; set; }
+        public DateTime ModifiedDate { get; set; }
 
         public ICollection<CommentViewModel> Replies { get; set; }
     }

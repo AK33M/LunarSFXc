@@ -662,13 +662,32 @@ namespace LunarSFXc.Repositories
             catch (Exception ex)
             {
                 _logger.LogError($"Error", ex);
-                throw;
+                throw ex;
             }
         }
 
         public void AddOrUpdateComment(Comment comment)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if(_context.Comments.Where(x=>x.Id == comment.Id).Any())
+                {
+                    comment.ModifiedDate = DateTime.Now;
+                    _context.Comments.Update(comment);
+                }
+                else
+                {
+                    comment.CreatedDate = DateTime.Now;
+                    _context.Comments.Add(comment);
+                }
+
+                _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error", ex);
+                throw ex;
+            }
         }
     }
 }
