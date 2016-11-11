@@ -9,7 +9,7 @@
         <div class="media-body">
             <h4 class="media-heading">
                 @comment.User
-                <small>@comment.CreatedDate.ToString("D") at @comment.CreatedDate.TimeOfDay.ToString("t")</small>
+                <small>@comment.CreatedDate.ToString("D") at @comment.CreatedDate.ToString("hh:mm tt")</small>
             </h4>
             <div>
                 @comment.Content
