@@ -33,7 +33,7 @@ namespace LunarSFXc.Repositories
                                     .Include(p => p.Category)
                                     .Include(p => p.PostTags)
                                     .Include(p => p.PostedBy)
-                                    //.Include(p => p.Comments)
+                                    .Include(p => p.Comments)
                                     .ToList();
 
                 GetTags(posts);
@@ -83,7 +83,7 @@ namespace LunarSFXc.Repositories
                                .Include(p => p.Category)
                                .Include(p => p.PostTags)
                                .Include(p => p.PostedBy)
-                               //.Include(p => p.Comments)
+                               .Include(p => p.Comments)
                                .ToList();
 
                 GetTags(posts);
@@ -110,7 +110,7 @@ namespace LunarSFXc.Repositories
                                 .Include(p => p.Category)
                                 .Include(p => p.PostTags)
                                 .Include(p => p.PostedBy)
-                                //.Include(p => p.Comments)
+                                .Include(p => p.Comments)
                                 .ToList();
 
                 GetTags(posts);
@@ -137,7 +137,7 @@ namespace LunarSFXc.Repositories
                                .Include(p => p.Category)
                                .Include(p => p.PostTags)
                                .Include(p => p.PostedBy)
-                               //.Include(p => p.Comments)
+                               .Include(p => p.Comments)
                                .ToList();
 
                 GetTags(posts);

@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<LunarSFXc.ViewModels.CommentViewModel>
-<h4>Partial View</h4>
 @foreach (var comment in Model.OrderByDescending(x => x.CreatedDate))
 {
     <!-- Comment -->

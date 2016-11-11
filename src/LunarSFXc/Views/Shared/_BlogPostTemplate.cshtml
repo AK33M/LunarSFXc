@@ -9,6 +9,18 @@
 <p>
     <span class="fa fa-clock-o"></span>
     Posted on @Model.PostedOn.ToString("d")
+
+    @if (@Model.Comments.Any())
+    {
+        @if (@Model.Comments.Count > 1)
+        {
+            <span class="pull-right">@Model.Comments.Count comments</span>
+        }
+        else
+        {
+            <span class="pull-right">@Model.Comments.Count comment</span>
+        }
+    }
 </p>
 <hr>
 @if (!Model.Images.Any())
