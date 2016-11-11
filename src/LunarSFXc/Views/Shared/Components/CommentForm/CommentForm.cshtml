@@ -3,10 +3,12 @@
     var returnUrl = Context.Request.Path;
 }
 <h4>Leave a Comment</h4>
-<form id="commentForm" 
-      asp-route="Comment" 
-      method="post"
-      >
+<form id="commentForm"
+      asp-controller="Comment" 
+      asp-action="Save" 
+      data-ajax="true" 
+      data-ajax-method="POST"
+      data-ajax-success="success(data, status, xhr)">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
         <input asp-for="User" />

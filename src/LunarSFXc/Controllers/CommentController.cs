@@ -5,6 +5,7 @@ using LunarSFXc.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace LunarSFXc.Controllers
@@ -27,22 +28,23 @@ namespace LunarSFXc.Controllers
             {
                 var comment = Mapper.Map<Comment>(commentModel);
                 comment.ParentPost = _repo.Post(commentModel.Year, commentModel.Month, commentModel.PostTitle);
-                comment.Owner =  _userManager.FindByNameAsync(commentModel.User).Result;
+                comment.Owner = _userManager.FindByNameAsync(commentModel.User).Result;
 
                 _repo.AddOrUpdateComment(comment);
 
-                return RedirectToActionPermanent("Post", "Blog", new
-                {
-                    year = comment.ParentPost.PostedOn.Year,
-                    month = comment.ParentPost.PostedOn.Month,
-                    title = comment.ParentPost.UrlSlug
-                });
+                Response.StatusCode = (int)HttpStatusCode.Created;
+                return Json(new { Message = "comment saved" });
+                //return RedirectToAction("Post", "Blog", new
+                //{
+                //    year = comment.ParentPost.PostedOn.Year,
+                //    month = comment.ParentPost.PostedOn.Month,
+                //    title = comment.ParentPost.UrlSlug
+                //});
                 //return ViewComponent("Comments", new { comments = Mapper.Map<ICollection<CommentViewModel>>(comment.ParentPost.Comments) });
             }
             catch (Exception ex)
             {
-
-                throw;
+                return Json(new { Message = ex.Message });
             }
         }
     }
