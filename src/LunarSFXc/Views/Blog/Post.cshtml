@@ -75,7 +75,11 @@
 
                 @if (Model.Comments.Any())
                 {
-                    <div class="well">@Component.InvokeAsync("Comments", new { comments = Model.Comments }).Result</div>
+                    <div id="commentsWell" class="well">@Component.InvokeAsync("Comments", new { comments = Model.Comments }).Result</div>
+                }
+                else
+                {
+                    <div id="commentsWell" class="well">No comments here? :-)</div>
                 }
             </div>
 

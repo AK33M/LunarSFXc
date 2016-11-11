@@ -1,6 +1,6 @@
 ﻿@model LunarSFXc.ViewModels.CommentsViewModel
 
-@foreach (var comment in Model.Comments)
+@foreach (var comment in Model.Comments.OrderByDescending(x=>x.CreatedDate))
 {
     <!-- Comment -->
     <div class="media">
@@ -10,7 +10,7 @@
         <div class="media-body">
             <h4 class="media-heading">
                 @comment.User
-                <small>@comment.CreatedDate.ToString("D") at @comment.CreatedDate.TimeOfDay.ToString("g")</small>
+                <small>@comment.CreatedDate.ToString("D") at @comment.CreatedDate.TimeOfDay.ToString("t")</small>
             </h4>
             <p>@comment.Content <button class="btn btn-sm btn-default pull-right">Reply</button></p>
             <hr />
