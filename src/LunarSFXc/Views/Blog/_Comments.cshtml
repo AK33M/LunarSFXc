@@ -11,7 +11,18 @@
                 @comment.User
                 <small>@comment.CreatedDate.ToString("D") at @comment.CreatedDate.TimeOfDay.ToString("t")</small>
             </h4>
-            <p>@comment.Content <button class="btn btn-sm btn-default pull-right">Reply</button></p>
+            <div>
+                @comment.Content
+                <div class="pull-right">
+                    <button class="btn btn-sm btn-default ">Reply</button>
+                    @if (User.Identity.Name == @comment.User)
+                    {
+                        <button class="btn btn-sm btn-primary">Edit</button>
+                        <button class="btn btn-sm btn-danger">Delete</button>
+                    }
+                </div>
+            </div>
+
             <hr />
             <!-- Nested Comments -->
             @if (comment.Replies != null && comment.Replies.Any())
