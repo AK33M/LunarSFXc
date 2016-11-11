@@ -1,6 +1,6 @@
-﻿@model LunarSFXc.ViewModels.CommentsViewModel
-
-@foreach (var comment in Model.Comments.OrderByDescending(x=>x.CreatedDate))
+﻿@model IEnumerable<LunarSFXc.ViewModels.CommentViewModel>
+<h4>Partial View</h4>
+@foreach (var comment in Model.OrderByDescending(x => x.CreatedDate))
 {
     <!-- Comment -->
     <div class="media">
@@ -17,8 +17,8 @@
             <!-- Nested Comments -->
             @if (comment.Replies != null && comment.Replies.Any())
             {
-                @Component.InvokeAsync("Comments", new { comments = comment.Replies }).Result;               
-            }            
-        </div>   
+                @Html.Partial("_Comments", comment.Replies)
+            }
+        </div>
     </div>
 }

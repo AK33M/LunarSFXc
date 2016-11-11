@@ -75,7 +75,7 @@
 
                 @if (Model.Comments.Any())
                 {
-                    <div id="commentsWell" class="well">@Component.InvokeAsync("Comments", new { comments = Model.Comments }).Result</div>
+                    <div id="commentsWell" class="well">@Html.Partial("_Comments", Model.Comments)</div>
                 }
                 else
                 {

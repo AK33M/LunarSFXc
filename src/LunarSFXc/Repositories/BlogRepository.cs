@@ -188,17 +188,24 @@ namespace LunarSFXc.Repositories
             try
             {
                 var query = _context.Posts
-                                .Where(p => p.PostedOn.Year == year && p.PostedOn.Month == month && p.UrlSlug.Equals(titleSlug))
                                 .Include(p => p.Images)
                                 .Include(p => p.Category)
                                 .Include(p => p.PostTags)
                                 .Include(p => p.PostedBy)
                                 .Include(p => p.Comments)
-                                .ToList();
+                                .SingleOrDefault(p => p.PostedOn.Year == year && p.PostedOn.Month == month && p.UrlSlug.Equals(titleSlug));
+
+                if (query.Comments.Any())
+                {
+                    foreach (var c in query.Comments)
+                    {
+                        c.Replies = GetChildComments(c.Id);
+                    }
+                }
 
                 GetTags(query);
 
-                return query.FirstOrDefault();
+                return query;
             }
             catch (Exception ex)
             {
@@ -259,6 +266,18 @@ namespace LunarSFXc.Repositories
                 }
             }
 
+        }
+
+        private void GetTags(Post post)
+        {
+            if (post.PostTags != null)
+            {
+                foreach (var tag in post.PostTags)
+                {
+                    //get tags
+                    tag.Tag = _context.Tags.FirstOrDefault(t => t.Id == tag.TagId);
+                }
+            }
         }
 
         //Admin Features
@@ -670,7 +689,7 @@ namespace LunarSFXc.Repositories
         {
             try
             {
-                if(_context.Comments.Where(x=>x.Id == comment.Id).Any())
+                if (_context.Comments.Where(x => x.Id == comment.Id).Any())
                 {
                     comment.ModifiedDate = DateTime.Now;
                     _context.Comments.Update(comment);
