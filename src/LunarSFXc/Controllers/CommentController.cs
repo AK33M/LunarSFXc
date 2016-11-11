@@ -34,13 +34,6 @@ namespace LunarSFXc.Controllers
 
                 Response.StatusCode = (int)HttpStatusCode.Created;
                 return Json(new { Message = "comment saved" });
-                //return RedirectToAction("Post", "Blog", new
-                //{
-                //    year = comment.ParentPost.PostedOn.Year,
-                //    month = comment.ParentPost.PostedOn.Month,
-                //    title = comment.ParentPost.UrlSlug
-                //});
-                //return ViewComponent("Comments", new { comments = Mapper.Map<ICollection<CommentViewModel>>(comment.ParentPost.Comments) });
             }
             catch (Exception ex)
             {
