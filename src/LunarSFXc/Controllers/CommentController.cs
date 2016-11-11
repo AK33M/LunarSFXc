@@ -26,6 +26,9 @@ namespace LunarSFXc.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                    throw new Exception("Invalid ModelState");
+
                 var comment = Mapper.Map<Comment>(commentModel);
                 comment.ParentPost = _repo.Post(commentModel.Year, commentModel.Month, commentModel.PostTitle);
                 comment.Owner = _userManager.FindByNameAsync(commentModel.User).Result;
@@ -33,10 +36,12 @@ namespace LunarSFXc.Controllers
                 _repo.AddOrUpdateComment(comment);
 
                 Response.StatusCode = (int)HttpStatusCode.Created;
-                return Json(new { Message = "comment saved" });
+                return Json(new { Message = "Comment saved" });
+
             }
             catch (Exception ex)
             {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return Json(new { Message = ex.Message });
             }
         }

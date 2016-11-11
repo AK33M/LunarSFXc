@@ -103,14 +103,31 @@
 
 @section scripts {
     <script>
+        $("#formAlert").hide();
+        $("#formSuccessAlert").hide();
+
         success = function (data) {
-            console.log(data);
+            //console.log(data);
+
             $("#commentForm")[0].reset();
-            location.reload();
+            $("#formSuccessAlert").alert();
+            $("#formSuccessAlert").fadeTo(2000, 500).slideUp(500, function () {
+                $("#formSuccessAlert").slideUp(500);
+            });
+
+            setTimeout(location.reload(), 5000);
         };
 
         failure = function (error) {
-            console.log(error);
+            //console.log(error);
+
+            $("#formAlert").alert();
+            $("#formAlert").fadeTo(2000, 500).slideUp(500, function () {
+                $("#formAlert").slideUp(500);
+            });
         };
+
+
+
     </script>
 }
