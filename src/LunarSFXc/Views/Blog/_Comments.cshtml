@@ -1,38 +1,49 @@
 ﻿@model IEnumerable<LunarSFXc.ViewModels.CommentViewModel>
-@foreach (var comment in Model.OrderByDescending(x => x.CreatedDate))
-{
-    <!-- Comment -->
-    <div class="media">
-        <a class="pull-left" href="#">
-            <img class="media-object" src="http://placehold.it/64x64" alt="">
-        </a>
-        <div class="media-body">
-            <h4 class="media-heading">
-                @comment.User?.ToString()
-                <small>@comment.CreatedDate.ToString("D") at @comment.CreatedDate.ToString("hh:mm tt")</small>
-            </h4>
-            <div>
-                @comment.Content
-                <div class="pull-right">
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#commentModal" data-whatever="@comment.Id">Reply</button>
-                        if (User.Identity.Name == @comment.User?.ToString())
-                        {
-                            <button class="btn btn-sm btn-primary">Edit</button>
-                            <button class="btn btn-sm btn-danger">Delete</button>
-                        }
-                    }
+<ul class="media-list">
+    @foreach (var comment in Model.OrderByDescending(x => x.CreatedDate))
+    {
 
-                </div>
+        <!-- Comment -->
+        <li class="media">
+            <div class="media-left">
+                <a class="pull-left" href="#">
+                    <img class="media-object" src="http://placehold.it/64x64" alt="">
+                </a>
             </div>
+            <div class="media-body">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <h4 class="media-heading">
+                            @comment.User?.ToString()
+                            <small>@comment.CreatedDate.ToString("D") at @comment.CreatedDate.ToString("hh:mm tt")</small>
+                        </h4>
 
-            <hr />
-            <!-- Nested Comments -->
-            @if (comment.Replies != null && comment.Replies.Any())
-            {
-                @Html.Partial("_Comments", comment.Replies)
-            }
-        </div>
-    </div>
-}
+                        @comment.Content
+                    </div>
+                    <div class="col-xs-4">
+                        <span class="pull-right">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#commentModal" data-whatever="@comment.Id"><i class="fa fa-reply"></i></button>
+                                if (User.Identity.Name == @comment.User?.ToString())
+                                {
+                                    <button class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></button>
+                                }
+                            }
+
+                        </span>
+                    </div>
+                </div>
+
+                <hr />
+                <!-- Nested Comments -->
+                @if (comment.Replies != null && comment.Replies.Any())
+                {
+                    @Html.Partial("_Comments", comment.Replies)
+                }
+
+            </div>
+        </li>
+
+    }
+</ul>

@@ -29,11 +29,25 @@ namespace LunarSFXc.Controllers
                 if (!ModelState.IsValid)
                     throw new Exception("Invalid ModelState");
 
-                var comment = Mapper.Map<Comment>(commentModel);
-                comment.ParentPost = _repo.Post(commentModel.Year, commentModel.Month, commentModel.PostTitle);
-                comment.Owner = _userManager.FindByNameAsync(commentModel.User).Result;
+                var commentToSave = new Comment();
 
-                _repo.AddOrUpdateComment(comment);
+                if (commentModel.ParentCommentId != 0)
+                {
+                    commentToSave = _repo.Comment(commentModel.ParentCommentId);
+                    var childComment = Mapper.Map<Comment>(commentModel);
+                    childComment.CreatedDate = DateTime.Now;
+                    childComment.Owner = _userManager.FindByNameAsync(commentModel.User).Result;
+
+                    commentToSave.Replies.Add(childComment);
+                }
+                else
+                {
+                    Mapper.Map(commentModel, commentToSave);
+                    commentToSave.ParentPost = _repo.Post(commentModel.Year, commentModel.Month, commentModel.PostTitle);
+                    commentToSave.Owner = _userManager.FindByNameAsync(commentModel.User).Result;
+                }
+
+                _repo.AddOrUpdateComment(commentToSave);
 
                 Response.StatusCode = (int)HttpStatusCode.Created;
                 return Json(new { Message = "Comment saved" });

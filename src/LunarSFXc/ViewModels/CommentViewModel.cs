@@ -19,10 +19,10 @@ namespace LunarSFXc.ViewModels
             Year = year;
             Month = month;
         }
-        public CommentViewModel(string user, int commentId)
+        public CommentViewModel(string user, int parentCommentId)
         {
             User = user;
-            Id = commentId;
+            ParentCommentId = parentCommentId;
         }
 
         [Required]
@@ -41,7 +41,7 @@ namespace LunarSFXc.ViewModels
         [HiddenInput]
         public int Month { get; set; }
         [HiddenInput]
-        public int CommentId { get; set; }
+        public int ParentCommentId { get; set; }
 
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
