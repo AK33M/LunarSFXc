@@ -8,18 +8,22 @@
         </a>
         <div class="media-body">
             <h4 class="media-heading">
-                @comment.User.ToString()
+                @comment.User?.ToString()
                 <small>@comment.CreatedDate.ToString("D") at @comment.CreatedDate.ToString("hh:mm tt")</small>
             </h4>
             <div>
                 @comment.Content
                 <div class="pull-right">
-                    <button class="btn btn-sm btn-default ">Reply</button>
-                    @if (User.Identity.IsAuthenticated && User.Identity.Name == @comment.User)
+                    @if (User.Identity.IsAuthenticated)
                     {
-                        <button class="btn btn-sm btn-primary">Edit</button>
-                        <button class="btn btn-sm btn-danger">Delete</button>
+                        <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#commentModal" data-whatever="@comment.Id">Reply</button>
+                        if (User.Identity.Name == @comment.User?.ToString())
+                        {
+                            <button class="btn btn-sm btn-primary">Edit</button>
+                            <button class="btn btn-sm btn-danger">Delete</button>
+                        }
                     }
+
                 </div>
             </div>
 

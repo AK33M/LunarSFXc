@@ -2,19 +2,16 @@
 @{
     var returnUrl = Context.Request.Path;
 }
-<h4>Leave a Comment</h4>
-<form id="commentForm"
-      asp-controller="Comment" 
-      asp-action="Save" 
-      data-ajax="true" 
+<form id="commentReplyForm"
+      asp-controller="Comment"
+      asp-action="Save"
+      data-ajax="true"
       data-ajax-method="POST"
-      data-ajax-failure="failure(error, status, xhr)"
-      data-ajax-success="success(data, status, xhr)">
+      data-ajax-failure="failure2(error, status, xhr)"
+      data-ajax-success="success2(data, status, xhr)">
     <div class="form-group">
         <input asp-for="User" />
-        <input asp-for="PostTitle" />
-        <input asp-for="Year" />
-        <input asp-for="Month" />
+        <input asp-for="Id" />
 
         <div class="formErrorAlert alert alert-warning" role="alert">
             <strong>Error!</strong> Something Happened While Attempting to Save Your Comment.
@@ -23,7 +20,6 @@
         <div class="formSuccessAlert alert alert-success" role="alert">
             <strong>Success!</strong> Your comment was saved!
         </div>
-
         <textarea type="text" asp-for="Content" class="form-control" placeholder="Leave a comment" rows="3"></textarea>
 
         <span class="text-danger" asp-validation-for="Content"></span>

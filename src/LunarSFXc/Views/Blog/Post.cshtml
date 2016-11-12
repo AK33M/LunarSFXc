@@ -76,6 +76,25 @@
                 @if (Model.Comments.Any())
                 {
                     <div id="commentsWell" class="well">@Html.Partial("_Comments", Model.Comments)</div>
+                    <div id="commentModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myCommentModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">Modal title</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>One fine body&hellip;</p>
+                                    <hr />
+                                    @Component.InvokeAsync("CommentForm", new { user = User.Identity.Name, commentId = 0 }).Result
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 }
                 else
                 {
@@ -103,29 +122,59 @@
 
 @section scripts {
     <script>
-        $("#formAlert").hide();
-        $("#formSuccessAlert").hide();
+        $(".formErrorAlert").hide();
+        $(".formSuccessAlert").hide();
 
         success = function (data) {
-            //console.log(data);
-
             $("#commentForm")[0].reset();
-            $("#formSuccessAlert").alert();
-            $("#formSuccessAlert").fadeTo(2000, 500).slideUp(500, function () {
-                $("#formSuccessAlert").slideUp(500);
+            $("#commentForm .formSuccessAlert").alert();
+            $("#commentForm .formSuccessAlert").fadeTo(2000, 500).slideUp(500, function () {
+                $("#commentForm .formSuccessAlert").slideUp(500);
             });
 
-            setTimeout(location.reload(), 5000);
+            setTimeout(location.reload(), 6000);
         };
 
         failure = function (error) {
             //console.log(error);
 
-            $("#formAlert").alert();
-            $("#formAlert").fadeTo(2000, 500).slideUp(500, function () {
-                $("#formAlert").slideUp(500);
+            $("#commentForm .formErrorAlert").alert();
+            $("#commentForm .formErrorAlert").fadeTo(2000, 500).slideUp(500, function () {
+                $("#commentForm .formErrorAlert").slideUp(500);
             });
         };
+
+        success2 = function (data) {
+            $("#commentReplyForm")[0].reset();
+            $("#commentReplyForm .formSuccessAlert").alert();
+            $("#commentReplyForm .formSuccessAlert").fadeTo(2000, 500).slideUp(500, function () {
+                $("#commentReplyForm .formSuccessAlert").slideUp(500);
+            });
+
+            setTimeout(location.reload(), 6000);
+        };
+
+        failure2 = function (error) {
+            //console.log(error);
+
+            $("#commentReplyForm .formErrorAlert").alert();
+            $("#commentReplyForm .formErrorAlert").fadeTo(2000, 500).slideUp(500, function () {
+                $("#commentReplyForm .formErrorAlert").slideUp(500);
+            });
+        };
+
+        $('#commentModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('whatever') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+
+
+
+            var modal = $(this)
+            modal.find('.modal-title').text('reply message to comment ' + recipient)
+            modal.find('.modal-body #Id').val(recipient)
+        })
 
 
 
