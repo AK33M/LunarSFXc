@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using System;
+using Microsoft.WindowsAzure.Storage.Auth;
 
 namespace LunarSFXc.Services
 {
@@ -16,7 +17,8 @@ namespace LunarSFXc.Services
         public CloudStorageService(IOptions<ImageServiceOptions> optionsAccessor)
         {
             _options = optionsAccessor;
-            _storageAccount = CloudStorageAccount.Parse(_options.Value.StorageConnectionStringImagesUploadKey1);
+            var cred = new StorageCredentials(_options.Value.StorageAccountName, _options.Value.StorageAccountKey);
+            _storageAccount = new CloudStorageAccount(cred, true);
 
         }
 

@@ -192,7 +192,7 @@ namespace LunarSFXc.Repositories
                                 .Include(p => p.Category)
                                 .Include(p => p.PostTags)
                                 .Include(p => p.PostedBy)
-                                .Include(p => p.Comments)
+                                .Include(p => p.Comments).ThenInclude(x=>x.Owner)
                                 .SingleOrDefault(p => p.PostedOn.Year == year && p.PostedOn.Month == month && p.UrlSlug.Equals(titleSlug));
 
                 if (query.Comments.Any())
