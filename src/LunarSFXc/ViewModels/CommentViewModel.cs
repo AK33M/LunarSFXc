@@ -42,6 +42,8 @@ namespace LunarSFXc.ViewModels
         public int Month { get; set; }
         [HiddenInput]
         public int ParentCommentId { get; set; }
+        [HiddenInput]
+        public int CommentId { get; set; }
 
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }

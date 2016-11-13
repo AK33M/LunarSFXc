@@ -38,5 +38,6 @@ namespace LunarSFXc.Repositories
         Task<int> DeleteTimelineEvent(int id);
         void AddOrUpdateBlogPost(Post post, LunarUser user);
         void AddOrUpdateCategory(Category cat);
+        void DeleteComment(int id);
     }
 }

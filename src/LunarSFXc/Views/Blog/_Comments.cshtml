@@ -27,7 +27,7 @@
                                 <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#commentModal" data-whatever="@comment.Id"><i class="fa fa-reply"></i></button>
                                 if (User.Identity.Name == @comment.User?.ToString())
                                 {
-                                    <button class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></button>
+                                    <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editCommentModal" data-whatever="@comment.Id"><i class="fa fa-edit"></i></button>
                                 }
                             }
 

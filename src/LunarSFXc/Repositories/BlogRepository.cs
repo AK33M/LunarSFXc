@@ -718,5 +718,20 @@ namespace LunarSFXc.Repositories
         {
             return _context.Comments.Include(x => x.Replies).SingleOrDefault(x => x.Id == parentCommentId);
         }
+
+        public void DeleteComment(int id)
+        {
+            try
+            {
+               var comment = Comment(id);
+                comment.Content = "[deleted]";
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error", ex);
+                throw;
+            }
+        }
     }
 }

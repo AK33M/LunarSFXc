@@ -42,6 +42,11 @@ namespace LunarSFXc.Controllers
 
                     commentToSave.Replies.Add(childComment);
                 }
+                else if(commentModel.CommentId != 0)
+                {
+                    commentToSave = _repo.Comment(commentModel.CommentId);
+                    commentToSave.Content = commentModel.Content;
+                }
                 else
                 {
                     Mapper.Map(commentModel, commentToSave);
@@ -70,6 +75,23 @@ namespace LunarSFXc.Controllers
                 var comment = _repo.Comment(id);
 
                 return Json(comment.Content);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new { Message = ex.Message });
+            }
+        }
+
+        [Route("DeleteComment")]
+        [HttpPost]
+        public IActionResult DeleteComment(int id)
+        {
+            try
+            {
+                _repo.DeleteComment(id);
+
+                return Json(new { Message = "Comment was deleted" });
             }
             catch (Exception ex)
             {

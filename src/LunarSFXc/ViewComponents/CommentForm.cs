@@ -5,9 +5,9 @@ namespace LunarSFXc.ViewComponents
 {
     public class CommentForm : ViewComponent
     {
-        public IViewComponentResult Invoke(string user, PostViewModel parentPost, int commentId)
+        public IViewComponentResult Invoke(string user, PostViewModel parentPost, int parentCommentId, int commentId, bool isEdit)
         {
-            if(parentPost != null)
+            if (parentPost != null)
             {
                 var model = new CommentViewModel(user,
                                                parentPost.UrlSlug,
@@ -17,12 +17,18 @@ namespace LunarSFXc.ViewComponents
                 return View("CommentForm", model);
 
             }
-            else
+            else if (isEdit)
             {
                 var model = new CommentViewModel(user, commentId);
 
+                return View("CommentEditForm", model);
+            }
+            else
+            {
+                var model = new CommentViewModel(user, parentCommentId);
+
                 return View("CommentReplyForm", model);
-            }            
+            }
         }
     }
 }

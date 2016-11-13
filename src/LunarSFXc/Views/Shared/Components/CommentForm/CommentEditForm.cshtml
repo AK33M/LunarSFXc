@@ -1,0 +1,28 @@
+﻿@model LunarSFXc.ViewModels.CommentViewModel
+@{
+    var returnUrl = Context.Request.Path;
+}
+<form id="commentEditForm"
+      asp-route="Comment"
+      data-ajax="true"
+      data-ajax-method="POST"
+      data-ajax-failure="failure3(error, status, xhr)"
+      data-ajax-success="success3(data, status, xhr)">
+    <div class="form-group">
+        <input asp-for="User" />
+        <input asp-for="CommentId" />
+
+        <div class="formErrorAlert alert alert-warning" role="alert">
+            <strong>Error!</strong> Something Happened While Attempting to Edit Your Comment.
+        </div>
+
+        <div class="formSuccessAlert alert alert-success" role="alert">
+            <strong>Success!</strong> Your request was completed!
+        </div>
+        <textarea id="editCommentContent" type="text" asp-for="Content" class="form-control" placeholder="Leave a comment" rows="3"></textarea>
+
+        <span class="text-danger" asp-validation-for="Content"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Edit</button>
+    <button type="button" onclick="deleteComment(CommentId)" class="btn btn-danger pull-right">Delete</button>
+</form>
