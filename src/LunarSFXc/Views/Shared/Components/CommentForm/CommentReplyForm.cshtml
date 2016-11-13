@@ -3,8 +3,7 @@
     var returnUrl = Context.Request.Path;
 }
 <form id="commentReplyForm"
-      asp-controller="Comment"
-      asp-action="Save"
+      asp-route="Comment"
       data-ajax="true"
       data-ajax-method="POST"
       data-ajax-failure="failure2(error, status, xhr)"

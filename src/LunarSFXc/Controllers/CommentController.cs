@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace LunarSFXc.Controllers
 {
+    [Route("Comment")]
     public class CommentController : Controller
     {
         private IBlogRepository _repo;
@@ -22,6 +23,7 @@ namespace LunarSFXc.Controllers
         }
 
         [HttpPost]
+        [Route("Post")]
         public IActionResult Save(CommentViewModel commentModel)
         {
             try
@@ -52,6 +54,22 @@ namespace LunarSFXc.Controllers
                 Response.StatusCode = (int)HttpStatusCode.Created;
                 return Json(new { Message = "Comment saved" });
 
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new { Message = ex.Message });
+            }
+        }
+
+        [Route("GetComment")]
+        public IActionResult GetComment(int id)
+        {
+            try
+            {
+                var comment = _repo.Comment(id);
+
+                return Json(comment.Content);
             }
             catch (Exception ex)
             {

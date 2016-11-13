@@ -4,8 +4,7 @@
 }
 <h4>Leave a Comment</h4>
 <form id="commentForm"
-      asp-controller="Comment" 
-      asp-action="Save" 
+      asp-route="Comment"
       data-ajax="true" 
       data-ajax-method="POST"
       data-ajax-failure="failure(error, status, xhr)"

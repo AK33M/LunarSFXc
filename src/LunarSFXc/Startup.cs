@@ -203,7 +203,7 @@ namespace LunarSFXc
 
             routeBuilder.MapRoute(
                     name: "Comment",
-                    template: "Comment/Save",
+                    template: "Comment/{action}",
                     defaults: new { controller = "Comment", action = "Save" });
 
             //routeBuilder.MapRoute(
