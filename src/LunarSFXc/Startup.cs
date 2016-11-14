@@ -146,6 +146,8 @@ namespace LunarSFXc
 
                 config.CreateMap<LunarUser, LunarUserViewModel>()
                                 .ReverseMap();
+
+                config.CreateMap<ProjectViewModel, Project>().ReverseMap();
             });
 
             //Use MVC always Last.

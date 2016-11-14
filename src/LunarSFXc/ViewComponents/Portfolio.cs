@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LunarSFXc.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace LunarSFXc.ViewComponents
 {
@@ -6,7 +8,9 @@ namespace LunarSFXc.ViewComponents
     {
         public IViewComponentResult Invoke()
         {
-            return View("Portfolio");
+            var model =  new List<ProjectViewModel>();
+
+            return View("Portfolio", model);
         }
     }
 }

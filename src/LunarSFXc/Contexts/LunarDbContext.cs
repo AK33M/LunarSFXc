@@ -16,11 +16,11 @@ namespace LunarSFXc.Contexts
         public DbSet<Post> Posts { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Category> Categories { get; set; }
-        //public DbSet<Image> Images { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<ImageDescription> ImageDescriptions { get; set; }
         public DbSet<TimelineEvent> TimelineEvents { get; set; }
         public DbSet<PostTag> PostTags { get; set; }
+        public DbSet<Project> Projects { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
