@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace LunarSFXc.Objects
 {
@@ -7,12 +8,14 @@ namespace LunarSFXc.Objects
         public int Id { get; set; }
         [Required]
         [StringLength(maximumLength: 150)]
-        public string  Title { get; set; }
+        public string Title { get; set; }
         public string SubTitle { get; set; }
         [Required]
         [StringLength(maximumLength: 5000)]
         public string Description { get; set; }
         public Category Category { get; set; }
         public ImageDescription Image { get; set; }
+        [StringLength(maximumLength: 100)]
+        public string Date { get; set; }
     }
 }

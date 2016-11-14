@@ -730,5 +730,13 @@ namespace LunarSFXc.Repositories
                 throw;
             }
         }
+
+        public ICollection<Project> GetAllProjects()
+        {
+            return _context.Projects
+                            .Include(x=>x.Category)
+                            .Include(x => x.Image)
+                            .ToList();
+        }
     }
 }
