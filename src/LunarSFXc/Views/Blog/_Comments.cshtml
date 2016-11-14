@@ -14,18 +14,41 @@
                 <div class="row">
                     <div class="col-xs-8">
                         <h4 class="media-heading">
-                            @comment.User?.ToString()
-                            <small>@comment.CreatedDate.ToString("D") at @comment.CreatedDate.ToString("hh:mm tt")</small>
+                            @if (comment.Content != null)
+                            {
+                                @comment.User?.ToString()
+                            }
+                            else
+                            {
+                                <span>[deleted]</span>
+                            }
+
+                            @if (@comment.ModifiedDate > comment.CreatedDate)
+                            {
+                                <small>*@comment.ModifiedDate.ToString("D") at @comment.ModifiedDate.ToString("hh:mm tt")</small>
+                            }
+                            else
+                            {
+                                <small>@comment.CreatedDate.ToString("D") at @comment.CreatedDate.ToString("hh:mm tt")</small>
+                            }
+
                         </h4>
 
-                        @comment.Content
+                        @if (comment.Content != null)
+                        {
+                            <p>@comment.Content</p>
+                        }
+                        else
+                        {
+                            <p>[deleted]</p>
+                        }
                     </div>
                     <div class="col-xs-4">
                         <span class="pull-right">
                             @if (User.Identity.IsAuthenticated)
                             {
                                 <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#commentModal" data-whatever="@comment.Id"><i class="fa fa-reply"></i></button>
-                                if (User.Identity.Name == @comment.User?.ToString())
+                                if (User.Identity.Name == @comment.User?.ToString() && comment.Content != null)
                                 {
                                     <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editCommentModal" data-whatever="@comment.Id"><i class="fa fa-edit"></i></button>
                                 }

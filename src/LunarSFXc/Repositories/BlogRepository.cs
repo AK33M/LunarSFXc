@@ -696,12 +696,10 @@ namespace LunarSFXc.Repositories
             {
                 if (_context.Comments.Where(x => x.Id == comment.Id).Any())
                 {
-                    comment.ModifiedDate = DateTime.Now;
                     _context.Comments.Update(comment);
                 }
                 else
                 {
-                    comment.CreatedDate = DateTime.Now;
                     _context.Comments.Add(comment);
                 }
 
@@ -719,12 +717,11 @@ namespace LunarSFXc.Repositories
             return _context.Comments.Include(x => x.Replies).SingleOrDefault(x => x.Id == parentCommentId);
         }
 
-        public void DeleteComment(int id)
+        public void DeleteComment(Comment comment)
         {
             try
-            {
-               var comment = Comment(id);
-                comment.Content = "[deleted]";
+            {               
+                _context.Comments.Update(comment);
                 _context.SaveChanges();
             }
             catch (Exception ex)

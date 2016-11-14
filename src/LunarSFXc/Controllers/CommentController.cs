@@ -46,11 +46,13 @@ namespace LunarSFXc.Controllers
                 {
                     commentToSave = _repo.Comment(commentModel.CommentId);
                     commentToSave.Content = commentModel.Content;
+                    commentToSave.ModifiedDate = DateTime.Now;
                 }
                 else
                 {
                     Mapper.Map(commentModel, commentToSave);
                     commentToSave.ParentPost = _repo.Post(commentModel.Year, commentModel.Month, commentModel.PostTitle);
+                    commentToSave.CreatedDate = DateTime.Now;
                     commentToSave.Owner = _userManager.FindByNameAsync(commentModel.User).Result;
                 }
 
@@ -89,7 +91,10 @@ namespace LunarSFXc.Controllers
         {
             try
             {
-                _repo.DeleteComment(id);
+                var comment = _repo.Comment(id);
+                comment.Content = null;
+                comment.ModifiedDate = DateTime.Now;
+                _repo.DeleteComment(comment);
 
                 return Json(new { Message = "Comment was deleted" });
             }
