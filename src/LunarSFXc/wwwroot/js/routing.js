@@ -6,11 +6,6 @@
         .config([
                     "$routeProvider",
                         function ($routeProvider) {
-                            //$routeProvider.when("/", {
-                            //    controller: "tripsController as vm",
-                            //    templateUrl: "/views/tripsView.html"
-                            //});
-
                             $routeProvider.when("/posts", {
                                 controller: "PostsCtrl as vm",
                                 templateUrl: "/views/posts.html"
@@ -26,6 +21,11 @@
                                 templateUrl: "/views/about-me-events.html"
                             });
 
+                            $routeProvider.when("/projects", {
+                                controller: "ProjectsCtrl as vm",
+                                templateUrl: "/views/projects.html"
+                            });
+
                             $routeProvider.when("/add-post/:isNew?", {
                                 controller: "AddPostCtrl as vm",
                                 templateUrl: "/views/add-post.html"
@@ -39,6 +39,11 @@
                             $routeProvider.when("/add-aboutme/:Id?", {
                                 controller: "AddAboutMeCtrl as vm",
                                 templateUrl: "/views/add-about-me-event.html"
+                            });
+
+                            $routeProvider.when("/add-project/:Id?", {
+                                controller: "AddProjectCtrl as vm",
+                                templateUrl: "/views/add-project.html"
                             });
 
                             $routeProvider.when("/add-category", {
