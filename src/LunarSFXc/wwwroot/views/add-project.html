@@ -1,0 +1,114 @@
+﻿<div class="col-lg-8 col-lg-offset-2">
+    <h4 class="page-header">New Project</h4>
+    <div class="col-sm-offset-2">
+        <div uib-alert dismiss-on-timeout="5000" ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)">{{alert.msg}}</div>
+    </div>
+    <form class="form-horizontal" name="portfolioProjectForm" id="portfolioProjectForm" novalidate ng-submit="portfolioProjectForm.$valid && saveProject()">
+        <div class="form-group">
+            <label for="title" class="col-sm-2 control-label">Project Title</label>
+            <div class="col-sm-10">
+                <input required ng-model="portfolioProject.title" type="text" id="title" name="title" class="form-control" placeholder="Title" />
+
+                <div class="help-block has-error text-muted" ng-messages="portfolioProjectForm.title.$error" role="alert">
+                    <div ng-message="required">Title is required.</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="subTitle" class="col-sm-2 control-label">Project Title</label>
+            <div class="col-sm-10">
+                <input required ng-model="portfolioProject.subTitle" type="text" id="subTitle" name="subTitle" class="form-control" placeholder="Sub-title" />
+
+                <div class="help-block has-error text-muted" ng-messages="portfolioProjectForm.subTitle.$error" role="alert">
+                    <div ng-message="required">Sub-title is required.</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description" class="col-sm-2 control-label">Description</label>
+            <div class="col-sm-10">
+                <textarea required ng-model="portfolioProject.description"
+                          ng-minlength="50"
+                          ng-maxlength="250"
+                          type="text"
+                          id="description"
+                          name="description"
+                          class="form-control"
+                          rows="5"></textarea>
+
+                <div class="help-block has-error text-muted" ng-messages="portfolioProjectForm.description.$error">
+                    <div ng-message="required">Description is required.</div>
+                    <div ng-message="minlength">Description is too short.</div>
+                    <div ng-message="maxlength">Description is too long.</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="category" class="col-sm-2 control-label">Category</label>
+            <div class="col-sm-10">
+                <select id="category"
+                        required
+                        name="category"
+                        class="form-control"
+                        ng-options="cat as cat.name for cat in categories track by cat.id"
+                        ng-model="portfolioProject.category"></select>
+                <div class="help-block has-error text-muted" ng-messages="portfolioProjectForm.category.$error">
+                    <div ng-message="required">Category is required.</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="date" class="col-sm-2 control-label">Start Date</label>
+            <div class="col-sm-10">
+                <input required ng-model="portfolioProject.date" type="text" id="date" name="date" class="form-control" placeholder="Date (e.g. MAY 2015)" />
+
+                <div class="help-block has-error text-muted" ng-messages="portfolioProjectForm.date.$error">
+                    <div ng-message="required">Date is required.</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" nv-file-drop="" uploader="uploader">
+            <label for="image" class="col-sm-2 control-label">Image</label>
+            <div class="row col-sm-10" ng-show="portfolioProject.image">
+                <div class="col-sm-6 col-lg-6">
+                    <img class="img-thumbnail" ng-src="{{portfolioProject.image.imageUri}}" alt="Uploaded Image" />
+                    <p><span class="text-muted">File name: {{ portfolioProject.image.fileName }}</span></p>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <button type="button" class="btn btn-danger pull-right" ng-click="removeImage()">
+                        <span class="fa fa-trash"></span> Remove
+                    </button>
+                </div>
+            </div>
+            <div class="col-sm-10" ng-hide="portfolioProject.image && !uploader.isUploading">
+                <div ng-show="uploader.isHTML5">
+                    <div class="well my-drop-zone" style="height: 250px;" ng-file-over="" uploader="uploader">
+                        Drop Image Here
+                    </div>
+                </div>
+                <input type="file" nv-file-select="" uploader="uploader" />
+            </div>
+            <div class="col-sm-10 col-sm-offset-2" ng-show="uploader.isHTML5 && uploader.isUploading">
+                <div>Queue progress:</div>
+                <div class="progress" style="">
+                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
+                        <span class="fa fa-ban"></span> Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-10 col-sm-offset-2">
+                <div>
+                    <button type="submit" class="btn btn-primary btn-lg"><i class="fa fa-save"></i> Submit</button>
+                    <button type="button" class="btn btn-danger btn-lg" ng-click="open(portfolioProject.id)"><i class="fa fa-trash-o"></i> Delete this project</button>
+
+                    <button type="button" ng-click="go('/projects')" class="pull-right btn btn-default btn-lg"><i class="fa fa-remove"></i> Cancel</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

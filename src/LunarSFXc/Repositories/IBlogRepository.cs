@@ -17,6 +17,7 @@ namespace LunarSFXc.Repositories
         int TotalPostsForCategory(string categorySlug);
         void AddOrUpdateComment(Comment comment);
         Category Category(string categorySlug);
+        ICollection<Project> GetProject(int id);
         ICollection<Post> PostsForSearch(string search, int pageNo, int pageSize);
         int TotalPostsForSearch(string search);
         Post Post(int year, int month, string titleSlug);
@@ -40,5 +41,7 @@ namespace LunarSFXc.Repositories
         void AddOrUpdateBlogPost(Post post, LunarUser user);
         void AddOrUpdateCategory(Category cat);
         void DeleteComment(Comment id);
+        void AddOrUpdatePortfolioProject(Project newProject);
+        Task<int> DeletePortfolioProject(int id);
     }
 }

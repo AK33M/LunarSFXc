@@ -25,6 +25,12 @@
                 'get': { method: 'GET', params: { action: 'event', id: '@id' }, isArray: false },
                 'save': { method: 'POST', params: { action: 'save' } },
                 'delete': { method: 'DELETE', params: { action: 'delete', id: '@id' } }
+            }),
+            projects: $resource("api/portfolio/:action/:id", {}, {
+                'getAll': { method: 'GET', params: { action: 'projects' }, isArray: false },
+                'get': { method: 'GET', params: { action: 'project', id: '@id' }, isArray: false },
+                'save': { method: 'POST', params: { action: 'save' } },
+                'delete': { method: 'DELETE', params: { action: 'delete', id: '@id' } }
             })
         };
     }

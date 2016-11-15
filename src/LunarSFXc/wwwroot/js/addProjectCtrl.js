@@ -1,11 +1,19 @@
 ﻿(function () {
     "use strict";
-
+    
     angular
-        .module("app-admin")
-        .controller("AddAboutMeCtrl", ["$scope", "$location", "$routeParams", "$uibModal", "$log", "dataResource", "FileUploader", AddAboutMeCtrl]);
+       .module("app-admin")
+       .controller("AddProjectCtrl", [
+                                        "$scope",
+                                        "$location",
+                                        "$routeParams",
+                                        "$uibModal",
+                                        "$log",
+                                        "dataResource",
+                                        "FileUploader",
+                                        AddProjectCtrl]);
 
-    function AddAboutMeCtrl($scope, $location, $routeParams, $uibModal, $log, dataResource, FileUploader) {
+    function AddProjectCtrl($scope, $location, $routeParams, $uibModal, $log, dataResource, FileUploader) {
         var vm = this;
 
         $scope.go = function (path) {
@@ -14,14 +22,21 @@
 
         $scope.alerts = [];
 
-        var TimelineEvent = dataResource.aboutme.get({ id: $routeParams.Id == null ? 0 : $routeParams.Id });
-        $scope.aboutMeEvent = TimelineEvent;
+        var PortfolioProject = dataResource.projects.get({ id: $routeParams.Id == null ? 0 : $routeParams.Id });
+        $scope.portfolioProject = PortfolioProject;
 
+        dataResource.posts.getCategories(function (data) {
+            //success
+            $scope.categories = data.categories
+        }, function (error) {
+            //error
+            $log.log(error);
+        });
 
-        $scope.saveEvent = function () {
-            $scope.aboutMeEvent.$save(function (response) {
+        $scope.saveProject = function () {
+            $scope.portfolioProject.$save(function (response) {
                 //success callback
-                $location.path('/aboutme');
+                $location.path('/projects');
             }, function (error) {
                 //error callback 
                 $scope.alerts.push({
@@ -34,8 +49,6 @@
                         type: 'danger', msg: errorMessage
                     });
                 });
-
-                //$scope.alerts = [{ type: 'danger', msg: 'Oops!: ' + errorMessage }];
             });
         };
 
@@ -44,13 +57,13 @@
         };
 
         $scope.removeImage = function () {
-            $scope.aboutMeEvent.image = null;
+            $scope.portfolioProject.image = null;
         };
 
-        $scope.deleteEvent = function (eventId) {
-            dataResource.aboutme.delete({ id: $routeParams.Id }, function (response) {
+        $scope.deleteProject = function (projectId) {
+            dataResource.projects.delete({ id: $routeParams.Id }, function (response) {
                 //success
-                $scope.go('/aboutme');
+                $scope.go('/projects');
             }, function (error) {
                 //error
                 $scope.alerts.push({
@@ -59,9 +72,9 @@
             });
         };
 
-        $scope.open = function (eventId, size, parentSelector) {
+        $scope.open = function (projectId, size, parentSelector) {
             var parentElem = parentSelector ?
-              angular.element($document[0].querySelector('#aboutMeEventForm' + parentSelector)) : undefined;
+              angular.element($document[0].querySelector('#portfolioProjectForm' + parentSelector)) : undefined;
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -72,23 +85,20 @@
                 size: 'sm',
                 appendTo: parentElem,
                 resolve: {
-                    item : function () {
-                        return eventId;
+                    item: function () {
+                        return projectId;
                     }
                 }
             });
 
-            modalInstance.result.then(function (eventId) {
+            modalInstance.result.then(function (projectId) {
                 //if OK/Agreed
-                $scope.deleteEvent(eventId);
+                $scope.deleteProject(projectId);
             }, function () {
                 //if Cancel/Not Agreed/Dismissed Modal
                 $log.info('modal-component dismissed at: ' + new Date());
             });
         };
-
-
-
 
         //AngularFileUpload http://nervgh.github.io/pages/angular-file-upload/examples/simple/
         // Creates a uploader
@@ -99,7 +109,7 @@
             removeAfterUpload: true,
             autoUpload: true,
             formData: [{
-                containerName: 'aboutmetimeline'
+                containerName: 'portfolio'
             }]
         });
 
@@ -119,11 +129,13 @@
 
         uploader.onSuccessItem = function (fileItem, response, status, headers) {
             //console.info('onSuccessItem', fileItem, response, status, headers);
-            $scope.aboutMeEvent.image = response.image;
+            $scope.portfolioProject.image = response.image;
         };
 
         uploader.onErrorItem = function (fileItem, response, status, headers) {
             //console.info('onErrorItem', fileItem, response, status, headers);
         };
+
     }
+
 }());

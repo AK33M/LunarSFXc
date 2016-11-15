@@ -538,6 +538,35 @@ namespace LunarSFXc.Repositories
             }
         }
 
+        public void AddOrUpdatePortfolioProject(Project newProject)
+        {
+            try
+            {
+                AddOrUpdateFileDescriptions(newProject.Image);
+
+                if (_context.Projects.Any(x => x.Id == newProject.Id))
+                {
+                    _context.Projects.Attach(newProject);
+                    var oldProject = _context.Projects.FirstOrDefault(x => x.Id == newProject.Id);
+                    oldProject = newProject;
+                    _context.Projects.Update(oldProject);
+                }
+                else
+                {
+                    _context.Entry(newProject.Category).State = EntityState.Unchanged;
+
+                    _context.Projects.Add(newProject);
+                }
+
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error", ex);
+                throw ex;
+            }
+        }
+
         public void AddOrUpdateBlogPost(Post post, LunarUser user)
         {
             try
@@ -720,7 +749,7 @@ namespace LunarSFXc.Repositories
         public void DeleteComment(Comment comment)
         {
             try
-            {               
+            {
                 _context.Comments.Update(comment);
                 _context.SaveChanges();
             }
@@ -734,9 +763,35 @@ namespace LunarSFXc.Repositories
         public ICollection<Project> GetAllProjects()
         {
             return _context.Projects
-                            .Include(x=>x.Category)
+                            .Include(x => x.Category)
                             .Include(x => x.Image)
                             .ToList();
+        }
+
+        public ICollection<Project> GetProject(int id)
+        {
+            return _context.Projects
+                           .Include(x => x.Category)
+                           .Include(x => x.Image)
+                           .Where(x => x.Id == id)
+                           .ToList();
+        }
+
+        public async Task<int> DeletePortfolioProject(int id)
+        {
+            try
+            {
+                var project = await _context.Projects.FirstOrDefaultAsync(x => x.Id == id);
+
+                _context.Remove(project);
+
+                return await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error", ex);
+                throw ex;
+            }
         }
     }
 }

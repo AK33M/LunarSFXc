@@ -100,7 +100,7 @@
 
                 var modal = $(this)
                 //modal.find('.modal-title').text('reply message to comment ' + recipient)
-                modal.find('.modal-body #projectTitle').text(recipient.title)
+                modal.find('.modal-body #projectTitle').html(recipient.title)
                 modal.find('.modal-body #projectSubTitle').text(recipient.subTitle)
                 modal.find('.modal-body img src').val(recipient.imageUri)
                 modal.find('.modal-body img alt').val(recipient.imageFileName)
