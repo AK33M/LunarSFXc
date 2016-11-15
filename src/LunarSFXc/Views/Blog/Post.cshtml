@@ -124,10 +124,26 @@
                     @Component.InvokeAsync("Widget", new { sidebar = true }).Result
                 </div>
 
+
                 <!-- Side Widget Well -->
-                <div class="well">
-                    <h4>Side Widget Well</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, perspiciatis adipisci accusamus laudantium odit aliquam repellat tempore quos aspernatur vero.</p>
+                <div class="well text-center">
+                    <h5>Tweets</h5>
+                    <div class="row">
+                        <a class="twitter-timeline"
+                           data-width="auto"
+                           data-dnt="true"
+                           data-tweet-limit="3"
+                           data-theme="light"
+                           data-link-color="#FAB81E"
+                           href="https://twitter.com/t41wo"></a>
+                    </div>
+                    <div class="row">
+                        <a href="https://twitter.com/T41WO"
+                           class="twitter-follow-button"
+                           data-size="large"
+                           data-dnt="true"
+                           data-show-count="false"></a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -135,6 +151,8 @@
 </section>
 
 @section scripts {
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
     <script>
         $(".formErrorAlert").hide();
         $(".formSuccessAlert").hide();
