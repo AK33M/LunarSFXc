@@ -7,6 +7,7 @@ namespace LunarSFXc.Controllers
     {
         public IActionResult Index()
         {
+            ViewBag.Title = "Akeem Taiwo";
             return View();
         }
     }

@@ -7,6 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="icon"
+          type="image/png"
+          href="~/img/akeem_logo.png">
+
     <title>@ViewBag.Title</title>
 
     <!-- Stylesheets -->
@@ -71,12 +75,12 @@
                         <li>
                             <a asp-controller="Auth" asp-action="Logout" asp-route-returnUrl="@Context.Request.Path">Log out</a>
                         </li>
+                        <li>
+                            <a asp-controller="Admin" asp-action="Index">Admin</a>
+                        </li>
                     }
                     <li>
                         <a asp-controller="Blog" asp-action="Posts">Blog</a>
-                    </li>
-                    <li>
-                        <a asp-controller="Admin" asp-action="Index">Admin</a>
                     </li>
                     <li>
                         <a asp-controller="Home" asp-action="Index">Return to Main Website</a>

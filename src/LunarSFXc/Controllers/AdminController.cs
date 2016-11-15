@@ -17,6 +17,7 @@ namespace LunarSFXc.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Title = "Admin";
             return View();
         }
     }
