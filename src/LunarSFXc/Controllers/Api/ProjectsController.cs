@@ -57,7 +57,7 @@ namespace LunarSFXc.Controllers.Api
                 if (Id != 0)
                 {
                     var model = new PortfolioViewModel(_cloudService, _repo, Id);
-                    var results = (List<PortfolioViewModel>)Mapper.Map<ICollection<PortfolioViewModel>>(model.Projects);
+                    var results = (List<ProjectViewModel>)Mapper.Map<ICollection<ProjectViewModel>>(model.Projects);
 
                     return Json(results.ToArray()[0]);
                 }

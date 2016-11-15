@@ -8,6 +8,15 @@
     function ProjectsCtrl($scope, $location, $log, blogPostService, dataResource, uiGridConstants) {
         var vm = this;
 
+        $scope.go = function (path) { 
+            $location.path(path);
+        };
+
+        $scope.edit = function (path) {
+            //$log.log(path);
+           $location.path(path);
+        };
+
         $scope.gridOptions = {
             enableSorting: true,
             enableColumnResizing: true,
@@ -40,14 +49,18 @@
                     if (row.isSelected) {
                         var msg = 'row selected ' + row.entity.Id;
                         $scope.rowSelected = row.entity.Id;
-                        // $log.log(msg);
-                        $scope.eventToEdit = gridApi.selection.getSelectedRows();
+                        //$log.log(msg);
+                        $scope.projectToEdit = gridApi.selection.getSelectedRows();
                     } else {
                         $scope.rowSelected = null;
-                        $scope.eventToEdit = null;
+                        $scope.projectToEdit = null;
                     }
                 });
             }
+        };
+        
+        $scope.gridOptions.rowIdentity = function (row) {
+            return row.id;
         };
 
         var getPage = function () {

@@ -10,8 +10,8 @@
         </div>
         <div class="panel-footer">
             <div class="form-group">
-                <button class="btn btn-primary btn-lg" ng-click="add()"><i class="fa fa-plus"></i> Add New Project</button>
-                <button class="btn btn-default btn-lg pull-right" ng-click="edit()" ng-disabled="!rowSelected"><i class="fa fa-edit"></i> Edit Selected Project</button>
+                <button class="btn btn-primary btn-lg" ng-click="go('/add-project')"><i class="fa fa-plus"></i> Add New Project</button>
+                <button class="btn btn-default btn-lg pull-right" ng-click="edit('/add-project/' + rowSelected)" ng-disabled="!rowSelected"><i class="fa fa-edit"></i> Edit Selected Project</button>                
             </div>
         </div>
     </div>
