@@ -22,11 +22,6 @@ namespace LunarSFXc.Controllers
             _logger = logger;
         }
 
-        //public IActionResult Contact()
-        //{
-        //    return View("ContactConfirmation");
-        //}
-
         [HttpPost]
         public async Task<IActionResult> Send(ContactViewModel model)
         {

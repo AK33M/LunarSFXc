@@ -4,6 +4,7 @@ using LunarSFXc.Objects;
 using LunarSFXc.Repositories;
 using LunarSFXc.Services;
 using LunarSFXc.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -14,6 +15,7 @@ using System.Threading.Tasks;
 namespace LunarSFXc.Controllers.Api
 {
     [Route("api/images")]
+    [Authorize]
     public class ImagesController : Controller
     {
         private IOptions<ImageServiceOptions> _imageServiceOptions;
@@ -96,17 +98,6 @@ namespace LunarSFXc.Controllers.Api
         {
             return new GalleryViewModel(_cloudService, _repo, containerName);
         }
-
-        ////TODO:What is this?
-        //[Route("{Id}")]
-        //[HttpGet]
-        //public async Task<string> ImageUri(int Id)
-        //{
-        //    var desc = await _repo.GetFileDescription(Id);
-        //    var imguri = _cloudService.GetImageUri(desc.ContainerName, desc.FileName);
-
-        //    return imguri;
-        //}
 
         private void GetImageUri(ImageDescriptionViewModel model)
         {

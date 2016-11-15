@@ -2,15 +2,16 @@
 using LunarSFXc.Objects;
 using LunarSFXc.Repositories;
 using LunarSFXc.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace LunarSFXc.Controllers
 {
     [Route("Comment")]
+    [Authorize]
     public class CommentController : Controller
     {
         private IBlogRepository _repo;

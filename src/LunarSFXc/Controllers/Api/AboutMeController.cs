@@ -3,6 +3,7 @@ using LunarSFXc.Objects;
 using LunarSFXc.Repositories;
 using LunarSFXc.Services;
 using LunarSFXc.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -14,6 +15,7 @@ using System.Threading.Tasks;
 namespace LunarSFXc.Controllers.Api
 {
     [Route("api/aboutme")]
+    [Authorize]
     public class AboutMeController : Controller
     {
         private ICloudStorageService _cloudService;

@@ -3,6 +3,7 @@ using LunarSFXc.Objects;
 using LunarSFXc.Repositories;
 using LunarSFXc.Services;
 using LunarSFXc.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,12 +13,12 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Security.Claims;
-using System.Security.Principal;
 using System.Threading.Tasks;
 
 namespace LunarSFXc.Controllers.Api
 {
     [Route("api/posts")]
+    [Authorize]
     public class PostsController : Controller
     {
         private string _currentUserId;
