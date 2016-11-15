@@ -85,25 +85,21 @@
             $('#portfolioModal').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget) // Button that triggered the modal
                 var recipient = {
-                    title: button.data('projectTitle'),
-                    subTitle: button.data('projectSubTitle'),
-                    desc: button.data('projectDesc'),
-                    date: button.data('projectDate'),
-                    imageUri: button.data('projectImageUri'),
-                    imageFileName: button.data('projectImageFileName'),
-                    category: button.data('projectCategory')
+                    title: button.data('title'),
+                    subTitle: button.data('project-subtitle'),
+                    desc: button.data('project-desc'),
+                    date: button.data('project-date'),
+                    imageUri: button.data('project-image-uri'),
+                    imageFileName: button.data('project-image-filename'),
+                    category: button.data('project-category')
                 }
-
-                // Extract info from data-* attributes
-                // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-                // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-
+               
                 var modal = $(this)
-                //modal.find('.modal-title').text('reply message to comment ' + recipient)
-                modal.find('.modal-body #projectTitle').html(recipient.title)
+                modal.find('.modal-body #projectTitle').text(recipient.title)
                 modal.find('.modal-body #projectSubTitle').text(recipient.subTitle)
-                modal.find('.modal-body img src').val(recipient.imageUri)
-                modal.find('.modal-body img alt').val(recipient.imageFileName)
+                modal.find('.modal-body #projectDesc').text(recipient.desc)
+                modal.find('.modal-body img').attr('src', recipient.imageUri)
+                modal.find('.modal-body img').attr('alt', recipient.imageFileName)
                 modal.find('.modal-body #projectDate').text(recipient.date)
                 modal.find('.modal-body #projectCategory').text(recipient.category)
             })
