@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using System.Net.Mail;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Http;
+using System;
+using Microsoft.Net.Http.Headers;
+using LunarSFXc.Extensions;
 
 namespace LunarSFXc.Controllers
 {
@@ -18,13 +22,14 @@ namespace LunarSFXc.Controllers
         private IEmailService _emailService;
 
         private MailAddress _authMail;
+        private ICloudStorageService _cloudService;
 
-
-        public AuthController(SignInManager<LunarUser> signInManager, UserManager<LunarUser> userManager, IEmailService emailService, IConfigurationRoot config)
+        public AuthController(SignInManager<LunarUser> signInManager, UserManager<LunarUser> userManager, IEmailService emailService, IConfigurationRoot config, ICloudStorageService cloudService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailService = emailService;
+            _cloudService = cloudService;
             _authMail = new MailAddress(config["mailSettings:authEmail:address"], config["mailSettings:authEmail:displayName"]);
         }
 
@@ -39,12 +44,26 @@ namespace LunarSFXc.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Register(RegisterViewModel model, IFormFile profileImage, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
                 var user = new LunarUser { UserName = model.UserName, Email = model.Email, FirstWords = model.FirstWords };
+                var image = new Image { File = profileImage };
+                var fileName = ContentDispositionHeaderValue.Parse(image.File.ContentDisposition).FileName.Trim('"');
+                var container = _cloudService.GetStorageContainer("profileimages");
+                await image.File.SaveInAzureAsync(container, fileName);
+
+                user.ProfileImage = new ImageDescription
+                                            {
+                                                ContainerName = container.Name,
+                                                ContentType = image.File.ContentType,
+                                                CreatedTimestamp = DateTime.Now,
+                                                Description = image.Id,
+                                                FileName = image.File.FileName
+                                            };               
+
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

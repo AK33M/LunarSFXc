@@ -7,7 +7,22 @@
         <li class="media">
             <div class="media-left">
                 <a class="pull-left" href="#">
-                    <img class="media-object" src="http://placehold.it/64x64" alt="">
+                    @{
+                        if (string.IsNullOrWhiteSpace(comment.ProfileImageUri) || @comment.Content == null)
+                        {
+                            <img class="media-object"
+                                 src="http://placehold.it/64x64"
+                                 alt="placeholder" />
+                        }
+                        else
+                        {
+                            <img class="media-object img-thumbnail"
+                                 height="64"
+                                 width="64"
+                                 src="@comment.ProfileImageUri"
+                                 alt="@comment.ProfileImageFileName" />
+                        }
+                    }
                 </a>
             </div>
             <div class="media-body">

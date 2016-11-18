@@ -4,6 +4,7 @@ using LunarSFXc.Services;
 using LunarSFXc.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 
 namespace LunarSFXc.Controllers
 {
@@ -45,7 +46,24 @@ namespace LunarSFXc.Controllers
                 item.ImageUri = _cloudService.GetImageUri(item.ContainerName, item.FileName);
             }
 
+            GetProfileImageUri(model.Comments);
+
             return View(model);
+        }
+
+        private void GetProfileImageUri(ICollection<CommentViewModel> comments)
+        {
+            foreach (var item in comments)
+            {
+                if (!(string.IsNullOrWhiteSpace(item.ProfileImageContainerName) || string.IsNullOrWhiteSpace(item.ProfileImageFileName)))
+                {
+                    item.ProfileImageUri = _cloudService.GetImageUri(item.ProfileImageContainerName, item.ProfileImageFileName);
+                }
+                else if (item.Replies.Count != 0)
+                {
+                    GetProfileImageUri(item.Replies);
+                }
+            }
         }
 
         public IActionResult Category(string category, int p = 1)

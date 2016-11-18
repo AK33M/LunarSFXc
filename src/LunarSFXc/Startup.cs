@@ -129,6 +129,8 @@ namespace LunarSFXc
                 config.CreateMap<CategoryViewModel, Category>().ReverseMap();
                 config.CreateMap<Comment, CommentViewModel>()
                                     .ForMember(dest => dest.User, opts => opts.MapFrom(s => s.Owner.UserName))
+                                    .ForMember(dest => dest.ProfileImageContainerName, opts => opts.MapFrom(s => s.Owner.ProfileImage.ContainerName))
+                                    .ForMember(dest => dest.ProfileImageFileName, opts => opts.MapFrom(s => s.Owner.ProfileImage.FileName))
                                     .ForMember(dest => dest.PostTitle, opts => opts.MapFrom(s => s.ParentPost.UrlSlug))
                                     .ForMember(dest => dest.Year, opts => opts.MapFrom(s => s.ParentPost.PostedOn.Year))
                                     .ForMember(dest => dest.Month, opts => opts.MapFrom(s => s.ParentPost.PostedOn.Month))

@@ -34,6 +34,12 @@ namespace LunarSFXc.ViewModels
 
         [HiddenInput]
         public string User { get; set; }
+
+        [HiddenInput]
+        public string ProfileImageFileName { get; set; }
+        [HiddenInput]
+        public string ProfileImageContainerName { get; set; }
+            
         [HiddenInput]
         public string PostTitle { get; set; }
         [HiddenInput]
@@ -49,5 +55,6 @@ namespace LunarSFXc.ViewModels
         public DateTime ModifiedDate { get; set; }
 
         public ICollection<CommentViewModel> Replies { get; set; }
+        public string ProfileImageUri { get; internal set; }
     }
 }
