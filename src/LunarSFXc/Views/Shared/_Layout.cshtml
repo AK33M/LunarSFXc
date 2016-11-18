@@ -33,6 +33,8 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="~/css/site.css" />
+    <!-- Login Form CSS -->
+    <link type="text/css" href="~/css/login.css" rel="stylesheet" />
 </head>
 
 <body id="page-top" class="index">
@@ -55,9 +57,31 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    @*<li>
-                        <a asp-controller="Admin" asp-action="Index">Admin</a>
-                    </li>*@
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login</a>
+                            <ul id="login-dp" class="dropdown-menu">
+                                <li>
+                                    @Component.InvokeAsync("Login").Result
+                                </li>
+                            </ul>
+
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a href="#">Hello, <span class="text-primary">@User.Identity.Name</span></a>
+                        </li>
+
+                        <li>
+                            <a asp-controller="Auth" asp-action="Logout" asp-route-returnUrl="@Context.Request.Path">Log out</a>
+                        </li>
+                        <li>
+                            <a asp-controller="Admin" asp-action="Index">Admin</a>
+                        </li>
+                    }
                     <li>
                         <a class="page-scroll" href="#about">About</a>
                     </li>
