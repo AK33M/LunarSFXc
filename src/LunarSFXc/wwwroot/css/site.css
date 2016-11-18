@@ -32,6 +32,14 @@ section#contact .form-group textarea.form-control {
     color: black;
 }
 
+.timeline-image a {
+    color: white;
+}
+
+.timeline-image a:hover {
+    color: grey;
+}
+
 #widget {
     margin-bottom: 15px;
 }
@@ -99,3 +107,4 @@ header {
     width: auto;
     max-height: 100%;
 }
+
