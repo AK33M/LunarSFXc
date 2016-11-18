@@ -59,7 +59,8 @@ namespace LunarSFXc.Controllers
                 {
                     item.ProfileImageUri = _cloudService.GetImageUri(item.ProfileImageContainerName, item.ProfileImageFileName);
                 }
-                else if (item.Replies.Count != 0)
+
+                if (item.Replies.Count != 0)
                 {
                     GetProfileImageUri(item.Replies);
                 }
