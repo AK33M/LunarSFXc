@@ -26,6 +26,11 @@
                                 templateUrl: "/views/projects.html"
                             });
 
+                            $routeProvider.when("/users", {
+                                controller: "UsersCtrl as vm",
+                                templateUrl: "/views/users.html"
+                            });
+
                             $routeProvider.when("/add-post/:isNew?", {
                                 controller: "AddPostCtrl as vm",
                                 templateUrl: "/views/add-post.html"
@@ -49,6 +54,11 @@
                             $routeProvider.when("/add-category", {
                                 controller: "AddCategoryCtrl as vm",
                                 templateUrl: "/views/add-category.html"
+                            });
+
+                            $routeProvider.when("/edit-user/:UserName?", {
+                                controller: "EditUserCtrl as vm",
+                                templateUrl: "/views/edit-user.html"
                             });
 
                             $routeProvider.otherwise({

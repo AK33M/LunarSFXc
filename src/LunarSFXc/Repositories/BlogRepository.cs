@@ -793,5 +793,21 @@ namespace LunarSFXc.Repositories
                 throw ex;
             }
         }
+
+        public ICollection<LunarUser> Users()
+        {
+            return _context.Users
+                            .Include(x => x.ProfileImage)
+                            .Include(x => x.Comments)
+                            .ToList();
+        }
+
+        public LunarUser User(string userName)
+        {
+            return _context.Users
+                            .Include(x => x.ProfileImage)
+                            .Include(x => x.Comments)
+                            .SingleOrDefault(x => x.UserName == userName);
+        }
     }
 }

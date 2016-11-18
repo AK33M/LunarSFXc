@@ -8,6 +8,14 @@ namespace LunarSFXc.ViewModels
 
         public string FirstWords { get; set; }
 
+        public ImageDescriptionViewModel ProfileImage { get; set; }
+
         public ICollection<CommentViewModel> Comments { get; set; }
+        
+        public int CommentCount
+        {
+            get { return Comments.Count; }
+        }
+
     }
 }

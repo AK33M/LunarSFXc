@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
+using Microsoft.AspNetCore.Mvc;
 
 namespace LunarSFXc.Repositories
 {
@@ -10,6 +11,8 @@ namespace LunarSFXc.Repositories
         ICollection<Post> Posts(int pageNo, int pageSize);
         int TotalPosts(bool checkIsPublished = true);
         ICollection<Post> PostsForTag(string tagSlug, int pageNo, int pageSize);
+        ICollection<LunarUser> Users();
+        LunarUser User(string userName);
         ICollection<Project> GetAllProjects();
         int TotalPostsForTag(string tagSlug);
         Tag Tag(string tagSlug);

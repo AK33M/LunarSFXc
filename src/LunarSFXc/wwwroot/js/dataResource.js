@@ -31,6 +31,12 @@
                 'get': { method: 'GET', params: { action: 'project', id: '@id' }, isArray: false },
                 'save': { method: 'POST', params: { action: 'save' } },
                 'delete': { method: 'DELETE', params: { action: 'delete', id: '@id' } }
+            }),
+            users: $resource("api/user/:action/:userName", {}, {
+                'getAll': { method: 'GET', params: { action: 'users' }, isArray: false },
+                'get': { method: 'GET', params: { action: 'user', userName: '@userName' }, isArray: false },
+                'save': { method: 'POST', params: { action: 'save' } },
+                'delete': { method: 'DELETE', params: { action: 'delete', id: '@id' } }
             })
         };
     }

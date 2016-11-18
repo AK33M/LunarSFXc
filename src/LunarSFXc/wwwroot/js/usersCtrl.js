@@ -3,9 +3,16 @@
 
     angular
         .module("app-admin")
-        .controller("ProjectsCtrl", ["$scope", "$location", "$log", "dataResource", "uiGridConstants", ProjectsCtrl]);
+        .controller("UsersCtrl", [
+                                    "$scope",
+                                    "$location",
+                                    "$log",
+                                    "dataResource",
+                                    "uiGridConstants",
+                                    UsersCtrl
+        ]);
 
-    function ProjectsCtrl($scope, $location, $log, dataResource, uiGridConstants) {
+    function UsersCtrl($scope, $location, $log, dataResource, uiGridConstants) {
         var vm = this;
 
         $scope.go = function (path) {
@@ -13,7 +20,6 @@
         };
 
         $scope.edit = function (path) {
-            //$log.log(path);
             $location.path(path);
         };
 
@@ -35,36 +41,34 @@
 
             columnDefs: [
                 { name: 'Id', visible: false },
-                { name: 'Title', cellTooltip: true },
-                { name: 'SubTitle', cellTooltip: true },
-                { name: 'Description', cellTooltip: true, enableSorting: false },
-                { name: 'Category', field: 'Category.Name', cellTooltip: true },
-                { name: 'Date', enableSorting: false },
-                { name: 'Image', field: 'Image.FileName' },
-
+                { name: 'UserName', cellTooltip: true },
+                { name: 'FirstWords', cellTooltip: true },
+                { name: 'Image', field: 'ProfileImage.FileName' },
+                { name: 'Total Comments', field: 'CommentCount' },
             ],
             onRegisterApi: function (gridApi) {
                 $scope.gridApi = gridApi;
                 gridApi.selection.on.rowSelectionChanged($scope, function (row) {
                     if (row.isSelected) {
-                        var msg = 'row selected ' + row.entity.Id;
-                        $scope.rowSelected = row.entity.Id;
-                        //$log.log(msg);
-                        $scope.projectToEdit = gridApi.selection.getSelectedRows();
+                        var msg = 'row selected ' + row.entity.UserName;
+                        $scope.rowSelected = row.entity.UserName;
+                        $scope.userToEdit = gridApi.selection.getSelectedRows();
+                        $log.log($scope.userToEdit);
+
                     } else {
                         $scope.rowSelected = null;
-                        $scope.projectToEdit = null;
+                        $scope.userToEdit = null;
                     }
                 });
             }
         };
 
         $scope.gridOptions.rowIdentity = function (row) {
-            return row.id;
+            return row.UserName;
         };
 
         var getPage = function () {
-            dataResource.projects.getAll(function (data) {
+            dataResource.users.getAll(function (data) {
                 $scope.gridOptions.totalItems = data.records;
                 $scope.gridOptions.data = data.rows;
             });
@@ -72,5 +76,4 @@
 
         getPage();
     }
-
 }());

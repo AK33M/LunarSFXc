@@ -6,6 +6,7 @@ namespace LunarSFXc.Objects
     public class LunarUser : IdentityUser
     {
         public string FirstWords { get; set; }
+        public ImageDescription ProfileImage { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
     }
