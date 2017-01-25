@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LunarSFXc.Controllers
 {
     //[RequireHttps]
+    //[Authorize(Roles ="Admin")]
     [Authorize]
     public class AdminController : Controller
     {

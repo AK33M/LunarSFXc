@@ -506,9 +506,12 @@ namespace LunarSFXc.Repositories
 
         public async Task<ICollection<TimelineEvent>> GetTimelineEvents(string sectionName, int id)
         {
-            return await _context.TimelineEvents
-                            .Include(x => x.Image)
-                            .Where(x => x.Id == id).ToListAsync();
+
+            var events = _context.TimelineEvents
+                           .Include(x => x.Image)
+                           .Where(x => x.Id == id).ToListAsync();
+
+            return await events;
         }
 
         public void AddOrUpdateTimelineEvent(TimelineEvent newEvent)
