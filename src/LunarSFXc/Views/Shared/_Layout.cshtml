@@ -78,9 +78,12 @@
                         <li>
                             <a asp-controller="Auth" asp-action="Logout" asp-route-returnUrl="@Context.Request.Path">Log out</a>
                         </li>
-                        <li>
-                            <a asp-controller="Admin" asp-action="Index">Admin</a>
-                        </li>
+                        @*@if (User.IsInRole("Admin"))
+                        {*@
+                            <li>
+                                <a asp-controller="Admin" asp-action="Index">Admin</a>
+                            </li>
+                        @*}*@
                     }
                     <li>
                         <a class="page-scroll" href="#about">About</a>
