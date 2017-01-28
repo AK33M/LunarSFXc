@@ -45,6 +45,7 @@
                 { name: 'FirstWords', cellTooltip: true },
                 { name: 'Image', field: 'ProfileImage.FileName' },
                 { name: 'Total Comments', field: 'CommentCount' },
+                { name: 'Roles', field: 'RolesString' },
             ],
             onRegisterApi: function (gridApi) {
                 $scope.gridApi = gridApi;

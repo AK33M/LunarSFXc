@@ -13,10 +13,10 @@ using LunarSFXc.Autofac;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using LunarSFXc.Objects;
 using LunarSFXc.Services;
-using Elmah.Io.Extensions.Logging;
 using AutoMapper;
 using LunarSFXc.ViewModels;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 
 namespace LunarSFXc
 {
@@ -63,7 +63,7 @@ namespace LunarSFXc
                 config.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";
             })
             .AddEntityFrameworkStores<LunarDbContext>()
-            .AddDefaultTokenProviders();
+            .AddDefaultTokenProviders();           
 
             services.AddDbContext<LunarDbContext>(options => options.UseSqlServer(_config.GetConnectionString("AkeemTaiwoConn")));
             services.Configure<EmailSenderOptions>(_config);
@@ -81,9 +81,11 @@ namespace LunarSFXc
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory, RoleManager<IdentityRole> roleManager)
         {
             //loggerFactory.AddElmahIo(_config.GetValue<string>("ElmahIo:API_KEY"), new Guid(_config.GetValue<string>("ElmahIo:LOG_ID")));
+            
+            ConfigureRoles(roleManager);                      
 
             loggerFactory.AddConsole();
 
@@ -147,13 +149,45 @@ namespace LunarSFXc
                         .ReverseMap();
 
                 config.CreateMap<LunarUser, LunarUserViewModel>()
-                                .ReverseMap();
+                .AfterMap((l, lv) =>
+                {
+                    lv.Roles = new List<string>();
+
+                    var role = new IdentityRole();
+                    foreach (var item in l.Roles)
+                    {
+                        role = roleManager.FindByIdAsync(item.RoleId).Result;
+                        lv.Roles.Add(role.Name);
+                    }
+                })
+                .ReverseMap();
 
                 config.CreateMap<ProjectViewModel, Project>().ReverseMap();
             });
 
             //Use MVC always Last.
             app.UseMvc(ConfigureRoutes);
+        }
+
+        private void ConfigureRoles(RoleManager<IdentityRole> roleManager)
+        {
+            if (!roleManager.RoleExistsAsync("Admin").Result)
+            {
+                roleManager.CreateAsync(new IdentityRole("Admin"));
+            }
+            else if (!roleManager.RoleExistsAsync("Contributor").Result)
+            {
+                roleManager.CreateAsync(new IdentityRole("Contributor"));
+            }
+            else if (!roleManager.RoleExistsAsync("SuperAdmin").Result)
+            {
+                roleManager.CreateAsync(new IdentityRole("SuperAdmin"));
+            }
+            else if (!roleManager.RoleExistsAsync("NormalUser").Result)
+            {
+                roleManager.CreateAsync(new IdentityRole("NormalUser"));
+            }
+
         }
 
         private void ConfigureRoutes(IRouteBuilder routeBuilder)

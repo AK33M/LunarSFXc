@@ -5,8 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LunarSFXc.Controllers
 {
     //[RequireHttps]
-    //[Authorize(Roles ="Admin")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private IBlogRepository _repo;

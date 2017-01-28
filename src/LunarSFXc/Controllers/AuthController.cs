@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using System;
 using Microsoft.Net.Http.Headers;
 using LunarSFXc.Extensions;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace LunarSFXc.Controllers
 {

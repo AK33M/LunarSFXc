@@ -27,7 +27,8 @@ namespace LunarSFXc.Controllers.Api
         {
             try
             {
-                var model = Mapper.Map<ICollection<LunarUserViewModel>>(_repo.Users());
+                var users = _repo.Users();
+                var model = Mapper.Map<ICollection<LunarUserViewModel>>(users);
 
                 return Content(JsonConvert.SerializeObject(new
                 {

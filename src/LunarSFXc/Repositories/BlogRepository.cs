@@ -155,7 +155,7 @@ namespace LunarSFXc.Repositories
         {
             try
             {
-                var parentComment = _context.Comments.Include(c => c.Replies).ThenInclude(x => x.Owner).ThenInclude(x=>x.ProfileImage).FirstOrDefault(c => c.Id == parentCommentId);
+                var parentComment = _context.Comments.Include(c => c.Replies).ThenInclude(x => x.Owner).ThenInclude(x => x.ProfileImage).FirstOrDefault(c => c.Id == parentCommentId);
 
                 var childComments = parentComment.Replies;
 
@@ -197,7 +197,7 @@ namespace LunarSFXc.Repositories
                                 .Include(p => p.Category)
                                 .Include(p => p.PostTags)
                                 .Include(p => p.PostedBy)
-                                .Include(p => p.Comments).ThenInclude(x => x.Owner).ThenInclude(x=>x.ProfileImage)
+                                .Include(p => p.Comments).ThenInclude(x => x.Owner).ThenInclude(x => x.ProfileImage)
                                 .SingleOrDefault(p => p.PostedOn.Year == year && p.PostedOn.Month == month && p.UrlSlug.Equals(titleSlug));
 
                 if (query.Comments.Any())
@@ -802,6 +802,7 @@ namespace LunarSFXc.Repositories
             return _context.Users
                             .Include(x => x.ProfileImage)
                             .Include(x => x.Comments)
+                            .Include(x => x.Roles)
                             .ToList();
         }
 
