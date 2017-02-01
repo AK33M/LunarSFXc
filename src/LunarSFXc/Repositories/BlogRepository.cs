@@ -677,7 +677,7 @@ namespace LunarSFXc.Repositories
             }
 
             post.Images = images;
-            var removedImages = oldPost.Images.Except(images, new ImageDescriptionComparer()).ToList();
+            var removedImages = oldPost?.Images.Except(images, new ImageDescriptionComparer()).ToList();
 
             if (removedImages != null && removedImages.Any())
                 _context.ImageDescriptions.RemoveRange(removedImages);
