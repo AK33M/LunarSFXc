@@ -47,13 +47,13 @@
                 }
                 else
                 {
-                    <img class="img-responsive" src="@Model.Images.FirstOrDefault()?.ImageUri" alt="@Model.Images.FirstOrDefault()?.FileName" />
+                    <img class="img-responsive" src="@Model.Images.FirstOrDefault()?.ImageUri" alt="@Model.Images.FirstOrDefault()?.FileName"/>
                 }
 
                 <hr />
 
                 <!-- Post Content -->
-                <p>@Model.Description</p>
+                <div>@Html.Raw(@Model.Description)</div>
 
                 <hr />
 

@@ -75,6 +75,12 @@
             $scope.blogPost.images.splice($index, 1);
         };
 
+        //Tiny Mce
+        $scope.tinymceOptions = {
+            plugins: 'link image code',
+            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
+        };
+
 
         //AngularFileUpload http://nervgh.github.io/pages/angular-file-upload/examples/simple/
         // Creates a uploader

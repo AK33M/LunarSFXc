@@ -19,7 +19,8 @@
     "angular-bootstrap": "~2.2.0",
     "angular-bootstrap-lightbox": "~0.12.0",
     "angular-ui-select": "~0.19.6",
-    "jquery-ajax-unobtrusive": "~3.2.4"
+    "jquery-ajax-unobtrusive": "~3.2.4",
+    "angular-ui-tinymce": "~0.0.18"
   },
   "resolutions": {
     "angular": "1.5.8",

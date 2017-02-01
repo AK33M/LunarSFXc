@@ -52,9 +52,9 @@
             <label for="description" class="col-sm-2 control-label">Blog Post</label>
             <div class="col-sm-10">
                 <textarea required
+                          ui-tinymce="tinymceOptions"
                           ng-model="blogPost.description"
-                          ng-minlength="50"
-                          ng-maxlength="5000"
+
                           type="text"
                           id="description"
                           name="description"
@@ -63,8 +63,8 @@
 
                 <div class="help-block has-error text-muted" ng-messages="blogPostForm.description.$error">
                     <div ng-message="required">Description is required.</div>
-                    <div ng-message="minlength">Description is too short.</div>
-                    <div ng-message="maxlength">Description is too long.</div>
+                    <!--<div ng-message="minlength">Description is too short.</div>
+                    <div ng-message="maxlength">Description is too long.</div>-->
                 </div>
             </div>
         </div>

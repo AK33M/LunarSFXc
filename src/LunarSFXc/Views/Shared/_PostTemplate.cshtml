@@ -2,7 +2,7 @@
 <!--Heading-->
 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 blog-col">
     <div class="hovereffect">
-        
+
         <!-- Preview Image -->
         @if (!Model.Images.Any())
         {
@@ -10,14 +10,14 @@
         }
         else
         {
-            <img class="img-responsive" src="@Model.Images.FirstOrDefault()?.ImageUri" alt="@Model.Images.FirstOrDefault()?.FileName" />
+            <img class="img-responsive" src="@Model.Images.FirstOrDefault()?.ImageUri" alt="@Model.Images.FirstOrDefault()?.FileName" style="height:220px" />
         }
         <div class="overlay">
             <h3>
-                <post for-post="Model"></post>                              
+                <post for-post="Model"></post>
             </h3>
             <h4>@Model.PostedBy?.UserName</h4>
-            <p class="text-nowrap">
+            <p class="text-nowrap" style="text-overflow:ellipsis;overflow:hidden">
                 @Html.Raw(Model.ShortDescription)
                 <br />@Model.PostedOn.ToString("d")
             </p>

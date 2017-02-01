@@ -16,7 +16,8 @@
                 "angularFileUpload",
                 "ui.bootstrap",
                 "bootstrapLightbox",
-                "ui.select"
+                "ui.select",
+                "ui.tinymce"
             ])
         .service("blogPostService",
             function ($filter) {
