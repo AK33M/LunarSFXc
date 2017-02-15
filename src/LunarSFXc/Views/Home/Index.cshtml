@@ -97,7 +97,7 @@
                 var modal = $(this)
                 modal.find('.modal-body #projectTitle').text(recipient.title)
                 modal.find('.modal-body #projectSubTitle').text(recipient.subTitle)
-                modal.find('.modal-body #projectDesc').text(recipient.desc)
+                modal.find('.modal-body #projectDesc').html(recipient.desc)
                 modal.find('.modal-body img').attr('src', recipient.imageUri)
                 modal.find('.modal-body img').attr('alt', recipient.imageFileName)
                 modal.find('.modal-body #projectDate').text(recipient.date)
