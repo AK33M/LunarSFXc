@@ -136,6 +136,12 @@
             //console.info('onErrorItem', fileItem, response, status, headers);
         };
 
+        //Tiny Mce
+        $scope.tinymceOptions = {
+            plugins: 'link image code',
+            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
+        };
+
     }
 
 }());
