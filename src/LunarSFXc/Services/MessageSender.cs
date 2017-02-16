@@ -4,18 +4,21 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 
 namespace LunarSFXc.Services
 {
     public class MessageSender : IEmailService, ISmsService
     {
+        private IConfigurationRoot _config;
         private ILogger<MessageSender> _logger;
         private EmailSenderOptions _options;
 
-        public MessageSender(IOptions<EmailSenderOptions> optionsAccessor, ILogger<MessageSender> logger)
+        public MessageSender(IOptions<EmailSenderOptions> optionsAccessor, ILogger<MessageSender> logger, IConfigurationRoot config)
         {
             _logger = logger;
             _options = optionsAccessor.Value;
+            _config = config;
         }
         public Task SendEmailAsync(string destEmail, MailAddress sourceEmail, string subject, string message)
         {
@@ -27,6 +30,7 @@ namespace LunarSFXc.Services
                 myMessage.Subject = subject;
                 myMessage.Text = message;
                 myMessage.Html = message;
+                myMessage.AddBcc(_config["mailSettings:contactForm:destinationEmailAddress"]);
                 var credentials = new NetworkCredential(
                     _options.SendGridUser,
                     _options.SendGridPassword);
