@@ -3,9 +3,9 @@
 
     angular
         .module("app-admin")
-        .controller("PostsCtrl", ["$scope", "$location", "$log", "blogPostService", "dataResource", "uiGridConstants", PostsCtrl]);
+        .controller("PostsCtrl", ["$location", "$log", "blogPostService", "dataResource", "uiGridConstants", PostsCtrl]);
 
-    function PostsCtrl($scope, $location, $log, blogPostService, dataResource, uiGridConstants) {
+    function PostsCtrl($location, $log, blogPostService, dataResource, uiGridConstants) {
         var vm = this;
 
         var paginationOptions = {
@@ -15,7 +15,7 @@
             sort: null
         };
 
-        $scope.gridOptions = {
+        vm.gridOptions = {
             paginationPageSizes: [25, 50, 75],
             paginationPageSize: 25,
             useExternalPagination: true,
@@ -46,8 +46,8 @@
 
             ],
             onRegisterApi: function (gridApi) {
-                $scope.gridApi = gridApi;
-                $scope.gridApi.core.on.sortChanged($scope, function (grid, sortColumns) {
+                vm.gridApi = gridApi;
+                vm.gridApi.core.on.sortChanged(null, function (grid, sortColumns) {
                     if (sortColumns.length === 0) {
                         paginationOptions.sort = null;
                     } else {
@@ -56,27 +56,29 @@
                     }
                     getPage();
                 });
-                gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
+                gridApi.pagination.on.paginationChanged(null, function (newPage, pageSize) {
                     paginationOptions.pageNumber = newPage;
                     paginationOptions.pageSize = pageSize;
 
                     getPage();
                 });
-                gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+                gridApi.selection.on.rowSelectionChanged(null, function (row) {
                     if (row.isSelected) {
                         //var msg = 'row selected ' + row.entity;
                         blogPostToEdit(row.entity);
-                        $scope.rowSelected = blogPostService.getBlogPostId();
+                        vm.rowSelected = blogPostService.getBlogPostId();
+                        //$log.log(vm.rowSelected);
+
                         //$log.log(gridApi.selection.getSelectedRows());
                     } else {
                         blogPostToEdit({});
-                        $scope.rowSelected = null;
+                        vm.rowSelected = null;
                     }
                 });
             }
         };
 
-        $scope.gridOptions2 = {
+        vm.gridOptions2 = {
             enableColumnResizing: true,
             enableRowSelection: true,
             enableRowHeaderSelection: true,
@@ -94,8 +96,8 @@
                 { name: 'UrlSlug', field: 'urlSlug', cellTooltip: true },
             ],
             onRegisterApi: function (gridApi) {
-                $scope.gridApi = gridApi;
-                gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+                vm.gridApi = gridApi;
+                gridApi.selection.on.rowSelectionChanged(null, function (row) {
                     if (row.isSelected) {
                         $log.log(row);
                         //var msg = 'row selected ' + row.entity;
@@ -110,7 +112,7 @@
             }
         };
 
-        $scope.gridOptions3 = {
+        vm.gridOptions3 = {
             enableColumnResizing: true,
             enableRowSelection: true,
             enableRowHeaderSelection: true,
@@ -128,8 +130,8 @@
                 { name: 'UrlSlug', field: 'urlSlug', cellTooltip: true },
             ],
             onRegisterApi: function (gridApi) {
-                $scope.gridApi = gridApi;
-                gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+                vm.gridApi = gridApi;
+                gridApi.selection.on.rowSelectionChanged(null, function (row) {
                     if (row.isSelected) {
                         $log.log(row);
                         //var msg = 'row selected ' + row.entity;
@@ -144,19 +146,19 @@
             }
         };
 
-        $scope.edit = function () {
+        vm.edit = function () {
             $location.path('add-post');
         };
 
-        $scope.add = function () {
+        vm.add = function () {
             $location.path('add-post/1');
         };
 
         var getPage = function () {
             dataResource.posts.getAll(paginationOptions, function (data) {
-                $scope.gridOptions.totalItems = data.records;
+                vm.gridOptions.totalItems = data.records;
                 // var firstRow = (paginationOptions.pageNumber - 1) * paginationOptions.pageSize;
-                $scope.gridOptions.data = data.rows;//.slice(firstRow, firstRow + paginationOptions.pageSize);
+                vm.gridOptions.data = data.rows;//.slice(firstRow, firstRow + paginationOptions.pageSize);
             }, function (error) {
                 //Error
             });
@@ -164,8 +166,8 @@
 
         var getCategories = function () {
             dataResource.posts.getCategories(function (data) {
-                $scope.gridOptions2.totalItems = data.categories.length;
-                $scope.gridOptions2.data = data.categories;
+                vm.gridOptions2.totalItems = data.categories.length;
+                vm.gridOptions2.data = data.categories;
             }, function (error) {
                 //Error
             });
@@ -173,8 +175,8 @@
 
         var getTags = function () {
             dataResource.posts.getTags(function (data) {
-                $scope.gridOptions3.totalItems = data.tags.length;
-                $scope.gridOptions3.data = data.tags;
+                vm.gridOptions3.totalItems = data.tags.length;
+                vm.gridOptions3.data = data.tags;
             }, function (error) {
                 //Error
             });

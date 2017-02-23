@@ -4,14 +4,14 @@
             <h5 class="">Blog Posts</h5>
         </div>
         <div class="panel-body">
-            <div id="grid1" ui-grid="gridOptions" ui-grid-pagination ui-grid-selection class="grid">
+            <div id="grid1" ui-grid="vm.gridOptions" ui-grid-pagination ui-grid-selection class="grid">
 
             </div>
         </div>
         <div class="panel-footer">
             <div class="form-group">
-                <button class="btn btn-primary btn-lg" ng-click="add()"><i class="fa fa-plus"></i> Add New Post</button>
-                <button class="btn btn-default btn-lg pull-right" ng-click="edit()" ng-disabled="!rowSelected"><i class="fa fa-edit"></i> Edit Selected Post</button>
+                <a class="btn btn-lg btn-primary" ui-sref="add-post({isNew:1})"><i class="fa fa-plus"></i> Add New Post</a>
+                <a class="btn btn-lg btn-default pull-right" ui-sref="add-post" ng-disabled="!vm.rowSelected"><i class="fa fa-edit"></i> Edit Selected Post</a>
             </div>
         </div>
     </div>
@@ -22,7 +22,7 @@
             <h5 class="">Categories</h5>
         </div>
         <div class="panel-body">
-            <div id="grid2" ui-grid="gridOptions2" ui-grid-selection class="grid">
+            <div id="grid2" ui-grid="vm.gridOptions2" ui-grid-selection class="grid">
 
             </div>
         </div>
@@ -34,7 +34,7 @@
             <h5 class="">Tags</h5>
         </div>
         <div class="panel-body">
-            <div id="grid3" ui-grid="gridOptions3" ui-grid-selection class="grid">
+            <div id="grid3" ui-grid="vm.gridOptions3" ui-grid-selection class="grid">
 
             </div>
         </div>

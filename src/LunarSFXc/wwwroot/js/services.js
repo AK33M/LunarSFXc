@@ -6,7 +6,7 @@
             [
                 "ngResource",
                 "ngMessages",
-                "ngRoute",
+                "ui.router",
                 "ngAnimate",
                 "ngSanitize",
                 "ngTouch",

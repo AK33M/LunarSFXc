@@ -7,14 +7,14 @@
           name="blogPostForm"
           id="blogPostForm"
           novalidate
-          ng-submit="blogPostForm.$valid && saveBlogPost()">
+          ng-submit="blogPostForm.$valid && vm.saveBlogPost()">
         <div class="form-group">
             <label for="title" class="col-sm-2 control-label">Post Title</label>
             <div class="col-sm-10">
                 <input required
-                       ng-model="blogPost.title"
-                       ng-readonly="readonlyTitle"
-                       ng-change="writeUrlSlug(blogPost.title)"
+                       ng-model="vm.blogPost.title"
+                       ng-readonly="vm.readonlyTitle"
+                       ng-change="vm.writeUrlSlug(blogPost.title)"
                        type="text"
                        id="title"
                        name="title"
@@ -32,7 +32,7 @@
             <label for="shortDescription" class="col-sm-2 control-label">Short Description</label>
             <div class="col-sm-10">
                 <textarea required
-                          ng-model="blogPost.shortDescription"
+                          ng-model="vm.blogPost.shortDescription"
                           ng-minlength="50"
                           ng-maxlength="250"
                           type="text"
@@ -53,7 +53,7 @@
             <div class="col-sm-10">
                 <textarea required
                           ui-tinymce="tinymceOptions"
-                          ng-model="blogPost.description"
+                          ng-model="vm.blogPost.description"
 
                           type="text"
                           id="description"
@@ -75,8 +75,8 @@
                         required
                         name="category"
                         class="form-control"
-                        ng-options="cat as cat.name for cat in categories track by cat.id"
-                        ng-model="blogPost.category"></select>
+                        ng-options="cat as cat.name for cat in vm.categories track by cat.id"
+                        ng-model="vm.blogPost.category"></select>
                 <div class="help-block has-error text-muted" ng-messages="blogPostForm.category.$error">
                     <div ng-message="required">Category is required.</div>
                 </div>
@@ -87,12 +87,12 @@
             <div class="col-sm-10">
                 <ui-select multiple
                            tagging="tagTransform"
-                           ng-model="blogPost.tags"
+                           ng-model="vm.blogPost.tags"
                            theme="bootstrap"
                            title="Choose a tag"
                            on-select="onSelectCallBack($item, $model)">
                     <ui-select-match placeholder="Select tag...">{{$item.name}}&lt;{{$item.description}}&gt;</ui-select-match>
-                    <ui-select-choices repeat="tag in tags | filter: {name: $select.search}">
+                    <ui-select-choices repeat="tag in vm.tags | filter: {name: $select.search}">
                         <div ng-if="tag.isTag" ng-bind-html="(tag.name | highlight: $select.search) +' (new)'"></div>
                         <div ng-if="!tag.isTag" ng-bind-html="tag.name + tag.isTag| highlight: $select.search"></div>
                         <small>
@@ -103,17 +103,17 @@
                 </ui-select>
             </div>
         </div>
-        <div class="form-group" nv-file-drop="" uploader="uploader">
+        <div class="form-group" nv-file-drop="" uploader="vm.uploader">
             <label for="image" class="col-sm-2 control-label">Image</label>
-            <div class="col-sm-10" ng-show="blogPost.images">
-                <div ng-repeat="image in blogPost.images">
+            <div class="col-sm-10" ng-show="vm.blogPost.images">
+                <div ng-repeat="image in vm.blogPost.images">
                     <div class="row">
                         <div class="col-sm-6 col-lg-6">
                             <img class="img-thumbnail" ng-src="{{image.imageUri}}" alt="Uploaded Image" />
                             <p><span class="text-muted">File name: {{ image.fileName }}</span></p>
                         </div>
                         <div class="col-sm-6 col-lg-6">
-                            <button type="button" class="btn btn-danger pull-right" ng-click="removeImage($index)">
+                            <button type="button" class="btn btn-danger pull-right" ng-click="vm.removeImage($index)">
                                 <span class="fa fa-trash"></span> Remove
                             </button>
                         </div>
@@ -122,40 +122,40 @@
             </div>
             <div class="col-sm-10 col-sm-offset-2">
                 <div class="col-sm-4">
-                    <div ng-show="uploader.isHTML5">
-                        <div class="well my-drop-zone" style="height: 250px;" ng-file-over="" uploader="uploader">
+                    <div ng-show="vm.uploader.isHTML5">
+                        <div class="well my-drop-zone" style="height: 250px;" ng-file-over="" uploader="vm.uploader">
                             Drop Image Here
                         </div>
                     </div>
-                    <input type="file" nv-file-select="" uploader="uploader" />
+                    <input type="file" nv-file-select="" uploader="vm.uploader" />
                 </div>
                 <div class="col-md-8">
                     <h4>The Queue</h4>
-                    <p>Queue length: {{ uploader.queue.length}}</p>
+                    <p>Queue length: {{ vm.uploader.queue.length}}</p>
                     <table class="table">
                         <thead>
                             <tr>
                                 <th width="50%">Name</th>
-                                <th ng-show="uploader.isHTML5">Size</th>
-                                <th ng-show="uploader.isHTML5">Progress</th>
+                                <th ng-show="vm.uploader.isHTML5">Size</th>
+                                <th ng-show="vm.uploader.isHTML5">Progress</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="item in uploader.queue">
+                            <tr ng-repeat="item in vm.uploader.queue">
                                 <td>
                                     <strong>{{ item.file.name }}</strong>
                                     <!-- Image preview -->
                                     <!--auto height-->
                                     <!--<div ng-thumb="{ file: item.file, width: 100 }"></div>-->
                                     <!--auto width-->
-                                    <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>
+                                    <div ng-show="vm.uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>
                                     <!--fixed width and height -->
                                     <!--<div ng-thumb="{ file: item.file, width: 100, height: 100 }"></div>-->
                                 </td>
-                                <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
-                                <td ng-show="uploader.isHTML5">
+                                <td ng-show="vm.uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+                                <td ng-show="vm.uploader.isHTML5">
                                     <div class="progress" style="margin-bottom: 0;">
                                         <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
                                     </div>
@@ -184,16 +184,16 @@
                         <div>
                             Queue progress:
                             <div class="progress" style="">
-                                <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                                <div class="progress-bar" role="progressbar" ng-style="{ 'width': vm.uploader.progress + '%' }"></div>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
+                        <button type="button" class="btn btn-success btn-s" ng-click="vm.uploader.uploadAll()" ng-disabled="!vm.uploader.getNotUploadedItems().length">
                             <span class="glyphicon glyphicon-upload"></span> Upload all
                         </button>
-                        <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
+                        <button type="button" class="btn btn-warning btn-s" ng-click="vm.uploader.cancelAll()" ng-disabled="!vm.uploader.isUploading">
                             <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
                         </button>
-                        <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+                        <button type="button" class="btn btn-danger btn-s" ng-click="vm.uploader.clearQueue()" ng-disabled="!vm.uploader.queue.length">
                             <span class="glyphicon glyphicon-trash"></span> Remove all
                         </button>
                     </div>
@@ -216,7 +216,7 @@
             <div class="checkbox col-sm-10">
                 <input id="published"
                        name="published"
-                       ng-model="blogPost.published"
+                       ng-model="vm.blogPost.published"
                        type="checkbox"
                        class="form-control" />
             </div>
@@ -229,7 +229,7 @@
                 <input type="text"
                        id="meta"
                        name="meta"
-                       ng-model="blogPost.meta"
+                       ng-model="vm.blogPost.meta"
                        ng-maxlength="1000"
                        required
                        class="form-control"
@@ -247,7 +247,7 @@
                 <input type="text"
                        ng-readonly="true"
                        id="url_slug"
-                       ng-model="blogPost.urlSlug"
+                       ng-model="vm.blogPost.urlSlug"
                        ng-maxlength="50"
                        name="url_slug"
                        class="form-control"
@@ -265,7 +265,7 @@
                     <button type="submit" class="btn btn-primary btn-lg"><i class="fa fa-save"></i> Submit</button>
                     <button type="button" class="btn btn-danger btn-lg" ng-click="open(blogPost.id)"><i class="fa fa-trash-o"></i> Delete this post</button>
 
-                    <button type="button" ng-click="go('/posts')" class="pull-right btn btn-default btn-lg"><i class="fa fa-remove"></i> Cancel</button>
+                    <button type="button" ng-click="vm.go('/posts')" class="pull-right btn btn-default btn-lg"><i class="fa fa-remove"></i> Cancel</button>
                 </div>
             </div>
         </div>

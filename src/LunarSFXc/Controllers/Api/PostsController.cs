@@ -102,7 +102,7 @@ namespace LunarSFXc.Controllers.Api
             try
             {
                 var categories = Mapper.Map<ICollection<CategoryViewModel>>(_repo.Categories());
-                return Json(new { Categories = categories });
+                return Json(new { categories });
             }
             catch (Exception ex)
             {
@@ -118,7 +118,7 @@ namespace LunarSFXc.Controllers.Api
             try
             {
                 var tags = Mapper.Map<ICollection<TagViewModel>>(_repo.Tags());
-                return Json(new { Tags = tags });
+                return Json(new { tags });
             }
             catch (Exception ex)
             {

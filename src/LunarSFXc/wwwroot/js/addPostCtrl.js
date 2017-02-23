@@ -4,50 +4,30 @@
 
     angular
         .module("app-admin")
-        .controller("AddPostCtrl", ["$scope", "$log", "$location", "$routeParams", "blogPostService", "dataResource", "FileUploader", AddPostCtrl]);
+        .controller("AddPostCtrl", ["$log", "$location", "$stateParams", "blogPostService", "FileUploader", "post", "categories", "tags", AddPostCtrl]);
 
-    function AddPostCtrl($scope, $log, $location, $routeParams, blogPostService, dataResource, FileUploader) {
+    function AddPostCtrl($log, $location, $stateParams, blogPostService, FileUploader, post, categories, tags) {
         var vm = this;
+        vm.blogPost = post;
+        vm.categories = categories.categories;
+        vm.tags = tags.tags;
 
-        if ($routeParams.isNew) {
+        if ($stateParams.isNew) {
             blogPostService.setBlogPostId({});
-            $scope.readonlyTitle = false;
+            vm.readonlyTitle = false;
         } else {
-            $scope.readonlyTitle = true;
+            vm.readonlyTitle = true;
         }
 
-        $scope.writeUrlSlug = function (input) {
-            $scope.blogPost.urlSlug = input.replace(/[\. ,:-]+/g, '_').toLowerCase()
+        vm.writeUrlSlug = function (input) {
+            vm.blogPost.urlSlug = input.replace(/[\. ,:-]+/g, '_').toLowerCase()
         };
 
-        dataResource.posts.getPost(blogPostService.getBlogPostId(), function (data) {
-            //Success
-            $scope.blogPost = data
-        }, function (error) {
-            //Error
-        });
-
-        dataResource.posts.getCategories(function (data) {
-            //success
-            $scope.categories = data.categories
-        }, function (error) {
-            //error
-            $log.log(error);
-        });
-
-        dataResource.posts.getTags(function (data) {
-            //success
-            $scope.tags = data.tags
-        }, function (error) {
-            //error
-            $log.log(error);
-        });
-
-        $scope.go = function (path) {
+        vm.go = function (path) {
             $location.path(path);
         };
 
-        $scope.tagTransform = function (newTag) {
+        vm.tagTransform = function (newTag) {
             var tag = {
                 name: newTag,
                 description: "About " + newTag,
@@ -56,27 +36,27 @@
             return tag;
         };
 
-        $scope.onSelectCallBack = function (item, model) {
+        vm.onSelectCallBack = function (item, model) {
             //$log.log(item);
-            $log.log($scope.blogPost.tags);
+            $log.log(vm.blogPost.tags);
         };
 
-        $scope.saveBlogPost = function () {
+        vm.saveBlogPost = function () {
             //$log.log($scope.blogPost);
-            $scope.blogPost.$save(function (response) {
-                $scope.go('posts');
+            vm.blogPost.$save(function (response) {
+                vm.go('posts');
             }, function (error) {
 
             });
         };
 
-        $scope.removeImage = function ($index) {
+        vm.removeImage = function ($index) {
             //$log.log($index);
-            $scope.blogPost.images.splice($index, 1);
+            vm.blogPost.images.splice($index, 1);
         };
 
         //Tiny Mce
-        $scope.tinymceOptions = {
+        vm.tinymceOptions = {
             plugins: 'link image code',
             toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
         };
@@ -84,8 +64,8 @@
 
         //AngularFileUpload http://nervgh.github.io/pages/angular-file-upload/examples/simple/
         // Creates a uploader
-        var uploader = $scope.uploader = new FileUploader({
-            scope: $scope,
+        var uploader = vm.uploader = new FileUploader({
+            scope: vm,
             url: 'api/images/upload',
             queueLimit: 3,
             removeAfterUpload: true,
@@ -111,7 +91,7 @@
 
         uploader.onSuccessItem = function (fileItem, response, status, headers) {
             console.info('onSuccessItem', fileItem, response, status, headers);
-            $scope.blogPost.images.push(response.image);
+            vm.blogPost.images.push(response.image);
         };
 
         uploader.onErrorItem = function (fileItem, response, status, headers) {
