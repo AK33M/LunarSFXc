@@ -77,7 +77,7 @@
 
         //Tiny Mce
         $scope.tinymceOptions = {
-            plugins: 'link image code',
+            plugins: 'link image code media',
             toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
         };
 
